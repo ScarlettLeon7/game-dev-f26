@@ -1,0 +1,17 @@
+!reports/
+!reports/*.json
+
+# Local-only planning, conversations and administrative tracking.
+/PLAN.md
+/docs/internal/
+/docs/sessions/
+/docs/work-log.md
+/docs/agent-team-evidence.md
+/docs/PR-DESCRIPTION.md
+/docs/submission-audit.md
+/docs/course-integration.md
+/docs/verification.md
+/reports/verification*/
+/reports/verification*.json
+/reports/reproduction-*/
+/reports/audit-baseline/

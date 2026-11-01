@@ -1,0 +1,4252 @@
+{
+  "metadata": {
+    "kind": "live",
+    "player": "vertex",
+    "scenario": "budget-heldout",
+    "split": "heldout",
+    "trial": 2,
+    "date": "2026-10-28T20:22:04.495Z",
+    "gameCommit": "e7e4ec2a83cc79efc2e36869ffa70cabf631c191",
+    "gameHash": "67ca7cefe52c686116bbe8759b99dd9a96f4349ce6af2fe7708b1b6501462ee0",
+    "suiteHash": "5c15dcd44a43949e53b20e532ecb67b088090eec8b74f5b3be86f0df26b83360",
+    "promptHash": "f6e5b65d0f83ec4e7beac8ffaab904c0543dbf7ee5aebf4b8d246926aec96190",
+    "configuration": {
+      "provider": "vertex",
+      "model": "gemini-3.5-flash-lite",
+      "location": "global",
+      "temperature": 0.2,
+      "maxOutputTokens": 1024,
+      "retries": 0
+    }
+  },
+  "seed": 703,
+  "limits": {
+    "maxCalls": 60,
+    "maxInvalid": 3,
+    "callTimeoutMs": 15000,
+    "wallTimeoutMs": 180000,
+    "historySize": 4
+  },
+  "summary": {
+    "terminal": true,
+    "reason": "timer_expired",
+    "success": false,
+    "score": 20,
+    "quota": 650,
+    "simulatedSeconds": 12,
+    "steps": 24,
+    "calls": 13,
+    "invalid": 0,
+    "forcedWaits": 11,
+    "inputTokens": 41351,
+    "outputTokens": 105,
+    "wallMs": 10900.107693999977,
+    "fallbacks": 0,
+    "estimatedCostUsd": 0.0126678
+  },
+  "steps": [
+    {
+      "observation": {
+        "frame": 0,
+        "steps": 0,
+        "timeLeft": 12,
+        "score": 0,
+        "quota": 650,
+        "claw": {
+          "angle": -0.8,
+          "direction": 1,
+          "speed": 1.18,
+          "state": "swing",
+          "length": 76,
+          "carrying": null
+        },
+        "physics": {
+          "hz": 60,
+          "decisionFrames": 30,
+          "left": 0,
+          "right": 960,
+          "top": 212,
+          "bottom": 614,
+          "pivot": {
+            "x": 480,
+            "y": 107.5
+          },
+          "maxAngle": 1.3264502315156903,
+          "maxLen": 760,
+          "restingLength": 76,
+          "clawRadius": 15,
+          "extendSpeed": 680,
+          "emptyReturnSpeed": 1020,
+          "pullBase": 900,
+          "pullMin": 48,
+          "pullMax": 620
+        },
+        "objects": [
+          {
+            "id": 0,
+            "kind": "gold_xl",
+            "x": 710,
+            "y": 540,
+            "radius": 37,
+            "value": 500,
+            "weight": 12,
+            "grabbed": false
+          },
+          {
+            "id": 1,
+            "kind": "diamond",
+            "x": 270,
+            "y": 500,
+            "radius": 15,
+            "value": 600,
+            "weight": 1.6,
+            "grabbed": false
+          },
+          {
+            "id": 2,
+            "kind": "gold_s",
+            "x": 570,
+            "y": 285,
+            "radius": 16,
+            "value": 50,
+            "weight": 2.4,
+            "grabbed": false
+          },
+          {
+            "id": 3,
+            "kind": "rock_l",
+            "x": 450,
+            "y": 390,
+            "radius": 32,
+            "value": 20,
+            "weight": 17,
+            "grabbed": false
+          }
+        ]
+      },
+      "action": {
+        "type": "wait"
+      },
+      "source": "player",
+      "latencyMs": 952.489619,
+      "usage": {
+        "inputTokens": 625,
+        "outputTokens": 6
+      },
+      "modelVersion": "gemini-3.5-flash-lite",
+      "result": {
+        "observation": {
+          "frame": 30,
+          "steps": 1,
+          "timeLeft": 11.5,
+          "score": 0,
+          "quota": 650,
+          "claw": {
+            "angle": -0.20999999999999924,
+            "direction": 1,
+            "speed": 1.18,
+            "state": "swing",
+            "length": 76,
+            "carrying": null
+          },
+          "physics": {
+            "hz": 60,
+            "decisionFrames": 30,
+            "left": 0,
+            "right": 960,
+            "top": 212,
+            "bottom": 614,
+            "pivot": {
+              "x": 480,
+              "y": 107.5
+            },
+            "maxAngle": 1.3264502315156903,
+            "maxLen": 760,
+            "restingLength": 76,
+            "clawRadius": 15,
+            "extendSpeed": 680,
+            "emptyReturnSpeed": 1020,
+            "pullBase": 900,
+            "pullMin": 48,
+            "pullMax": 620
+          },
+          "objects": [
+            {
+              "id": 0,
+              "kind": "gold_xl",
+              "x": 710,
+              "y": 540,
+              "radius": 37,
+              "value": 500,
+              "weight": 12,
+              "grabbed": false
+            },
+            {
+              "id": 1,
+              "kind": "diamond",
+              "x": 270,
+              "y": 500,
+              "radius": 15,
+              "value": 600,
+              "weight": 1.6,
+              "grabbed": false
+            },
+            {
+              "id": 2,
+              "kind": "gold_s",
+              "x": 570,
+              "y": 285,
+              "radius": 16,
+              "value": 50,
+              "weight": 2.4,
+              "grabbed": false
+            },
+            {
+              "id": 3,
+              "kind": "rock_l",
+              "x": 450,
+              "y": 390,
+              "radius": 32,
+              "value": 20,
+              "weight": 17,
+              "grabbed": false
+            }
+          ]
+        },
+        "events": [],
+        "outcome": {
+          "terminal": false,
+          "reason": "ongoing",
+          "success": false,
+          "score": 0,
+          "quota": 650,
+          "simulatedSeconds": 0.5,
+          "steps": 1
+        }
+      }
+    },
+    {
+      "observation": {
+        "frame": 30,
+        "steps": 1,
+        "timeLeft": 11.5,
+        "score": 0,
+        "quota": 650,
+        "claw": {
+          "angle": -0.20999999999999924,
+          "direction": 1,
+          "speed": 1.18,
+          "state": "swing",
+          "length": 76,
+          "carrying": null
+        },
+        "physics": {
+          "hz": 60,
+          "decisionFrames": 30,
+          "left": 0,
+          "right": 960,
+          "top": 212,
+          "bottom": 614,
+          "pivot": {
+            "x": 480,
+            "y": 107.5
+          },
+          "maxAngle": 1.3264502315156903,
+          "maxLen": 760,
+          "restingLength": 76,
+          "clawRadius": 15,
+          "extendSpeed": 680,
+          "emptyReturnSpeed": 1020,
+          "pullBase": 900,
+          "pullMin": 48,
+          "pullMax": 620
+        },
+        "objects": [
+          {
+            "id": 0,
+            "kind": "gold_xl",
+            "x": 710,
+            "y": 540,
+            "radius": 37,
+            "value": 500,
+            "weight": 12,
+            "grabbed": false
+          },
+          {
+            "id": 1,
+            "kind": "diamond",
+            "x": 270,
+            "y": 500,
+            "radius": 15,
+            "value": 600,
+            "weight": 1.6,
+            "grabbed": false
+          },
+          {
+            "id": 2,
+            "kind": "gold_s",
+            "x": 570,
+            "y": 285,
+            "radius": 16,
+            "value": 50,
+            "weight": 2.4,
+            "grabbed": false
+          },
+          {
+            "id": 3,
+            "kind": "rock_l",
+            "x": 450,
+            "y": 390,
+            "radius": 32,
+            "value": 20,
+            "weight": 17,
+            "grabbed": false
+          }
+        ]
+      },
+      "action": {
+        "type": "wait"
+      },
+      "source": "player",
+      "latencyMs": 652.1316760000191,
+      "usage": {
+        "inputTokens": 1429,
+        "outputTokens": 6
+      },
+      "modelVersion": "gemini-3.5-flash-lite",
+      "result": {
+        "observation": {
+          "frame": 60,
+          "steps": 2,
+          "timeLeft": 11,
+          "score": 0,
+          "quota": 650,
+          "claw": {
+            "angle": 0.3800000000000007,
+            "direction": 1,
+            "speed": 1.18,
+            "state": "swing",
+            "length": 76,
+            "carrying": null
+          },
+          "physics": {
+            "hz": 60,
+            "decisionFrames": 30,
+            "left": 0,
+            "right": 960,
+            "top": 212,
+            "bottom": 614,
+            "pivot": {
+              "x": 480,
+              "y": 107.5
+            },
+            "maxAngle": 1.3264502315156903,
+            "maxLen": 760,
+            "restingLength": 76,
+            "clawRadius": 15,
+            "extendSpeed": 680,
+            "emptyReturnSpeed": 1020,
+            "pullBase": 900,
+            "pullMin": 48,
+            "pullMax": 620
+          },
+          "objects": [
+            {
+              "id": 0,
+              "kind": "gold_xl",
+              "x": 710,
+              "y": 540,
+              "radius": 37,
+              "value": 500,
+              "weight": 12,
+              "grabbed": false
+            },
+            {
+              "id": 1,
+              "kind": "diamond",
+              "x": 270,
+              "y": 500,
+              "radius": 15,
+              "value": 600,
+              "weight": 1.6,
+              "grabbed": false
+            },
+            {
+              "id": 2,
+              "kind": "gold_s",
+              "x": 570,
+              "y": 285,
+              "radius": 16,
+              "value": 50,
+              "weight": 2.4,
+              "grabbed": false
+            },
+            {
+              "id": 3,
+              "kind": "rock_l",
+              "x": 450,
+              "y": 390,
+              "radius": 32,
+              "value": 20,
+              "weight": 17,
+              "grabbed": false
+            }
+          ]
+        },
+        "events": [],
+        "outcome": {
+          "terminal": false,
+          "reason": "ongoing",
+          "success": false,
+          "score": 0,
+          "quota": 650,
+          "simulatedSeconds": 1,
+          "steps": 2
+        }
+      }
+    },
+    {
+      "observation": {
+        "frame": 60,
+        "steps": 2,
+        "timeLeft": 11,
+        "score": 0,
+        "quota": 650,
+        "claw": {
+          "angle": 0.3800000000000007,
+          "direction": 1,
+          "speed": 1.18,
+          "state": "swing",
+          "length": 76,
+          "carrying": null
+        },
+        "physics": {
+          "hz": 60,
+          "decisionFrames": 30,
+          "left": 0,
+          "right": 960,
+          "top": 212,
+          "bottom": 614,
+          "pivot": {
+            "x": 480,
+            "y": 107.5
+          },
+          "maxAngle": 1.3264502315156903,
+          "maxLen": 760,
+          "restingLength": 76,
+          "clawRadius": 15,
+          "extendSpeed": 680,
+          "emptyReturnSpeed": 1020,
+          "pullBase": 900,
+          "pullMin": 48,
+          "pullMax": 620
+        },
+        "objects": [
+          {
+            "id": 0,
+            "kind": "gold_xl",
+            "x": 710,
+            "y": 540,
+            "radius": 37,
+            "value": 500,
+            "weight": 12,
+            "grabbed": false
+          },
+          {
+            "id": 1,
+            "kind": "diamond",
+            "x": 270,
+            "y": 500,
+            "radius": 15,
+            "value": 600,
+            "weight": 1.6,
+            "grabbed": false
+          },
+          {
+            "id": 2,
+            "kind": "gold_s",
+            "x": 570,
+            "y": 285,
+            "radius": 16,
+            "value": 50,
+            "weight": 2.4,
+            "grabbed": false
+          },
+          {
+            "id": 3,
+            "kind": "rock_l",
+            "x": 450,
+            "y": 390,
+            "radius": 32,
+            "value": 20,
+            "weight": 17,
+            "grabbed": false
+          }
+        ]
+      },
+      "action": {
+        "type": "wait"
+      },
+      "source": "player",
+      "latencyMs": 714.428745000012,
+      "usage": {
+        "inputTokens": 2224,
+        "outputTokens": 6
+      },
+      "modelVersion": "gemini-3.5-flash-lite",
+      "result": {
+        "observation": {
+          "frame": 90,
+          "steps": 3,
+          "timeLeft": 10.5,
+          "score": 0,
+          "quota": 650,
+          "claw": {
+            "angle": 0.970000000000002,
+            "direction": 1,
+            "speed": 1.18,
+            "state": "swing",
+            "length": 76,
+            "carrying": null
+          },
+          "physics": {
+            "hz": 60,
+            "decisionFrames": 30,
+            "left": 0,
+            "right": 960,
+            "top": 212,
+            "bottom": 614,
+            "pivot": {
+              "x": 480,
+              "y": 107.5
+            },
+            "maxAngle": 1.3264502315156903,
+            "maxLen": 760,
+            "restingLength": 76,
+            "clawRadius": 15,
+            "extendSpeed": 680,
+            "emptyReturnSpeed": 1020,
+            "pullBase": 900,
+            "pullMin": 48,
+            "pullMax": 620
+          },
+          "objects": [
+            {
+              "id": 0,
+              "kind": "gold_xl",
+              "x": 710,
+              "y": 540,
+              "radius": 37,
+              "value": 500,
+              "weight": 12,
+              "grabbed": false
+            },
+            {
+              "id": 1,
+              "kind": "diamond",
+              "x": 270,
+              "y": 500,
+              "radius": 15,
+              "value": 600,
+              "weight": 1.6,
+              "grabbed": false
+            },
+            {
+              "id": 2,
+              "kind": "gold_s",
+              "x": 570,
+              "y": 285,
+              "radius": 16,
+              "value": 50,
+              "weight": 2.4,
+              "grabbed": false
+            },
+            {
+              "id": 3,
+              "kind": "rock_l",
+              "x": 450,
+              "y": 390,
+              "radius": 32,
+              "value": 20,
+              "weight": 17,
+              "grabbed": false
+            }
+          ]
+        },
+        "events": [],
+        "outcome": {
+          "terminal": false,
+          "reason": "ongoing",
+          "success": false,
+          "score": 0,
+          "quota": 650,
+          "simulatedSeconds": 1.5,
+          "steps": 3
+        }
+      }
+    },
+    {
+      "observation": {
+        "frame": 90,
+        "steps": 3,
+        "timeLeft": 10.5,
+        "score": 0,
+        "quota": 650,
+        "claw": {
+          "angle": 0.970000000000002,
+          "direction": 1,
+          "speed": 1.18,
+          "state": "swing",
+          "length": 76,
+          "carrying": null
+        },
+        "physics": {
+          "hz": 60,
+          "decisionFrames": 30,
+          "left": 0,
+          "right": 960,
+          "top": 212,
+          "bottom": 614,
+          "pivot": {
+            "x": 480,
+            "y": 107.5
+          },
+          "maxAngle": 1.3264502315156903,
+          "maxLen": 760,
+          "restingLength": 76,
+          "clawRadius": 15,
+          "extendSpeed": 680,
+          "emptyReturnSpeed": 1020,
+          "pullBase": 900,
+          "pullMin": 48,
+          "pullMax": 620
+        },
+        "objects": [
+          {
+            "id": 0,
+            "kind": "gold_xl",
+            "x": 710,
+            "y": 540,
+            "radius": 37,
+            "value": 500,
+            "weight": 12,
+            "grabbed": false
+          },
+          {
+            "id": 1,
+            "kind": "diamond",
+            "x": 270,
+            "y": 500,
+            "radius": 15,
+            "value": 600,
+            "weight": 1.6,
+            "grabbed": false
+          },
+          {
+            "id": 2,
+            "kind": "gold_s",
+            "x": 570,
+            "y": 285,
+            "radius": 16,
+            "value": 50,
+            "weight": 2.4,
+            "grabbed": false
+          },
+          {
+            "id": 3,
+            "kind": "rock_l",
+            "x": 450,
+            "y": 390,
+            "radius": 32,
+            "value": 20,
+            "weight": 17,
+            "grabbed": false
+          }
+        ]
+      },
+      "action": {
+        "type": "launch",
+        "frame": 5
+      },
+      "source": "player",
+      "latencyMs": 730.3570599999803,
+      "usage": {
+        "inputTokens": 3023,
+        "outputTokens": 18
+      },
+      "modelVersion": "gemini-3.5-flash-lite",
+      "result": {
+        "observation": {
+          "frame": 120,
+          "steps": 4,
+          "timeLeft": 10,
+          "score": 0,
+          "quota": 650,
+          "claw": {
+            "angle": 1.0683333333333356,
+            "direction": 1,
+            "speed": 1.18,
+            "state": "extend",
+            "length": 359.33333333333326,
+            "carrying": null
+          },
+          "physics": {
+            "hz": 60,
+            "decisionFrames": 30,
+            "left": 0,
+            "right": 960,
+            "top": 212,
+            "bottom": 614,
+            "pivot": {
+              "x": 480,
+              "y": 107.5
+            },
+            "maxAngle": 1.3264502315156903,
+            "maxLen": 760,
+            "restingLength": 76,
+            "clawRadius": 15,
+            "extendSpeed": 680,
+            "emptyReturnSpeed": 1020,
+            "pullBase": 900,
+            "pullMin": 48,
+            "pullMax": 620
+          },
+          "objects": [
+            {
+              "id": 0,
+              "kind": "gold_xl",
+              "x": 710,
+              "y": 540,
+              "radius": 37,
+              "value": 500,
+              "weight": 12,
+              "grabbed": false
+            },
+            {
+              "id": 1,
+              "kind": "diamond",
+              "x": 270,
+              "y": 500,
+              "radius": 15,
+              "value": 600,
+              "weight": 1.6,
+              "grabbed": false
+            },
+            {
+              "id": 2,
+              "kind": "gold_s",
+              "x": 570,
+              "y": 285,
+              "radius": 16,
+              "value": 50,
+              "weight": 2.4,
+              "grabbed": false
+            },
+            {
+              "id": 3,
+              "kind": "rock_l",
+              "x": 450,
+              "y": 390,
+              "radius": 32,
+              "value": 20,
+              "weight": 17,
+              "grabbed": false
+            }
+          ]
+        },
+        "events": [],
+        "outcome": {
+          "terminal": false,
+          "reason": "ongoing",
+          "success": false,
+          "score": 0,
+          "quota": 650,
+          "simulatedSeconds": 2,
+          "steps": 4
+        }
+      }
+    },
+    {
+      "observation": {
+        "frame": 120,
+        "steps": 4,
+        "timeLeft": 10,
+        "score": 0,
+        "quota": 650,
+        "claw": {
+          "angle": 1.0683333333333356,
+          "direction": 1,
+          "speed": 1.18,
+          "state": "extend",
+          "length": 359.33333333333326,
+          "carrying": null
+        },
+        "physics": {
+          "hz": 60,
+          "decisionFrames": 30,
+          "left": 0,
+          "right": 960,
+          "top": 212,
+          "bottom": 614,
+          "pivot": {
+            "x": 480,
+            "y": 107.5
+          },
+          "maxAngle": 1.3264502315156903,
+          "maxLen": 760,
+          "restingLength": 76,
+          "clawRadius": 15,
+          "extendSpeed": 680,
+          "emptyReturnSpeed": 1020,
+          "pullBase": 900,
+          "pullMin": 48,
+          "pullMax": 620
+        },
+        "objects": [
+          {
+            "id": 0,
+            "kind": "gold_xl",
+            "x": 710,
+            "y": 540,
+            "radius": 37,
+            "value": 500,
+            "weight": 12,
+            "grabbed": false
+          },
+          {
+            "id": 1,
+            "kind": "diamond",
+            "x": 270,
+            "y": 500,
+            "radius": 15,
+            "value": 600,
+            "weight": 1.6,
+            "grabbed": false
+          },
+          {
+            "id": 2,
+            "kind": "gold_s",
+            "x": 570,
+            "y": 285,
+            "radius": 16,
+            "value": 50,
+            "weight": 2.4,
+            "grabbed": false
+          },
+          {
+            "id": 3,
+            "kind": "rock_l",
+            "x": 450,
+            "y": 390,
+            "radius": 32,
+            "value": 20,
+            "weight": 17,
+            "grabbed": false
+          }
+        ]
+      },
+      "action": {
+        "type": "wait"
+      },
+      "source": "forced_wait",
+      "latencyMs": 0,
+      "usage": null,
+      "modelVersion": null,
+      "result": {
+        "observation": {
+          "frame": 150,
+          "steps": 5,
+          "timeLeft": 9.5,
+          "score": 0,
+          "quota": 650,
+          "claw": {
+            "angle": 1.0683333333333356,
+            "direction": 1,
+            "speed": 1.18,
+            "state": "retract",
+            "length": 347.9999999999998,
+            "carrying": null
+          },
+          "physics": {
+            "hz": 60,
+            "decisionFrames": 30,
+            "left": 0,
+            "right": 960,
+            "top": 212,
+            "bottom": 614,
+            "pivot": {
+              "x": 480,
+              "y": 107.5
+            },
+            "maxAngle": 1.3264502315156903,
+            "maxLen": 760,
+            "restingLength": 76,
+            "clawRadius": 15,
+            "extendSpeed": 680,
+            "emptyReturnSpeed": 1020,
+            "pullBase": 900,
+            "pullMin": 48,
+            "pullMax": 620
+          },
+          "objects": [
+            {
+              "id": 0,
+              "kind": "gold_xl",
+              "x": 710,
+              "y": 540,
+              "radius": 37,
+              "value": 500,
+              "weight": 12,
+              "grabbed": false
+            },
+            {
+              "id": 1,
+              "kind": "diamond",
+              "x": 270,
+              "y": 500,
+              "radius": 15,
+              "value": 600,
+              "weight": 1.6,
+              "grabbed": false
+            },
+            {
+              "id": 2,
+              "kind": "gold_s",
+              "x": 570,
+              "y": 285,
+              "radius": 16,
+              "value": 50,
+              "weight": 2.4,
+              "grabbed": false
+            },
+            {
+              "id": 3,
+              "kind": "rock_l",
+              "x": 450,
+              "y": 390,
+              "radius": 32,
+              "value": 20,
+              "weight": 17,
+              "grabbed": false
+            }
+          ]
+        },
+        "events": [],
+        "outcome": {
+          "terminal": false,
+          "reason": "ongoing",
+          "success": false,
+          "score": 0,
+          "quota": 650,
+          "simulatedSeconds": 2.5,
+          "steps": 5
+        }
+      }
+    },
+    {
+      "observation": {
+        "frame": 150,
+        "steps": 5,
+        "timeLeft": 9.5,
+        "score": 0,
+        "quota": 650,
+        "claw": {
+          "angle": 1.0683333333333356,
+          "direction": 1,
+          "speed": 1.18,
+          "state": "retract",
+          "length": 347.9999999999998,
+          "carrying": null
+        },
+        "physics": {
+          "hz": 60,
+          "decisionFrames": 30,
+          "left": 0,
+          "right": 960,
+          "top": 212,
+          "bottom": 614,
+          "pivot": {
+            "x": 480,
+            "y": 107.5
+          },
+          "maxAngle": 1.3264502315156903,
+          "maxLen": 760,
+          "restingLength": 76,
+          "clawRadius": 15,
+          "extendSpeed": 680,
+          "emptyReturnSpeed": 1020,
+          "pullBase": 900,
+          "pullMin": 48,
+          "pullMax": 620
+        },
+        "objects": [
+          {
+            "id": 0,
+            "kind": "gold_xl",
+            "x": 710,
+            "y": 540,
+            "radius": 37,
+            "value": 500,
+            "weight": 12,
+            "grabbed": false
+          },
+          {
+            "id": 1,
+            "kind": "diamond",
+            "x": 270,
+            "y": 500,
+            "radius": 15,
+            "value": 600,
+            "weight": 1.6,
+            "grabbed": false
+          },
+          {
+            "id": 2,
+            "kind": "gold_s",
+            "x": 570,
+            "y": 285,
+            "radius": 16,
+            "value": 50,
+            "weight": 2.4,
+            "grabbed": false
+          },
+          {
+            "id": 3,
+            "kind": "rock_l",
+            "x": 450,
+            "y": 390,
+            "radius": 32,
+            "value": 20,
+            "weight": 17,
+            "grabbed": false
+          }
+        ]
+      },
+      "action": {
+        "type": "wait"
+      },
+      "source": "forced_wait",
+      "latencyMs": 0,
+      "usage": null,
+      "modelVersion": null,
+      "result": {
+        "observation": {
+          "frame": 180,
+          "steps": 6,
+          "timeLeft": 9,
+          "score": 0,
+          "quota": 650,
+          "claw": {
+            "angle": 1.3264502315156903,
+            "direction": -1,
+            "speed": 1.18,
+            "state": "swing",
+            "length": 76,
+            "carrying": null
+          },
+          "physics": {
+            "hz": 60,
+            "decisionFrames": 30,
+            "left": 0,
+            "right": 960,
+            "top": 212,
+            "bottom": 614,
+            "pivot": {
+              "x": 480,
+              "y": 107.5
+            },
+            "maxAngle": 1.3264502315156903,
+            "maxLen": 760,
+            "restingLength": 76,
+            "clawRadius": 15,
+            "extendSpeed": 680,
+            "emptyReturnSpeed": 1020,
+            "pullBase": 900,
+            "pullMin": 48,
+            "pullMax": 620
+          },
+          "objects": [
+            {
+              "id": 0,
+              "kind": "gold_xl",
+              "x": 710,
+              "y": 540,
+              "radius": 37,
+              "value": 500,
+              "weight": 12,
+              "grabbed": false
+            },
+            {
+              "id": 1,
+              "kind": "diamond",
+              "x": 270,
+              "y": 500,
+              "radius": 15,
+              "value": 600,
+              "weight": 1.6,
+              "grabbed": false
+            },
+            {
+              "id": 2,
+              "kind": "gold_s",
+              "x": 570,
+              "y": 285,
+              "radius": 16,
+              "value": 50,
+              "weight": 2.4,
+              "grabbed": false
+            },
+            {
+              "id": 3,
+              "kind": "rock_l",
+              "x": 450,
+              "y": 390,
+              "radius": 32,
+              "value": 20,
+              "weight": 17,
+              "grabbed": false
+            }
+          ]
+        },
+        "events": [],
+        "outcome": {
+          "terminal": false,
+          "reason": "ongoing",
+          "success": false,
+          "score": 0,
+          "quota": 650,
+          "simulatedSeconds": 3,
+          "steps": 6
+        }
+      }
+    },
+    {
+      "observation": {
+        "frame": 180,
+        "steps": 6,
+        "timeLeft": 9,
+        "score": 0,
+        "quota": 650,
+        "claw": {
+          "angle": 1.3264502315156903,
+          "direction": -1,
+          "speed": 1.18,
+          "state": "swing",
+          "length": 76,
+          "carrying": null
+        },
+        "physics": {
+          "hz": 60,
+          "decisionFrames": 30,
+          "left": 0,
+          "right": 960,
+          "top": 212,
+          "bottom": 614,
+          "pivot": {
+            "x": 480,
+            "y": 107.5
+          },
+          "maxAngle": 1.3264502315156903,
+          "maxLen": 760,
+          "restingLength": 76,
+          "clawRadius": 15,
+          "extendSpeed": 680,
+          "emptyReturnSpeed": 1020,
+          "pullBase": 900,
+          "pullMin": 48,
+          "pullMax": 620
+        },
+        "objects": [
+          {
+            "id": 0,
+            "kind": "gold_xl",
+            "x": 710,
+            "y": 540,
+            "radius": 37,
+            "value": 500,
+            "weight": 12,
+            "grabbed": false
+          },
+          {
+            "id": 1,
+            "kind": "diamond",
+            "x": 270,
+            "y": 500,
+            "radius": 15,
+            "value": 600,
+            "weight": 1.6,
+            "grabbed": false
+          },
+          {
+            "id": 2,
+            "kind": "gold_s",
+            "x": 570,
+            "y": 285,
+            "radius": 16,
+            "value": 50,
+            "weight": 2.4,
+            "grabbed": false
+          },
+          {
+            "id": 3,
+            "kind": "rock_l",
+            "x": 450,
+            "y": 390,
+            "radius": 32,
+            "value": 20,
+            "weight": 17,
+            "grabbed": false
+          }
+        ]
+      },
+      "action": {
+        "type": "wait"
+      },
+      "source": "player",
+      "latencyMs": 809.9078420000151,
+      "usage": {
+        "inputTokens": 3839,
+        "outputTokens": 5
+      },
+      "modelVersion": "gemini-3.5-flash-lite",
+      "result": {
+        "observation": {
+          "frame": 210,
+          "steps": 7,
+          "timeLeft": 8.5,
+          "score": 0,
+          "quota": 650,
+          "claw": {
+            "angle": 0.7364502315156887,
+            "direction": -1,
+            "speed": 1.18,
+            "state": "swing",
+            "length": 76,
+            "carrying": null
+          },
+          "physics": {
+            "hz": 60,
+            "decisionFrames": 30,
+            "left": 0,
+            "right": 960,
+            "top": 212,
+            "bottom": 614,
+            "pivot": {
+              "x": 480,
+              "y": 107.5
+            },
+            "maxAngle": 1.3264502315156903,
+            "maxLen": 760,
+            "restingLength": 76,
+            "clawRadius": 15,
+            "extendSpeed": 680,
+            "emptyReturnSpeed": 1020,
+            "pullBase": 900,
+            "pullMin": 48,
+            "pullMax": 620
+          },
+          "objects": [
+            {
+              "id": 0,
+              "kind": "gold_xl",
+              "x": 710,
+              "y": 540,
+              "radius": 37,
+              "value": 500,
+              "weight": 12,
+              "grabbed": false
+            },
+            {
+              "id": 1,
+              "kind": "diamond",
+              "x": 270,
+              "y": 500,
+              "radius": 15,
+              "value": 600,
+              "weight": 1.6,
+              "grabbed": false
+            },
+            {
+              "id": 2,
+              "kind": "gold_s",
+              "x": 570,
+              "y": 285,
+              "radius": 16,
+              "value": 50,
+              "weight": 2.4,
+              "grabbed": false
+            },
+            {
+              "id": 3,
+              "kind": "rock_l",
+              "x": 450,
+              "y": 390,
+              "radius": 32,
+              "value": 20,
+              "weight": 17,
+              "grabbed": false
+            }
+          ]
+        },
+        "events": [],
+        "outcome": {
+          "terminal": false,
+          "reason": "ongoing",
+          "success": false,
+          "score": 0,
+          "quota": 650,
+          "simulatedSeconds": 3.5,
+          "steps": 7
+        }
+      }
+    },
+    {
+      "observation": {
+        "frame": 210,
+        "steps": 7,
+        "timeLeft": 8.5,
+        "score": 0,
+        "quota": 650,
+        "claw": {
+          "angle": 0.7364502315156887,
+          "direction": -1,
+          "speed": 1.18,
+          "state": "swing",
+          "length": 76,
+          "carrying": null
+        },
+        "physics": {
+          "hz": 60,
+          "decisionFrames": 30,
+          "left": 0,
+          "right": 960,
+          "top": 212,
+          "bottom": 614,
+          "pivot": {
+            "x": 480,
+            "y": 107.5
+          },
+          "maxAngle": 1.3264502315156903,
+          "maxLen": 760,
+          "restingLength": 76,
+          "clawRadius": 15,
+          "extendSpeed": 680,
+          "emptyReturnSpeed": 1020,
+          "pullBase": 900,
+          "pullMin": 48,
+          "pullMax": 620
+        },
+        "objects": [
+          {
+            "id": 0,
+            "kind": "gold_xl",
+            "x": 710,
+            "y": 540,
+            "radius": 37,
+            "value": 500,
+            "weight": 12,
+            "grabbed": false
+          },
+          {
+            "id": 1,
+            "kind": "diamond",
+            "x": 270,
+            "y": 500,
+            "radius": 15,
+            "value": 600,
+            "weight": 1.6,
+            "grabbed": false
+          },
+          {
+            "id": 2,
+            "kind": "gold_s",
+            "x": 570,
+            "y": 285,
+            "radius": 16,
+            "value": 50,
+            "weight": 2.4,
+            "grabbed": false
+          },
+          {
+            "id": 3,
+            "kind": "rock_l",
+            "x": 450,
+            "y": 390,
+            "radius": 32,
+            "value": 20,
+            "weight": 17,
+            "grabbed": false
+          }
+        ]
+      },
+      "action": {
+        "type": "launch",
+        "frame": 4
+      },
+      "source": "player",
+      "latencyMs": 733.2176479999907,
+      "usage": {
+        "inputTokens": 3856,
+        "outputTokens": 9
+      },
+      "modelVersion": "gemini-3.5-flash-lite",
+      "result": {
+        "observation": {
+          "frame": 240,
+          "steps": 8,
+          "timeLeft": 8,
+          "score": 0,
+          "quota": 650,
+          "claw": {
+            "angle": 0.6577835648490218,
+            "direction": -1,
+            "speed": 1.18,
+            "state": "extend",
+            "length": 370.6666666666666,
+            "carrying": null
+          },
+          "physics": {
+            "hz": 60,
+            "decisionFrames": 30,
+            "left": 0,
+            "right": 960,
+            "top": 212,
+            "bottom": 614,
+            "pivot": {
+              "x": 480,
+              "y": 107.5
+            },
+            "maxAngle": 1.3264502315156903,
+            "maxLen": 760,
+            "restingLength": 76,
+            "clawRadius": 15,
+            "extendSpeed": 680,
+            "emptyReturnSpeed": 1020,
+            "pullBase": 900,
+            "pullMin": 48,
+            "pullMax": 620
+          },
+          "objects": [
+            {
+              "id": 0,
+              "kind": "gold_xl",
+              "x": 710,
+              "y": 540,
+              "radius": 37,
+              "value": 500,
+              "weight": 12,
+              "grabbed": false
+            },
+            {
+              "id": 1,
+              "kind": "diamond",
+              "x": 270,
+              "y": 500,
+              "radius": 15,
+              "value": 600,
+              "weight": 1.6,
+              "grabbed": false
+            },
+            {
+              "id": 2,
+              "kind": "gold_s",
+              "x": 570,
+              "y": 285,
+              "radius": 16,
+              "value": 50,
+              "weight": 2.4,
+              "grabbed": false
+            },
+            {
+              "id": 3,
+              "kind": "rock_l",
+              "x": 450,
+              "y": 390,
+              "radius": 32,
+              "value": 20,
+              "weight": 17,
+              "grabbed": false
+            }
+          ]
+        },
+        "events": [],
+        "outcome": {
+          "terminal": false,
+          "reason": "ongoing",
+          "success": false,
+          "score": 0,
+          "quota": 650,
+          "simulatedSeconds": 4,
+          "steps": 8
+        }
+      }
+    },
+    {
+      "observation": {
+        "frame": 240,
+        "steps": 8,
+        "timeLeft": 8,
+        "score": 0,
+        "quota": 650,
+        "claw": {
+          "angle": 0.6577835648490218,
+          "direction": -1,
+          "speed": 1.18,
+          "state": "extend",
+          "length": 370.6666666666666,
+          "carrying": null
+        },
+        "physics": {
+          "hz": 60,
+          "decisionFrames": 30,
+          "left": 0,
+          "right": 960,
+          "top": 212,
+          "bottom": 614,
+          "pivot": {
+            "x": 480,
+            "y": 107.5
+          },
+          "maxAngle": 1.3264502315156903,
+          "maxLen": 760,
+          "restingLength": 76,
+          "clawRadius": 15,
+          "extendSpeed": 680,
+          "emptyReturnSpeed": 1020,
+          "pullBase": 900,
+          "pullMin": 48,
+          "pullMax": 620
+        },
+        "objects": [
+          {
+            "id": 0,
+            "kind": "gold_xl",
+            "x": 710,
+            "y": 540,
+            "radius": 37,
+            "value": 500,
+            "weight": 12,
+            "grabbed": false
+          },
+          {
+            "id": 1,
+            "kind": "diamond",
+            "x": 270,
+            "y": 500,
+            "radius": 15,
+            "value": 600,
+            "weight": 1.6,
+            "grabbed": false
+          },
+          {
+            "id": 2,
+            "kind": "gold_s",
+            "x": 570,
+            "y": 285,
+            "radius": 16,
+            "value": 50,
+            "weight": 2.4,
+            "grabbed": false
+          },
+          {
+            "id": 3,
+            "kind": "rock_l",
+            "x": 450,
+            "y": 390,
+            "radius": 32,
+            "value": 20,
+            "weight": 17,
+            "grabbed": false
+          }
+        ]
+      },
+      "action": {
+        "type": "wait"
+      },
+      "source": "forced_wait",
+      "latencyMs": 0,
+      "usage": null,
+      "modelVersion": null,
+      "result": {
+        "observation": {
+          "frame": 270,
+          "steps": 9,
+          "timeLeft": 7.5,
+          "score": 0,
+          "quota": 650,
+          "claw": {
+            "angle": 0.6577835648490218,
+            "direction": -1,
+            "speed": 1.18,
+            "state": "retract",
+            "length": 557.6666666666667,
+            "carrying": null
+          },
+          "physics": {
+            "hz": 60,
+            "decisionFrames": 30,
+            "left": 0,
+            "right": 960,
+            "top": 212,
+            "bottom": 614,
+            "pivot": {
+              "x": 480,
+              "y": 107.5
+            },
+            "maxAngle": 1.3264502315156903,
+            "maxLen": 760,
+            "restingLength": 76,
+            "clawRadius": 15,
+            "extendSpeed": 680,
+            "emptyReturnSpeed": 1020,
+            "pullBase": 900,
+            "pullMin": 48,
+            "pullMax": 620
+          },
+          "objects": [
+            {
+              "id": 0,
+              "kind": "gold_xl",
+              "x": 710,
+              "y": 540,
+              "radius": 37,
+              "value": 500,
+              "weight": 12,
+              "grabbed": false
+            },
+            {
+              "id": 1,
+              "kind": "diamond",
+              "x": 270,
+              "y": 500,
+              "radius": 15,
+              "value": 600,
+              "weight": 1.6,
+              "grabbed": false
+            },
+            {
+              "id": 2,
+              "kind": "gold_s",
+              "x": 570,
+              "y": 285,
+              "radius": 16,
+              "value": 50,
+              "weight": 2.4,
+              "grabbed": false
+            },
+            {
+              "id": 3,
+              "kind": "rock_l",
+              "x": 450,
+              "y": 390,
+              "radius": 32,
+              "value": 20,
+              "weight": 17,
+              "grabbed": false
+            }
+          ]
+        },
+        "events": [],
+        "outcome": {
+          "terminal": false,
+          "reason": "ongoing",
+          "success": false,
+          "score": 0,
+          "quota": 650,
+          "simulatedSeconds": 4.5,
+          "steps": 9
+        }
+      }
+    },
+    {
+      "observation": {
+        "frame": 270,
+        "steps": 9,
+        "timeLeft": 7.5,
+        "score": 0,
+        "quota": 650,
+        "claw": {
+          "angle": 0.6577835648490218,
+          "direction": -1,
+          "speed": 1.18,
+          "state": "retract",
+          "length": 557.6666666666667,
+          "carrying": null
+        },
+        "physics": {
+          "hz": 60,
+          "decisionFrames": 30,
+          "left": 0,
+          "right": 960,
+          "top": 212,
+          "bottom": 614,
+          "pivot": {
+            "x": 480,
+            "y": 107.5
+          },
+          "maxAngle": 1.3264502315156903,
+          "maxLen": 760,
+          "restingLength": 76,
+          "clawRadius": 15,
+          "extendSpeed": 680,
+          "emptyReturnSpeed": 1020,
+          "pullBase": 900,
+          "pullMin": 48,
+          "pullMax": 620
+        },
+        "objects": [
+          {
+            "id": 0,
+            "kind": "gold_xl",
+            "x": 710,
+            "y": 540,
+            "radius": 37,
+            "value": 500,
+            "weight": 12,
+            "grabbed": false
+          },
+          {
+            "id": 1,
+            "kind": "diamond",
+            "x": 270,
+            "y": 500,
+            "radius": 15,
+            "value": 600,
+            "weight": 1.6,
+            "grabbed": false
+          },
+          {
+            "id": 2,
+            "kind": "gold_s",
+            "x": 570,
+            "y": 285,
+            "radius": 16,
+            "value": 50,
+            "weight": 2.4,
+            "grabbed": false
+          },
+          {
+            "id": 3,
+            "kind": "rock_l",
+            "x": 450,
+            "y": 390,
+            "radius": 32,
+            "value": 20,
+            "weight": 17,
+            "grabbed": false
+          }
+        ]
+      },
+      "action": {
+        "type": "wait"
+      },
+      "source": "forced_wait",
+      "latencyMs": 0,
+      "usage": null,
+      "modelVersion": null,
+      "result": {
+        "observation": {
+          "frame": 300,
+          "steps": 10,
+          "timeLeft": 7,
+          "score": 0,
+          "quota": 650,
+          "claw": {
+            "angle": 0.6381168981823551,
+            "direction": -1,
+            "speed": 1.18,
+            "state": "swing",
+            "length": 76,
+            "carrying": null
+          },
+          "physics": {
+            "hz": 60,
+            "decisionFrames": 30,
+            "left": 0,
+            "right": 960,
+            "top": 212,
+            "bottom": 614,
+            "pivot": {
+              "x": 480,
+              "y": 107.5
+            },
+            "maxAngle": 1.3264502315156903,
+            "maxLen": 760,
+            "restingLength": 76,
+            "clawRadius": 15,
+            "extendSpeed": 680,
+            "emptyReturnSpeed": 1020,
+            "pullBase": 900,
+            "pullMin": 48,
+            "pullMax": 620
+          },
+          "objects": [
+            {
+              "id": 0,
+              "kind": "gold_xl",
+              "x": 710,
+              "y": 540,
+              "radius": 37,
+              "value": 500,
+              "weight": 12,
+              "grabbed": false
+            },
+            {
+              "id": 1,
+              "kind": "diamond",
+              "x": 270,
+              "y": 500,
+              "radius": 15,
+              "value": 600,
+              "weight": 1.6,
+              "grabbed": false
+            },
+            {
+              "id": 2,
+              "kind": "gold_s",
+              "x": 570,
+              "y": 285,
+              "radius": 16,
+              "value": 50,
+              "weight": 2.4,
+              "grabbed": false
+            },
+            {
+              "id": 3,
+              "kind": "rock_l",
+              "x": 450,
+              "y": 390,
+              "radius": 32,
+              "value": 20,
+              "weight": 17,
+              "grabbed": false
+            }
+          ]
+        },
+        "events": [],
+        "outcome": {
+          "terminal": false,
+          "reason": "ongoing",
+          "success": false,
+          "score": 0,
+          "quota": 650,
+          "simulatedSeconds": 5,
+          "steps": 10
+        }
+      }
+    },
+    {
+      "observation": {
+        "frame": 300,
+        "steps": 10,
+        "timeLeft": 7,
+        "score": 0,
+        "quota": 650,
+        "claw": {
+          "angle": 0.6381168981823551,
+          "direction": -1,
+          "speed": 1.18,
+          "state": "swing",
+          "length": 76,
+          "carrying": null
+        },
+        "physics": {
+          "hz": 60,
+          "decisionFrames": 30,
+          "left": 0,
+          "right": 960,
+          "top": 212,
+          "bottom": 614,
+          "pivot": {
+            "x": 480,
+            "y": 107.5
+          },
+          "maxAngle": 1.3264502315156903,
+          "maxLen": 760,
+          "restingLength": 76,
+          "clawRadius": 15,
+          "extendSpeed": 680,
+          "emptyReturnSpeed": 1020,
+          "pullBase": 900,
+          "pullMin": 48,
+          "pullMax": 620
+        },
+        "objects": [
+          {
+            "id": 0,
+            "kind": "gold_xl",
+            "x": 710,
+            "y": 540,
+            "radius": 37,
+            "value": 500,
+            "weight": 12,
+            "grabbed": false
+          },
+          {
+            "id": 1,
+            "kind": "diamond",
+            "x": 270,
+            "y": 500,
+            "radius": 15,
+            "value": 600,
+            "weight": 1.6,
+            "grabbed": false
+          },
+          {
+            "id": 2,
+            "kind": "gold_s",
+            "x": 570,
+            "y": 285,
+            "radius": 16,
+            "value": 50,
+            "weight": 2.4,
+            "grabbed": false
+          },
+          {
+            "id": 3,
+            "kind": "rock_l",
+            "x": 450,
+            "y": 390,
+            "radius": 32,
+            "value": 20,
+            "weight": 17,
+            "grabbed": false
+          }
+        ]
+      },
+      "action": {
+        "type": "wait"
+      },
+      "source": "player",
+      "latencyMs": 1704.1091870000237,
+      "usage": {
+        "inputTokens": 3873,
+        "outputTokens": 6
+      },
+      "modelVersion": "gemini-3.5-flash-lite",
+      "result": {
+        "observation": {
+          "frame": 330,
+          "steps": 11,
+          "timeLeft": 6.5,
+          "score": 0,
+          "quota": 650,
+          "claw": {
+            "angle": 0.048116898182354706,
+            "direction": -1,
+            "speed": 1.18,
+            "state": "swing",
+            "length": 76,
+            "carrying": null
+          },
+          "physics": {
+            "hz": 60,
+            "decisionFrames": 30,
+            "left": 0,
+            "right": 960,
+            "top": 212,
+            "bottom": 614,
+            "pivot": {
+              "x": 480,
+              "y": 107.5
+            },
+            "maxAngle": 1.3264502315156903,
+            "maxLen": 760,
+            "restingLength": 76,
+            "clawRadius": 15,
+            "extendSpeed": 680,
+            "emptyReturnSpeed": 1020,
+            "pullBase": 900,
+            "pullMin": 48,
+            "pullMax": 620
+          },
+          "objects": [
+            {
+              "id": 0,
+              "kind": "gold_xl",
+              "x": 710,
+              "y": 540,
+              "radius": 37,
+              "value": 500,
+              "weight": 12,
+              "grabbed": false
+            },
+            {
+              "id": 1,
+              "kind": "diamond",
+              "x": 270,
+              "y": 500,
+              "radius": 15,
+              "value": 600,
+              "weight": 1.6,
+              "grabbed": false
+            },
+            {
+              "id": 2,
+              "kind": "gold_s",
+              "x": 570,
+              "y": 285,
+              "radius": 16,
+              "value": 50,
+              "weight": 2.4,
+              "grabbed": false
+            },
+            {
+              "id": 3,
+              "kind": "rock_l",
+              "x": 450,
+              "y": 390,
+              "radius": 32,
+              "value": 20,
+              "weight": 17,
+              "grabbed": false
+            }
+          ]
+        },
+        "events": [],
+        "outcome": {
+          "terminal": false,
+          "reason": "ongoing",
+          "success": false,
+          "score": 0,
+          "quota": 650,
+          "simulatedSeconds": 5.5,
+          "steps": 11
+        }
+      }
+    },
+    {
+      "observation": {
+        "frame": 330,
+        "steps": 11,
+        "timeLeft": 6.5,
+        "score": 0,
+        "quota": 650,
+        "claw": {
+          "angle": 0.048116898182354706,
+          "direction": -1,
+          "speed": 1.18,
+          "state": "swing",
+          "length": 76,
+          "carrying": null
+        },
+        "physics": {
+          "hz": 60,
+          "decisionFrames": 30,
+          "left": 0,
+          "right": 960,
+          "top": 212,
+          "bottom": 614,
+          "pivot": {
+            "x": 480,
+            "y": 107.5
+          },
+          "maxAngle": 1.3264502315156903,
+          "maxLen": 760,
+          "restingLength": 76,
+          "clawRadius": 15,
+          "extendSpeed": 680,
+          "emptyReturnSpeed": 1020,
+          "pullBase": 900,
+          "pullMin": 48,
+          "pullMax": 620
+        },
+        "objects": [
+          {
+            "id": 0,
+            "kind": "gold_xl",
+            "x": 710,
+            "y": 540,
+            "radius": 37,
+            "value": 500,
+            "weight": 12,
+            "grabbed": false
+          },
+          {
+            "id": 1,
+            "kind": "diamond",
+            "x": 270,
+            "y": 500,
+            "radius": 15,
+            "value": 600,
+            "weight": 1.6,
+            "grabbed": false
+          },
+          {
+            "id": 2,
+            "kind": "gold_s",
+            "x": 570,
+            "y": 285,
+            "radius": 16,
+            "value": 50,
+            "weight": 2.4,
+            "grabbed": false
+          },
+          {
+            "id": 3,
+            "kind": "rock_l",
+            "x": 450,
+            "y": 390,
+            "radius": 32,
+            "value": 20,
+            "weight": 17,
+            "grabbed": false
+          }
+        ]
+      },
+      "action": {
+        "type": "launch",
+        "frame": 12
+      },
+      "source": "player",
+      "latencyMs": 722.0117339999997,
+      "usage": {
+        "inputTokens": 3885,
+        "outputTokens": 10
+      },
+      "modelVersion": "gemini-3.5-flash-lite",
+      "result": {
+        "observation": {
+          "frame": 360,
+          "steps": 12,
+          "timeLeft": 6,
+          "score": 0,
+          "quota": 650,
+          "claw": {
+            "angle": -0.18788310181764528,
+            "direction": -1,
+            "speed": 1.18,
+            "state": "hold",
+            "length": 246.00000000000009,
+            "carrying": 3
+          },
+          "physics": {
+            "hz": 60,
+            "decisionFrames": 30,
+            "left": 0,
+            "right": 960,
+            "top": 212,
+            "bottom": 614,
+            "pivot": {
+              "x": 480,
+              "y": 107.5
+            },
+            "maxAngle": 1.3264502315156903,
+            "maxLen": 760,
+            "restingLength": 76,
+            "clawRadius": 15,
+            "extendSpeed": 680,
+            "emptyReturnSpeed": 1020,
+            "pullBase": 900,
+            "pullMin": 48,
+            "pullMax": 620
+          },
+          "objects": [
+            {
+              "id": 0,
+              "kind": "gold_xl",
+              "x": 710,
+              "y": 540,
+              "radius": 37,
+              "value": 500,
+              "weight": 12,
+              "grabbed": false
+            },
+            {
+              "id": 1,
+              "kind": "diamond",
+              "x": 270,
+              "y": 500,
+              "radius": 15,
+              "value": 600,
+              "weight": 1.6,
+              "grabbed": false
+            },
+            {
+              "id": 2,
+              "kind": "gold_s",
+              "x": 570,
+              "y": 285,
+              "radius": 16,
+              "value": 50,
+              "weight": 2.4,
+              "grabbed": false
+            },
+            {
+              "id": 3,
+              "kind": "rock_l",
+              "x": 427.61017025338214,
+              "y": 383.053889174369,
+              "radius": 32,
+              "value": 20,
+              "weight": 17,
+              "grabbed": true
+            }
+          ]
+        },
+        "events": [
+          {
+            "type": "grab",
+            "id": 3,
+            "kind": "rock_l",
+            "frame": 357
+          }
+        ],
+        "outcome": {
+          "terminal": false,
+          "reason": "ongoing",
+          "success": false,
+          "score": 0,
+          "quota": 650,
+          "simulatedSeconds": 6,
+          "steps": 12
+        }
+      }
+    },
+    {
+      "observation": {
+        "frame": 360,
+        "steps": 12,
+        "timeLeft": 6,
+        "score": 0,
+        "quota": 650,
+        "claw": {
+          "angle": -0.18788310181764528,
+          "direction": -1,
+          "speed": 1.18,
+          "state": "hold",
+          "length": 246.00000000000009,
+          "carrying": 3
+        },
+        "physics": {
+          "hz": 60,
+          "decisionFrames": 30,
+          "left": 0,
+          "right": 960,
+          "top": 212,
+          "bottom": 614,
+          "pivot": {
+            "x": 480,
+            "y": 107.5
+          },
+          "maxAngle": 1.3264502315156903,
+          "maxLen": 760,
+          "restingLength": 76,
+          "clawRadius": 15,
+          "extendSpeed": 680,
+          "emptyReturnSpeed": 1020,
+          "pullBase": 900,
+          "pullMin": 48,
+          "pullMax": 620
+        },
+        "objects": [
+          {
+            "id": 0,
+            "kind": "gold_xl",
+            "x": 710,
+            "y": 540,
+            "radius": 37,
+            "value": 500,
+            "weight": 12,
+            "grabbed": false
+          },
+          {
+            "id": 1,
+            "kind": "diamond",
+            "x": 270,
+            "y": 500,
+            "radius": 15,
+            "value": 600,
+            "weight": 1.6,
+            "grabbed": false
+          },
+          {
+            "id": 2,
+            "kind": "gold_s",
+            "x": 570,
+            "y": 285,
+            "radius": 16,
+            "value": 50,
+            "weight": 2.4,
+            "grabbed": false
+          },
+          {
+            "id": 3,
+            "kind": "rock_l",
+            "x": 427.61017025338214,
+            "y": 383.053889174369,
+            "radius": 32,
+            "value": 20,
+            "weight": 17,
+            "grabbed": true
+          }
+        ]
+      },
+      "action": {
+        "type": "wait"
+      },
+      "source": "forced_wait",
+      "latencyMs": 0,
+      "usage": null,
+      "modelVersion": null,
+      "result": {
+        "observation": {
+          "frame": 390,
+          "steps": 13,
+          "timeLeft": 5.5,
+          "score": 0,
+          "quota": 650,
+          "claw": {
+            "angle": -0.18788310181764528,
+            "direction": -1,
+            "speed": 1.18,
+            "state": "retract",
+            "length": 223.05882352941202,
+            "carrying": 3
+          },
+          "physics": {
+            "hz": 60,
+            "decisionFrames": 30,
+            "left": 0,
+            "right": 960,
+            "top": 212,
+            "bottom": 614,
+            "pivot": {
+              "x": 480,
+              "y": 107.5
+            },
+            "maxAngle": 1.3264502315156903,
+            "maxLen": 760,
+            "restingLength": 76,
+            "clawRadius": 15,
+            "extendSpeed": 680,
+            "emptyReturnSpeed": 1020,
+            "pullBase": 900,
+            "pullMin": 48,
+            "pullMax": 620
+          },
+          "objects": [
+            {
+              "id": 0,
+              "kind": "gold_xl",
+              "x": 710,
+              "y": 540,
+              "radius": 37,
+              "value": 500,
+              "weight": 12,
+              "grabbed": false
+            },
+            {
+              "id": 1,
+              "kind": "diamond",
+              "x": 270,
+              "y": 500,
+              "radius": 15,
+              "value": 600,
+              "weight": 1.6,
+              "grabbed": false
+            },
+            {
+              "id": 2,
+              "kind": "gold_s",
+              "x": 570,
+              "y": 285,
+              "radius": 16,
+              "value": 50,
+              "weight": 2.4,
+              "grabbed": false
+            },
+            {
+              "id": 3,
+              "kind": "rock_l",
+              "x": 431.89511563282963,
+              "y": 360.51643543731575,
+              "radius": 32,
+              "value": 20,
+              "weight": 17,
+              "grabbed": true
+            }
+          ]
+        },
+        "events": [],
+        "outcome": {
+          "terminal": false,
+          "reason": "ongoing",
+          "success": false,
+          "score": 0,
+          "quota": 650,
+          "simulatedSeconds": 6.5,
+          "steps": 13
+        }
+      }
+    },
+    {
+      "observation": {
+        "frame": 390,
+        "steps": 13,
+        "timeLeft": 5.5,
+        "score": 0,
+        "quota": 650,
+        "claw": {
+          "angle": -0.18788310181764528,
+          "direction": -1,
+          "speed": 1.18,
+          "state": "retract",
+          "length": 223.05882352941202,
+          "carrying": 3
+        },
+        "physics": {
+          "hz": 60,
+          "decisionFrames": 30,
+          "left": 0,
+          "right": 960,
+          "top": 212,
+          "bottom": 614,
+          "pivot": {
+            "x": 480,
+            "y": 107.5
+          },
+          "maxAngle": 1.3264502315156903,
+          "maxLen": 760,
+          "restingLength": 76,
+          "clawRadius": 15,
+          "extendSpeed": 680,
+          "emptyReturnSpeed": 1020,
+          "pullBase": 900,
+          "pullMin": 48,
+          "pullMax": 620
+        },
+        "objects": [
+          {
+            "id": 0,
+            "kind": "gold_xl",
+            "x": 710,
+            "y": 540,
+            "radius": 37,
+            "value": 500,
+            "weight": 12,
+            "grabbed": false
+          },
+          {
+            "id": 1,
+            "kind": "diamond",
+            "x": 270,
+            "y": 500,
+            "radius": 15,
+            "value": 600,
+            "weight": 1.6,
+            "grabbed": false
+          },
+          {
+            "id": 2,
+            "kind": "gold_s",
+            "x": 570,
+            "y": 285,
+            "radius": 16,
+            "value": 50,
+            "weight": 2.4,
+            "grabbed": false
+          },
+          {
+            "id": 3,
+            "kind": "rock_l",
+            "x": 431.89511563282963,
+            "y": 360.51643543731575,
+            "radius": 32,
+            "value": 20,
+            "weight": 17,
+            "grabbed": true
+          }
+        ]
+      },
+      "action": {
+        "type": "wait"
+      },
+      "source": "forced_wait",
+      "latencyMs": 0,
+      "usage": null,
+      "modelVersion": null,
+      "result": {
+        "observation": {
+          "frame": 420,
+          "steps": 14,
+          "timeLeft": 5,
+          "score": 0,
+          "quota": 650,
+          "claw": {
+            "angle": -0.18788310181764528,
+            "direction": -1,
+            "speed": 1.18,
+            "state": "retract",
+            "length": 196.5882352941181,
+            "carrying": 3
+          },
+          "physics": {
+            "hz": 60,
+            "decisionFrames": 30,
+            "left": 0,
+            "right": 960,
+            "top": 212,
+            "bottom": 614,
+            "pivot": {
+              "x": 480,
+              "y": 107.5
+            },
+            "maxAngle": 1.3264502315156903,
+            "maxLen": 760,
+            "restingLength": 76,
+            "clawRadius": 15,
+            "extendSpeed": 680,
+            "emptyReturnSpeed": 1020,
+            "pullBase": 900,
+            "pullMin": 48,
+            "pullMax": 620
+          },
+          "objects": [
+            {
+              "id": 0,
+              "kind": "gold_xl",
+              "x": 710,
+              "y": 540,
+              "radius": 37,
+              "value": 500,
+              "weight": 12,
+              "grabbed": false
+            },
+            {
+              "id": 1,
+              "kind": "diamond",
+              "x": 270,
+              "y": 500,
+              "radius": 15,
+              "value": 600,
+              "weight": 1.6,
+              "grabbed": false
+            },
+            {
+              "id": 2,
+              "kind": "gold_s",
+              "x": 570,
+              "y": 285,
+              "radius": 16,
+              "value": 50,
+              "weight": 2.4,
+              "grabbed": false
+            },
+            {
+              "id": 3,
+              "kind": "rock_l",
+              "x": 436.83928337834595,
+              "y": 334.5116811253313,
+              "radius": 32,
+              "value": 20,
+              "weight": 17,
+              "grabbed": true
+            }
+          ]
+        },
+        "events": [],
+        "outcome": {
+          "terminal": false,
+          "reason": "ongoing",
+          "success": false,
+          "score": 0,
+          "quota": 650,
+          "simulatedSeconds": 7,
+          "steps": 14
+        }
+      }
+    },
+    {
+      "observation": {
+        "frame": 420,
+        "steps": 14,
+        "timeLeft": 5,
+        "score": 0,
+        "quota": 650,
+        "claw": {
+          "angle": -0.18788310181764528,
+          "direction": -1,
+          "speed": 1.18,
+          "state": "retract",
+          "length": 196.5882352941181,
+          "carrying": 3
+        },
+        "physics": {
+          "hz": 60,
+          "decisionFrames": 30,
+          "left": 0,
+          "right": 960,
+          "top": 212,
+          "bottom": 614,
+          "pivot": {
+            "x": 480,
+            "y": 107.5
+          },
+          "maxAngle": 1.3264502315156903,
+          "maxLen": 760,
+          "restingLength": 76,
+          "clawRadius": 15,
+          "extendSpeed": 680,
+          "emptyReturnSpeed": 1020,
+          "pullBase": 900,
+          "pullMin": 48,
+          "pullMax": 620
+        },
+        "objects": [
+          {
+            "id": 0,
+            "kind": "gold_xl",
+            "x": 710,
+            "y": 540,
+            "radius": 37,
+            "value": 500,
+            "weight": 12,
+            "grabbed": false
+          },
+          {
+            "id": 1,
+            "kind": "diamond",
+            "x": 270,
+            "y": 500,
+            "radius": 15,
+            "value": 600,
+            "weight": 1.6,
+            "grabbed": false
+          },
+          {
+            "id": 2,
+            "kind": "gold_s",
+            "x": 570,
+            "y": 285,
+            "radius": 16,
+            "value": 50,
+            "weight": 2.4,
+            "grabbed": false
+          },
+          {
+            "id": 3,
+            "kind": "rock_l",
+            "x": 436.83928337834595,
+            "y": 334.5116811253313,
+            "radius": 32,
+            "value": 20,
+            "weight": 17,
+            "grabbed": true
+          }
+        ]
+      },
+      "action": {
+        "type": "wait"
+      },
+      "source": "forced_wait",
+      "latencyMs": 0,
+      "usage": null,
+      "modelVersion": null,
+      "result": {
+        "observation": {
+          "frame": 450,
+          "steps": 15,
+          "timeLeft": 4.5,
+          "score": 0,
+          "quota": 650,
+          "claw": {
+            "angle": -0.18788310181764528,
+            "direction": -1,
+            "speed": 1.18,
+            "state": "retract",
+            "length": 170.1176470588242,
+            "carrying": 3
+          },
+          "physics": {
+            "hz": 60,
+            "decisionFrames": 30,
+            "left": 0,
+            "right": 960,
+            "top": 212,
+            "bottom": 614,
+            "pivot": {
+              "x": 480,
+              "y": 107.5
+            },
+            "maxAngle": 1.3264502315156903,
+            "maxLen": 760,
+            "restingLength": 76,
+            "clawRadius": 15,
+            "extendSpeed": 680,
+            "emptyReturnSpeed": 1020,
+            "pullBase": 900,
+            "pullMin": 48,
+            "pullMax": 620
+          },
+          "objects": [
+            {
+              "id": 0,
+              "kind": "gold_xl",
+              "x": 710,
+              "y": 540,
+              "radius": 37,
+              "value": 500,
+              "weight": 12,
+              "grabbed": false
+            },
+            {
+              "id": 1,
+              "kind": "diamond",
+              "x": 270,
+              "y": 500,
+              "radius": 15,
+              "value": 600,
+              "weight": 1.6,
+              "grabbed": false
+            },
+            {
+              "id": 2,
+              "kind": "gold_s",
+              "x": 570,
+              "y": 285,
+              "radius": 16,
+              "value": 50,
+              "weight": 2.4,
+              "grabbed": false
+            },
+            {
+              "id": 3,
+              "kind": "rock_l",
+              "x": 441.7834511238623,
+              "y": 308.5069268133468,
+              "radius": 32,
+              "value": 20,
+              "weight": 17,
+              "grabbed": true
+            }
+          ]
+        },
+        "events": [],
+        "outcome": {
+          "terminal": false,
+          "reason": "ongoing",
+          "success": false,
+          "score": 0,
+          "quota": 650,
+          "simulatedSeconds": 7.5,
+          "steps": 15
+        }
+      }
+    },
+    {
+      "observation": {
+        "frame": 450,
+        "steps": 15,
+        "timeLeft": 4.5,
+        "score": 0,
+        "quota": 650,
+        "claw": {
+          "angle": -0.18788310181764528,
+          "direction": -1,
+          "speed": 1.18,
+          "state": "retract",
+          "length": 170.1176470588242,
+          "carrying": 3
+        },
+        "physics": {
+          "hz": 60,
+          "decisionFrames": 30,
+          "left": 0,
+          "right": 960,
+          "top": 212,
+          "bottom": 614,
+          "pivot": {
+            "x": 480,
+            "y": 107.5
+          },
+          "maxAngle": 1.3264502315156903,
+          "maxLen": 760,
+          "restingLength": 76,
+          "clawRadius": 15,
+          "extendSpeed": 680,
+          "emptyReturnSpeed": 1020,
+          "pullBase": 900,
+          "pullMin": 48,
+          "pullMax": 620
+        },
+        "objects": [
+          {
+            "id": 0,
+            "kind": "gold_xl",
+            "x": 710,
+            "y": 540,
+            "radius": 37,
+            "value": 500,
+            "weight": 12,
+            "grabbed": false
+          },
+          {
+            "id": 1,
+            "kind": "diamond",
+            "x": 270,
+            "y": 500,
+            "radius": 15,
+            "value": 600,
+            "weight": 1.6,
+            "grabbed": false
+          },
+          {
+            "id": 2,
+            "kind": "gold_s",
+            "x": 570,
+            "y": 285,
+            "radius": 16,
+            "value": 50,
+            "weight": 2.4,
+            "grabbed": false
+          },
+          {
+            "id": 3,
+            "kind": "rock_l",
+            "x": 441.7834511238623,
+            "y": 308.5069268133468,
+            "radius": 32,
+            "value": 20,
+            "weight": 17,
+            "grabbed": true
+          }
+        ]
+      },
+      "action": {
+        "type": "wait"
+      },
+      "source": "forced_wait",
+      "latencyMs": 0,
+      "usage": null,
+      "modelVersion": null,
+      "result": {
+        "observation": {
+          "frame": 480,
+          "steps": 16,
+          "timeLeft": 4,
+          "score": 0,
+          "quota": 650,
+          "claw": {
+            "angle": -0.18788310181764528,
+            "direction": -1,
+            "speed": 1.18,
+            "state": "retract",
+            "length": 143.64705882353027,
+            "carrying": 3
+          },
+          "physics": {
+            "hz": 60,
+            "decisionFrames": 30,
+            "left": 0,
+            "right": 960,
+            "top": 212,
+            "bottom": 614,
+            "pivot": {
+              "x": 480,
+              "y": 107.5
+            },
+            "maxAngle": 1.3264502315156903,
+            "maxLen": 760,
+            "restingLength": 76,
+            "clawRadius": 15,
+            "extendSpeed": 680,
+            "emptyReturnSpeed": 1020,
+            "pullBase": 900,
+            "pullMin": 48,
+            "pullMax": 620
+          },
+          "objects": [
+            {
+              "id": 0,
+              "kind": "gold_xl",
+              "x": 710,
+              "y": 540,
+              "radius": 37,
+              "value": 500,
+              "weight": 12,
+              "grabbed": false
+            },
+            {
+              "id": 1,
+              "kind": "diamond",
+              "x": 270,
+              "y": 500,
+              "radius": 15,
+              "value": 600,
+              "weight": 1.6,
+              "grabbed": false
+            },
+            {
+              "id": 2,
+              "kind": "gold_s",
+              "x": 570,
+              "y": 285,
+              "radius": 16,
+              "value": 50,
+              "weight": 2.4,
+              "grabbed": false
+            },
+            {
+              "id": 3,
+              "kind": "rock_l",
+              "x": 446.7276188693786,
+              "y": 282.5021725013623,
+              "radius": 32,
+              "value": 20,
+              "weight": 17,
+              "grabbed": true
+            }
+          ]
+        },
+        "events": [],
+        "outcome": {
+          "terminal": false,
+          "reason": "ongoing",
+          "success": false,
+          "score": 0,
+          "quota": 650,
+          "simulatedSeconds": 8,
+          "steps": 16
+        }
+      }
+    },
+    {
+      "observation": {
+        "frame": 480,
+        "steps": 16,
+        "timeLeft": 4,
+        "score": 0,
+        "quota": 650,
+        "claw": {
+          "angle": -0.18788310181764528,
+          "direction": -1,
+          "speed": 1.18,
+          "state": "retract",
+          "length": 143.64705882353027,
+          "carrying": 3
+        },
+        "physics": {
+          "hz": 60,
+          "decisionFrames": 30,
+          "left": 0,
+          "right": 960,
+          "top": 212,
+          "bottom": 614,
+          "pivot": {
+            "x": 480,
+            "y": 107.5
+          },
+          "maxAngle": 1.3264502315156903,
+          "maxLen": 760,
+          "restingLength": 76,
+          "clawRadius": 15,
+          "extendSpeed": 680,
+          "emptyReturnSpeed": 1020,
+          "pullBase": 900,
+          "pullMin": 48,
+          "pullMax": 620
+        },
+        "objects": [
+          {
+            "id": 0,
+            "kind": "gold_xl",
+            "x": 710,
+            "y": 540,
+            "radius": 37,
+            "value": 500,
+            "weight": 12,
+            "grabbed": false
+          },
+          {
+            "id": 1,
+            "kind": "diamond",
+            "x": 270,
+            "y": 500,
+            "radius": 15,
+            "value": 600,
+            "weight": 1.6,
+            "grabbed": false
+          },
+          {
+            "id": 2,
+            "kind": "gold_s",
+            "x": 570,
+            "y": 285,
+            "radius": 16,
+            "value": 50,
+            "weight": 2.4,
+            "grabbed": false
+          },
+          {
+            "id": 3,
+            "kind": "rock_l",
+            "x": 446.7276188693786,
+            "y": 282.5021725013623,
+            "radius": 32,
+            "value": 20,
+            "weight": 17,
+            "grabbed": true
+          }
+        ]
+      },
+      "action": {
+        "type": "wait"
+      },
+      "source": "forced_wait",
+      "latencyMs": 0,
+      "usage": null,
+      "modelVersion": null,
+      "result": {
+        "observation": {
+          "frame": 510,
+          "steps": 17,
+          "timeLeft": 3.5,
+          "score": 0,
+          "quota": 650,
+          "claw": {
+            "angle": -0.18788310181764528,
+            "direction": -1,
+            "speed": 1.18,
+            "state": "retract",
+            "length": 117.17647058823636,
+            "carrying": 3
+          },
+          "physics": {
+            "hz": 60,
+            "decisionFrames": 30,
+            "left": 0,
+            "right": 960,
+            "top": 212,
+            "bottom": 614,
+            "pivot": {
+              "x": 480,
+              "y": 107.5
+            },
+            "maxAngle": 1.3264502315156903,
+            "maxLen": 760,
+            "restingLength": 76,
+            "clawRadius": 15,
+            "extendSpeed": 680,
+            "emptyReturnSpeed": 1020,
+            "pullBase": 900,
+            "pullMin": 48,
+            "pullMax": 620
+          },
+          "objects": [
+            {
+              "id": 0,
+              "kind": "gold_xl",
+              "x": 710,
+              "y": 540,
+              "radius": 37,
+              "value": 500,
+              "weight": 12,
+              "grabbed": false
+            },
+            {
+              "id": 1,
+              "kind": "diamond",
+              "x": 270,
+              "y": 500,
+              "radius": 15,
+              "value": 600,
+              "weight": 1.6,
+              "grabbed": false
+            },
+            {
+              "id": 2,
+              "kind": "gold_s",
+              "x": 570,
+              "y": 285,
+              "radius": 16,
+              "value": 50,
+              "weight": 2.4,
+              "grabbed": false
+            },
+            {
+              "id": 3,
+              "kind": "rock_l",
+              "x": 451.6717866148949,
+              "y": 256.49741818937775,
+              "radius": 32,
+              "value": 20,
+              "weight": 17,
+              "grabbed": true
+            }
+          ]
+        },
+        "events": [],
+        "outcome": {
+          "terminal": false,
+          "reason": "ongoing",
+          "success": false,
+          "score": 0,
+          "quota": 650,
+          "simulatedSeconds": 8.5,
+          "steps": 17
+        }
+      }
+    },
+    {
+      "observation": {
+        "frame": 510,
+        "steps": 17,
+        "timeLeft": 3.5,
+        "score": 0,
+        "quota": 650,
+        "claw": {
+          "angle": -0.18788310181764528,
+          "direction": -1,
+          "speed": 1.18,
+          "state": "retract",
+          "length": 117.17647058823636,
+          "carrying": 3
+        },
+        "physics": {
+          "hz": 60,
+          "decisionFrames": 30,
+          "left": 0,
+          "right": 960,
+          "top": 212,
+          "bottom": 614,
+          "pivot": {
+            "x": 480,
+            "y": 107.5
+          },
+          "maxAngle": 1.3264502315156903,
+          "maxLen": 760,
+          "restingLength": 76,
+          "clawRadius": 15,
+          "extendSpeed": 680,
+          "emptyReturnSpeed": 1020,
+          "pullBase": 900,
+          "pullMin": 48,
+          "pullMax": 620
+        },
+        "objects": [
+          {
+            "id": 0,
+            "kind": "gold_xl",
+            "x": 710,
+            "y": 540,
+            "radius": 37,
+            "value": 500,
+            "weight": 12,
+            "grabbed": false
+          },
+          {
+            "id": 1,
+            "kind": "diamond",
+            "x": 270,
+            "y": 500,
+            "radius": 15,
+            "value": 600,
+            "weight": 1.6,
+            "grabbed": false
+          },
+          {
+            "id": 2,
+            "kind": "gold_s",
+            "x": 570,
+            "y": 285,
+            "radius": 16,
+            "value": 50,
+            "weight": 2.4,
+            "grabbed": false
+          },
+          {
+            "id": 3,
+            "kind": "rock_l",
+            "x": 451.6717866148949,
+            "y": 256.49741818937775,
+            "radius": 32,
+            "value": 20,
+            "weight": 17,
+            "grabbed": true
+          }
+        ]
+      },
+      "action": {
+        "type": "wait"
+      },
+      "source": "forced_wait",
+      "latencyMs": 0,
+      "usage": null,
+      "modelVersion": null,
+      "result": {
+        "observation": {
+          "frame": 540,
+          "steps": 18,
+          "timeLeft": 3,
+          "score": 0,
+          "quota": 650,
+          "claw": {
+            "angle": -0.18788310181764528,
+            "direction": -1,
+            "speed": 1.18,
+            "state": "retract",
+            "length": 90.70588235294244,
+            "carrying": 3
+          },
+          "physics": {
+            "hz": 60,
+            "decisionFrames": 30,
+            "left": 0,
+            "right": 960,
+            "top": 212,
+            "bottom": 614,
+            "pivot": {
+              "x": 480,
+              "y": 107.5
+            },
+            "maxAngle": 1.3264502315156903,
+            "maxLen": 760,
+            "restingLength": 76,
+            "clawRadius": 15,
+            "extendSpeed": 680,
+            "emptyReturnSpeed": 1020,
+            "pullBase": 900,
+            "pullMin": 48,
+            "pullMax": 620
+          },
+          "objects": [
+            {
+              "id": 0,
+              "kind": "gold_xl",
+              "x": 710,
+              "y": 540,
+              "radius": 37,
+              "value": 500,
+              "weight": 12,
+              "grabbed": false
+            },
+            {
+              "id": 1,
+              "kind": "diamond",
+              "x": 270,
+              "y": 500,
+              "radius": 15,
+              "value": 600,
+              "weight": 1.6,
+              "grabbed": false
+            },
+            {
+              "id": 2,
+              "kind": "gold_s",
+              "x": 570,
+              "y": 285,
+              "radius": 16,
+              "value": 50,
+              "weight": 2.4,
+              "grabbed": false
+            },
+            {
+              "id": 3,
+              "kind": "rock_l",
+              "x": 456.61595436041125,
+              "y": 230.49266387739323,
+              "radius": 32,
+              "value": 20,
+              "weight": 17,
+              "grabbed": true
+            }
+          ]
+        },
+        "events": [],
+        "outcome": {
+          "terminal": false,
+          "reason": "ongoing",
+          "success": false,
+          "score": 0,
+          "quota": 650,
+          "simulatedSeconds": 9,
+          "steps": 18
+        }
+      }
+    },
+    {
+      "observation": {
+        "frame": 540,
+        "steps": 18,
+        "timeLeft": 3,
+        "score": 0,
+        "quota": 650,
+        "claw": {
+          "angle": -0.18788310181764528,
+          "direction": -1,
+          "speed": 1.18,
+          "state": "retract",
+          "length": 90.70588235294244,
+          "carrying": 3
+        },
+        "physics": {
+          "hz": 60,
+          "decisionFrames": 30,
+          "left": 0,
+          "right": 960,
+          "top": 212,
+          "bottom": 614,
+          "pivot": {
+            "x": 480,
+            "y": 107.5
+          },
+          "maxAngle": 1.3264502315156903,
+          "maxLen": 760,
+          "restingLength": 76,
+          "clawRadius": 15,
+          "extendSpeed": 680,
+          "emptyReturnSpeed": 1020,
+          "pullBase": 900,
+          "pullMin": 48,
+          "pullMax": 620
+        },
+        "objects": [
+          {
+            "id": 0,
+            "kind": "gold_xl",
+            "x": 710,
+            "y": 540,
+            "radius": 37,
+            "value": 500,
+            "weight": 12,
+            "grabbed": false
+          },
+          {
+            "id": 1,
+            "kind": "diamond",
+            "x": 270,
+            "y": 500,
+            "radius": 15,
+            "value": 600,
+            "weight": 1.6,
+            "grabbed": false
+          },
+          {
+            "id": 2,
+            "kind": "gold_s",
+            "x": 570,
+            "y": 285,
+            "radius": 16,
+            "value": 50,
+            "weight": 2.4,
+            "grabbed": false
+          },
+          {
+            "id": 3,
+            "kind": "rock_l",
+            "x": 456.61595436041125,
+            "y": 230.49266387739323,
+            "radius": 32,
+            "value": 20,
+            "weight": 17,
+            "grabbed": true
+          }
+        ]
+      },
+      "action": {
+        "type": "wait"
+      },
+      "source": "forced_wait",
+      "latencyMs": 0,
+      "usage": null,
+      "modelVersion": null,
+      "result": {
+        "observation": {
+          "frame": 570,
+          "steps": 19,
+          "timeLeft": 2.5,
+          "score": 20,
+          "quota": 650,
+          "claw": {
+            "angle": -0.44354976848431193,
+            "direction": -1,
+            "speed": 1.18,
+            "state": "swing",
+            "length": 76,
+            "carrying": null
+          },
+          "physics": {
+            "hz": 60,
+            "decisionFrames": 30,
+            "left": 0,
+            "right": 960,
+            "top": 212,
+            "bottom": 614,
+            "pivot": {
+              "x": 480,
+              "y": 107.5
+            },
+            "maxAngle": 1.3264502315156903,
+            "maxLen": 760,
+            "restingLength": 76,
+            "clawRadius": 15,
+            "extendSpeed": 680,
+            "emptyReturnSpeed": 1020,
+            "pullBase": 900,
+            "pullMin": 48,
+            "pullMax": 620
+          },
+          "objects": [
+            {
+              "id": 0,
+              "kind": "gold_xl",
+              "x": 710,
+              "y": 540,
+              "radius": 37,
+              "value": 500,
+              "weight": 12,
+              "grabbed": false
+            },
+            {
+              "id": 1,
+              "kind": "diamond",
+              "x": 270,
+              "y": 500,
+              "radius": 15,
+              "value": 600,
+              "weight": 1.6,
+              "grabbed": false
+            },
+            {
+              "id": 2,
+              "kind": "gold_s",
+              "x": 570,
+              "y": 285,
+              "radius": 16,
+              "value": 50,
+              "weight": 2.4,
+              "grabbed": false
+            }
+          ]
+        },
+        "events": [
+          {
+            "type": "delivery",
+            "id": 3,
+            "value": 20,
+            "frame": 557
+          }
+        ],
+        "outcome": {
+          "terminal": false,
+          "reason": "ongoing",
+          "success": false,
+          "score": 20,
+          "quota": 650,
+          "simulatedSeconds": 9.5,
+          "steps": 19
+        }
+      }
+    },
+    {
+      "observation": {
+        "frame": 570,
+        "steps": 19,
+        "timeLeft": 2.5,
+        "score": 20,
+        "quota": 650,
+        "claw": {
+          "angle": -0.44354976848431193,
+          "direction": -1,
+          "speed": 1.18,
+          "state": "swing",
+          "length": 76,
+          "carrying": null
+        },
+        "physics": {
+          "hz": 60,
+          "decisionFrames": 30,
+          "left": 0,
+          "right": 960,
+          "top": 212,
+          "bottom": 614,
+          "pivot": {
+            "x": 480,
+            "y": 107.5
+          },
+          "maxAngle": 1.3264502315156903,
+          "maxLen": 760,
+          "restingLength": 76,
+          "clawRadius": 15,
+          "extendSpeed": 680,
+          "emptyReturnSpeed": 1020,
+          "pullBase": 900,
+          "pullMin": 48,
+          "pullMax": 620
+        },
+        "objects": [
+          {
+            "id": 0,
+            "kind": "gold_xl",
+            "x": 710,
+            "y": 540,
+            "radius": 37,
+            "value": 500,
+            "weight": 12,
+            "grabbed": false
+          },
+          {
+            "id": 1,
+            "kind": "diamond",
+            "x": 270,
+            "y": 500,
+            "radius": 15,
+            "value": 600,
+            "weight": 1.6,
+            "grabbed": false
+          },
+          {
+            "id": 2,
+            "kind": "gold_s",
+            "x": 570,
+            "y": 285,
+            "radius": 16,
+            "value": 50,
+            "weight": 2.4,
+            "grabbed": false
+          }
+        ]
+      },
+      "action": {
+        "type": "wait"
+      },
+      "source": "player",
+      "latencyMs": 702.7575730000099,
+      "usage": {
+        "inputTokens": 3902,
+        "outputTokens": 5
+      },
+      "modelVersion": "gemini-3.5-flash-lite",
+      "result": {
+        "observation": {
+          "frame": 600,
+          "steps": 20,
+          "timeLeft": 2,
+          "score": 20,
+          "quota": 650,
+          "claw": {
+            "angle": -1.0335497684843133,
+            "direction": -1,
+            "speed": 1.18,
+            "state": "swing",
+            "length": 76,
+            "carrying": null
+          },
+          "physics": {
+            "hz": 60,
+            "decisionFrames": 30,
+            "left": 0,
+            "right": 960,
+            "top": 212,
+            "bottom": 614,
+            "pivot": {
+              "x": 480,
+              "y": 107.5
+            },
+            "maxAngle": 1.3264502315156903,
+            "maxLen": 760,
+            "restingLength": 76,
+            "clawRadius": 15,
+            "extendSpeed": 680,
+            "emptyReturnSpeed": 1020,
+            "pullBase": 900,
+            "pullMin": 48,
+            "pullMax": 620
+          },
+          "objects": [
+            {
+              "id": 0,
+              "kind": "gold_xl",
+              "x": 710,
+              "y": 540,
+              "radius": 37,
+              "value": 500,
+              "weight": 12,
+              "grabbed": false
+            },
+            {
+              "id": 1,
+              "kind": "diamond",
+              "x": 270,
+              "y": 500,
+              "radius": 15,
+              "value": 600,
+              "weight": 1.6,
+              "grabbed": false
+            },
+            {
+              "id": 2,
+              "kind": "gold_s",
+              "x": 570,
+              "y": 285,
+              "radius": 16,
+              "value": 50,
+              "weight": 2.4,
+              "grabbed": false
+            }
+          ]
+        },
+        "events": [],
+        "outcome": {
+          "terminal": false,
+          "reason": "ongoing",
+          "success": false,
+          "score": 20,
+          "quota": 650,
+          "simulatedSeconds": 10,
+          "steps": 20
+        }
+      }
+    },
+    {
+      "observation": {
+        "frame": 600,
+        "steps": 20,
+        "timeLeft": 2,
+        "score": 20,
+        "quota": 650,
+        "claw": {
+          "angle": -1.0335497684843133,
+          "direction": -1,
+          "speed": 1.18,
+          "state": "swing",
+          "length": 76,
+          "carrying": null
+        },
+        "physics": {
+          "hz": 60,
+          "decisionFrames": 30,
+          "left": 0,
+          "right": 960,
+          "top": 212,
+          "bottom": 614,
+          "pivot": {
+            "x": 480,
+            "y": 107.5
+          },
+          "maxAngle": 1.3264502315156903,
+          "maxLen": 760,
+          "restingLength": 76,
+          "clawRadius": 15,
+          "extendSpeed": 680,
+          "emptyReturnSpeed": 1020,
+          "pullBase": 900,
+          "pullMin": 48,
+          "pullMax": 620
+        },
+        "objects": [
+          {
+            "id": 0,
+            "kind": "gold_xl",
+            "x": 710,
+            "y": 540,
+            "radius": 37,
+            "value": 500,
+            "weight": 12,
+            "grabbed": false
+          },
+          {
+            "id": 1,
+            "kind": "diamond",
+            "x": 270,
+            "y": 500,
+            "radius": 15,
+            "value": 600,
+            "weight": 1.6,
+            "grabbed": false
+          },
+          {
+            "id": 2,
+            "kind": "gold_s",
+            "x": 570,
+            "y": 285,
+            "radius": 16,
+            "value": 50,
+            "weight": 2.4,
+            "grabbed": false
+          }
+        ]
+      },
+      "action": {
+        "type": "wait"
+      },
+      "source": "player",
+      "latencyMs": 731.8946770000039,
+      "usage": {
+        "inputTokens": 3823,
+        "outputTokens": 11
+      },
+      "modelVersion": "gemini-3.5-flash-lite",
+      "result": {
+        "observation": {
+          "frame": 630,
+          "steps": 21,
+          "timeLeft": 1.5,
+          "score": 20,
+          "quota": 650,
+          "claw": {
+            "angle": -1.0314502315156895,
+            "direction": 1,
+            "speed": 1.18,
+            "state": "swing",
+            "length": 76,
+            "carrying": null
+          },
+          "physics": {
+            "hz": 60,
+            "decisionFrames": 30,
+            "left": 0,
+            "right": 960,
+            "top": 212,
+            "bottom": 614,
+            "pivot": {
+              "x": 480,
+              "y": 107.5
+            },
+            "maxAngle": 1.3264502315156903,
+            "maxLen": 760,
+            "restingLength": 76,
+            "clawRadius": 15,
+            "extendSpeed": 680,
+            "emptyReturnSpeed": 1020,
+            "pullBase": 900,
+            "pullMin": 48,
+            "pullMax": 620
+          },
+          "objects": [
+            {
+              "id": 0,
+              "kind": "gold_xl",
+              "x": 710,
+              "y": 540,
+              "radius": 37,
+              "value": 500,
+              "weight": 12,
+              "grabbed": false
+            },
+            {
+              "id": 1,
+              "kind": "diamond",
+              "x": 270,
+              "y": 500,
+              "radius": 15,
+              "value": 600,
+              "weight": 1.6,
+              "grabbed": false
+            },
+            {
+              "id": 2,
+              "kind": "gold_s",
+              "x": 570,
+              "y": 285,
+              "radius": 16,
+              "value": 50,
+              "weight": 2.4,
+              "grabbed": false
+            }
+          ]
+        },
+        "events": [],
+        "outcome": {
+          "terminal": false,
+          "reason": "ongoing",
+          "success": false,
+          "score": 20,
+          "quota": 650,
+          "simulatedSeconds": 10.5,
+          "steps": 21
+        }
+      }
+    },
+    {
+      "observation": {
+        "frame": 630,
+        "steps": 21,
+        "timeLeft": 1.5,
+        "score": 20,
+        "quota": 650,
+        "claw": {
+          "angle": -1.0314502315156895,
+          "direction": 1,
+          "speed": 1.18,
+          "state": "swing",
+          "length": 76,
+          "carrying": null
+        },
+        "physics": {
+          "hz": 60,
+          "decisionFrames": 30,
+          "left": 0,
+          "right": 960,
+          "top": 212,
+          "bottom": 614,
+          "pivot": {
+            "x": 480,
+            "y": 107.5
+          },
+          "maxAngle": 1.3264502315156903,
+          "maxLen": 760,
+          "restingLength": 76,
+          "clawRadius": 15,
+          "extendSpeed": 680,
+          "emptyReturnSpeed": 1020,
+          "pullBase": 900,
+          "pullMin": 48,
+          "pullMax": 620
+        },
+        "objects": [
+          {
+            "id": 0,
+            "kind": "gold_xl",
+            "x": 710,
+            "y": 540,
+            "radius": 37,
+            "value": 500,
+            "weight": 12,
+            "grabbed": false
+          },
+          {
+            "id": 1,
+            "kind": "diamond",
+            "x": 270,
+            "y": 500,
+            "radius": 15,
+            "value": 600,
+            "weight": 1.6,
+            "grabbed": false
+          },
+          {
+            "id": 2,
+            "kind": "gold_s",
+            "x": 570,
+            "y": 285,
+            "radius": 16,
+            "value": 50,
+            "weight": 2.4,
+            "grabbed": false
+          }
+        ]
+      },
+      "action": {
+        "type": "wait"
+      },
+      "source": "player",
+      "latencyMs": 776.3474390000047,
+      "usage": {
+        "inputTokens": 3732,
+        "outputTokens": 11
+      },
+      "modelVersion": "gemini-3.5-flash-lite",
+      "result": {
+        "observation": {
+          "frame": 660,
+          "steps": 22,
+          "timeLeft": 1,
+          "score": 20,
+          "quota": 650,
+          "claw": {
+            "angle": -0.441450231515688,
+            "direction": 1,
+            "speed": 1.18,
+            "state": "swing",
+            "length": 76,
+            "carrying": null
+          },
+          "physics": {
+            "hz": 60,
+            "decisionFrames": 30,
+            "left": 0,
+            "right": 960,
+            "top": 212,
+            "bottom": 614,
+            "pivot": {
+              "x": 480,
+              "y": 107.5
+            },
+            "maxAngle": 1.3264502315156903,
+            "maxLen": 760,
+            "restingLength": 76,
+            "clawRadius": 15,
+            "extendSpeed": 680,
+            "emptyReturnSpeed": 1020,
+            "pullBase": 900,
+            "pullMin": 48,
+            "pullMax": 620
+          },
+          "objects": [
+            {
+              "id": 0,
+              "kind": "gold_xl",
+              "x": 710,
+              "y": 540,
+              "radius": 37,
+              "value": 500,
+              "weight": 12,
+              "grabbed": false
+            },
+            {
+              "id": 1,
+              "kind": "diamond",
+              "x": 270,
+              "y": 500,
+              "radius": 15,
+              "value": 600,
+              "weight": 1.6,
+              "grabbed": false
+            },
+            {
+              "id": 2,
+              "kind": "gold_s",
+              "x": 570,
+              "y": 285,
+              "radius": 16,
+              "value": 50,
+              "weight": 2.4,
+              "grabbed": false
+            }
+          ]
+        },
+        "events": [],
+        "outcome": {
+          "terminal": false,
+          "reason": "ongoing",
+          "success": false,
+          "score": 20,
+          "quota": 650,
+          "simulatedSeconds": 11,
+          "steps": 22
+        }
+      }
+    },
+    {
+      "observation": {
+        "frame": 660,
+        "steps": 22,
+        "timeLeft": 1,
+        "score": 20,
+        "quota": 650,
+        "claw": {
+          "angle": -0.441450231515688,
+          "direction": 1,
+          "speed": 1.18,
+          "state": "swing",
+          "length": 76,
+          "carrying": null
+        },
+        "physics": {
+          "hz": 60,
+          "decisionFrames": 30,
+          "left": 0,
+          "right": 960,
+          "top": 212,
+          "bottom": 614,
+          "pivot": {
+            "x": 480,
+            "y": 107.5
+          },
+          "maxAngle": 1.3264502315156903,
+          "maxLen": 760,
+          "restingLength": 76,
+          "clawRadius": 15,
+          "extendSpeed": 680,
+          "emptyReturnSpeed": 1020,
+          "pullBase": 900,
+          "pullMin": 48,
+          "pullMax": 620
+        },
+        "objects": [
+          {
+            "id": 0,
+            "kind": "gold_xl",
+            "x": 710,
+            "y": 540,
+            "radius": 37,
+            "value": 500,
+            "weight": 12,
+            "grabbed": false
+          },
+          {
+            "id": 1,
+            "kind": "diamond",
+            "x": 270,
+            "y": 500,
+            "radius": 15,
+            "value": 600,
+            "weight": 1.6,
+            "grabbed": false
+          },
+          {
+            "id": 2,
+            "kind": "gold_s",
+            "x": 570,
+            "y": 285,
+            "radius": 16,
+            "value": 50,
+            "weight": 2.4,
+            "grabbed": false
+          }
+        ]
+      },
+      "action": {
+        "type": "wait"
+      },
+      "source": "player",
+      "latencyMs": 774.7604419999989,
+      "usage": {
+        "inputTokens": 3644,
+        "outputTokens": 6
+      },
+      "modelVersion": "gemini-3.5-flash-lite",
+      "result": {
+        "observation": {
+          "frame": 690,
+          "steps": 23,
+          "timeLeft": 0.5,
+          "score": 20,
+          "quota": 650,
+          "claw": {
+            "angle": 0.14854976848431195,
+            "direction": 1,
+            "speed": 1.18,
+            "state": "swing",
+            "length": 76,
+            "carrying": null
+          },
+          "physics": {
+            "hz": 60,
+            "decisionFrames": 30,
+            "left": 0,
+            "right": 960,
+            "top": 212,
+            "bottom": 614,
+            "pivot": {
+              "x": 480,
+              "y": 107.5
+            },
+            "maxAngle": 1.3264502315156903,
+            "maxLen": 760,
+            "restingLength": 76,
+            "clawRadius": 15,
+            "extendSpeed": 680,
+            "emptyReturnSpeed": 1020,
+            "pullBase": 900,
+            "pullMin": 48,
+            "pullMax": 620
+          },
+          "objects": [
+            {
+              "id": 0,
+              "kind": "gold_xl",
+              "x": 710,
+              "y": 540,
+              "radius": 37,
+              "value": 500,
+              "weight": 12,
+              "grabbed": false
+            },
+            {
+              "id": 1,
+              "kind": "diamond",
+              "x": 270,
+              "y": 500,
+              "radius": 15,
+              "value": 600,
+              "weight": 1.6,
+              "grabbed": false
+            },
+            {
+              "id": 2,
+              "kind": "gold_s",
+              "x": 570,
+              "y": 285,
+              "radius": 16,
+              "value": 50,
+              "weight": 2.4,
+              "grabbed": false
+            }
+          ]
+        },
+        "events": [],
+        "outcome": {
+          "terminal": false,
+          "reason": "ongoing",
+          "success": false,
+          "score": 20,
+          "quota": 650,
+          "simulatedSeconds": 11.5,
+          "steps": 23
+        }
+      }
+    },
+    {
+      "observation": {
+        "frame": 690,
+        "steps": 23,
+        "timeLeft": 0.5,
+        "score": 20,
+        "quota": 650,
+        "claw": {
+          "angle": 0.14854976848431195,
+          "direction": 1,
+          "speed": 1.18,
+          "state": "swing",
+          "length": 76,
+          "carrying": null
+        },
+        "physics": {
+          "hz": 60,
+          "decisionFrames": 30,
+          "left": 0,
+          "right": 960,
+          "top": 212,
+          "bottom": 614,
+          "pivot": {
+            "x": 480,
+            "y": 107.5
+          },
+          "maxAngle": 1.3264502315156903,
+          "maxLen": 760,
+          "restingLength": 76,
+          "clawRadius": 15,
+          "extendSpeed": 680,
+          "emptyReturnSpeed": 1020,
+          "pullBase": 900,
+          "pullMin": 48,
+          "pullMax": 620
+        },
+        "objects": [
+          {
+            "id": 0,
+            "kind": "gold_xl",
+            "x": 710,
+            "y": 540,
+            "radius": 37,
+            "value": 500,
+            "weight": 12,
+            "grabbed": false
+          },
+          {
+            "id": 1,
+            "kind": "diamond",
+            "x": 270,
+            "y": 500,
+            "radius": 15,
+            "value": 600,
+            "weight": 1.6,
+            "grabbed": false
+          },
+          {
+            "id": 2,
+            "kind": "gold_s",
+            "x": 570,
+            "y": 285,
+            "radius": 16,
+            "value": 50,
+            "weight": 2.4,
+            "grabbed": false
+          }
+        ]
+      },
+      "action": {
+        "type": "wait"
+      },
+      "source": "player",
+      "latencyMs": 890.1138740000024,
+      "usage": {
+        "inputTokens": 3496,
+        "outputTokens": 6
+      },
+      "modelVersion": "gemini-3.5-flash-lite",
+      "result": {
+        "observation": {
+          "frame": 720,
+          "steps": 24,
+          "timeLeft": 0,
+          "score": 20,
+          "quota": 650,
+          "claw": {
+            "angle": 0.7385497684843125,
+            "direction": 1,
+            "speed": 1.18,
+            "state": "swing",
+            "length": 76,
+            "carrying": null
+          },
+          "physics": {
+            "hz": 60,
+            "decisionFrames": 30,
+            "left": 0,
+            "right": 960,
+            "top": 212,
+            "bottom": 614,
+            "pivot": {
+              "x": 480,
+              "y": 107.5
+            },
+            "maxAngle": 1.3264502315156903,
+            "maxLen": 760,
+            "restingLength": 76,
+            "clawRadius": 15,
+            "extendSpeed": 680,
+            "emptyReturnSpeed": 1020,
+            "pullBase": 900,
+            "pullMin": 48,
+            "pullMax": 620
+          },
+          "objects": [
+            {
+              "id": 0,
+              "kind": "gold_xl",
+              "x": 710,
+              "y": 540,
+              "radius": 37,
+              "value": 500,
+              "weight": 12,
+              "grabbed": false
+            },
+            {
+              "id": 1,
+              "kind": "diamond",
+              "x": 270,
+              "y": 500,
+              "radius": 15,
+              "value": 600,
+              "weight": 1.6,
+              "grabbed": false
+            },
+            {
+              "id": 2,
+              "kind": "gold_s",
+              "x": 570,
+              "y": 285,
+              "radius": 16,
+              "value": 50,
+              "weight": 2.4,
+              "grabbed": false
+            }
+          ]
+        },
+        "events": [],
+        "outcome": {
+          "terminal": true,
+          "reason": "timer_expired",
+          "success": false,
+          "score": 20,
+          "quota": 650,
+          "simulatedSeconds": 12,
+          "steps": 24
+        }
+      }
+    }
+  ],
+  "pricing": {
+    "currency": "USD",
+    "date": "2026-10-26",
+    "model": "gemini-3.5-flash-lite",
+    "inputPerMillion": 0.3,
+    "outputPerMillion": 2.5,
+    "source": "https://cloud.google.com/gemini-enterprise-agent-platform/generative-ai/pricing",
+    "caveat": "Estimate excludes unreported failed-request usage, discounts, and billing rounding."
+  }
+}

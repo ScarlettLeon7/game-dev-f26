@@ -1,0 +1,79 @@
+{
+  "declaredAt": "2026-10-26T18:09:34.390Z",
+  "status": "Frozen before any live model calls or prompt tuning",
+  "scenariosSha256": "5c15dcd44a43949e53b20e532ecb67b088090eec8b74f5b3be86f0df26b83360",
+  "cases": [
+    {
+      "id": "open-dev",
+      "split": "development",
+      "seed": 101,
+      "quota": 750,
+      "seconds": 30
+    },
+    {
+      "id": "blocked-dev",
+      "split": "development",
+      "seed": 102,
+      "quota": 700,
+      "seconds": 35
+    },
+    {
+      "id": "budget-dev",
+      "split": "development",
+      "seed": 103,
+      "quota": 650,
+      "seconds": 12
+    },
+    {
+      "id": "open-heldout",
+      "split": "heldout",
+      "seed": 701,
+      "quota": 750,
+      "seconds": 30
+    },
+    {
+      "id": "blocked-heldout",
+      "split": "heldout",
+      "seed": 702,
+      "quota": 700,
+      "seconds": 35
+    },
+    {
+      "id": "budget-heldout",
+      "split": "heldout",
+      "seed": 703,
+      "quota": 650,
+      "seconds": 12
+    }
+  ],
+  "physicsHz": 60,
+  "decisionFrames": 30,
+  "launchFrames": [
+    0,
+    29
+  ],
+  "limits": {
+    "maxSteps": 200,
+    "maxCalls": 60,
+    "maxInvalid": 3,
+    "callTimeoutMs": 15000,
+    "wallTimeoutMs": 180000
+  },
+  "primary": {
+    "suite": "heldout",
+    "trialsPerCase": 2
+  },
+  "historyComparison": {
+    "historySizes": [
+      0,
+      4
+    ],
+    "sameSuite": true
+  },
+  "checkpoint": {
+    "suite": "development",
+    "scenario": "open-dev",
+    "trials": 1
+  },
+  "liveStatus": "Pending course project setup. No live calls authorized until project ID is provided."
+}

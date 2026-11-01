@@ -1,0 +1,57 @@
+{
+  "declaredAt": "2026-10-28T20:20:05.137Z",
+  "purpose": "Final held-out evaluation and history comparison, declared before any held-out runs",
+  "baseCommit": "50c3c4229286955de078557cc12345007cbed33b",
+  "gameHash": "67ca7cefe52c686116bbe8759b99dd9a96f4349ce6af2fe7708b1b6501462ee0",
+  "suiteHash": "5c15dcd44a43949e53b20e532ecb67b088090eec8b74f5b3be86f0df26b83360",
+  "promptHash": "f6e5b65d0f83ec4e7beac8ffaab904c0543dbf7ee5aebf4b8d246926aec96190",
+  "originalDeclaration": "SUITE.json",
+  "provider": "vertex",
+  "project": "game-dev-f26-lw3240",
+  "location": "global",
+  "model": "gemini-3.5-flash-lite",
+  "temperature": 0.2,
+  "trialsPerCase": 2,
+  "cases": [
+    "open-heldout",
+    "blocked-heldout",
+    "budget-heldout"
+  ],
+  "armOrder": [
+    {
+      "player": "baseline",
+      "history": 0
+    },
+    {
+      "player": "baseline",
+      "history": 4
+    },
+    {
+      "player": "vertex",
+      "history": 0
+    },
+    {
+      "player": "vertex",
+      "history": 4
+    }
+  ],
+  "limits": {
+    "maxSteps": 200,
+    "maxCalls": 60,
+    "maxInvalid": 3,
+    "callTimeoutMs": 15000,
+    "wallTimeoutMs": 180000
+  },
+  "maxLiveEpisodes": 12,
+  "maxLiveCalls": 720,
+  "estimatedCampaignCeilingUsd": 5,
+  "ceilingPolicy": "Stop before another arm if reported cumulative estimated spend reaches $4, reserving $1 for the next bounded arm. No retries or replacement of failures. Estimates exclude unreported failed-request usage and are not a billing guarantee.",
+  "pricing": {
+    "verifiedAt": "2026-10-28",
+    "inputPerMillion": 0.3,
+    "outputPerMillion": 2.5,
+    "source": "https://cloud.google.com/gemini-enterprise-agent-platform/generative-ai/pricing"
+  },
+  "analysis": "Preserve all outcomes. No prompt/rule/layout tuning using these cases. Each cell has two fresh model runs on the same fixed seed. Deterministic baseline repeats are reproducibility checks, not independent samples. History arms run sequentially and order effects/model-service changes cannot be excluded.",
+  "recordingSelection": "First observation-only model trial of each held-out case, regardless of outcome. Saved-trace replay at half speed, visibly labeled. No manual move selection."
+}
