@@ -160,11 +160,24 @@ def changed_paths(root, base, head):
     return [p.decode('utf-8') for p in raw.split(b'\0') if p]
 
 
+def midterm_workflow(author):
+    return f'.github/workflows/midterm-{author}.yml'
+
+
 def check_paths(paths, author):
     author = username(author.lower())
     touched = any(p.startswith('minigames/submissions/') for p in paths)
     if author in MAINTAINERS:
         return touched
+    midterm = any(p.startswith(('midterms/', '.github/workflows/midterm-')) for p in paths)
+    if midterm:
+        # Midterm brief: one PR with only midterms/<login>/ plus one workflow file.
+        folder = f'midterms/{author}/'
+        invalid = [p for p in paths if not (p.startswith(folder) or p == midterm_workflow(author))]
+        if invalid:
+            raise ValueError(f'A midterm PR may change only {folder} (lowercase login) and '
+                             f'{midterm_workflow(author)}. Outside scope: ' + ', '.join(invalid))
+        return False
     prefix = f'minigames/submissions/{author}/get-out/'
     if touched:
         invalid = [p for p in paths if not p.startswith(prefix)]
@@ -173,6 +186,31 @@ def check_paths(paths, author):
     if invalid:
         raise ValueError('A student variation PR may change only its author’s game folder. Instructor-owned files need an instructor PR. Outside scope: ' + ', '.join(invalid))
     return touched
+
+
+# Midterm branches live in the course repository, so their workflows would run
+# with its token. This text screen keeps them read-only; staff still review them.
+WORKFLOW_FORBIDDEN = (
+    (r'secrets\s*[.\[]', 'reads repository secrets'),
+    (r'github\.token', 'reads the workflow token'),
+    (r'\bpull_request_target\b|\bworkflow_run\b', 'uses a privileged trigger'),
+    (r'write-all|:\s*write\b', 'requests write permission'),
+)
+
+
+def check_midterm_workflow(root, author):
+    """Read the submitted midterm workflow as text; never run it."""
+    path = root / midterm_workflow(username(author.lower()))
+    if not os.path.lexists(path):
+        return  # Deleting your own workflow is allowed.
+    if path.is_symlink() or not path.is_file():
+        raise ValueError(f'Workflow must be a regular file: {midterm_workflow(author.lower())}')
+    text = path.read_text(encoding='utf-8')
+    if not re.search(r'^permissions:', text, re.M):
+        raise ValueError('Midterm workflow needs a top-level "permissions:" block, such as contents: read.')
+    for pattern, reason in WORKFLOW_FORBIDDEN:
+        if re.search(pattern, text):
+            raise ValueError(f'Midterm workflow {reason}; use read-only deterministic checks.')
 
 
 def run_tests(root, owner=None):
@@ -217,6 +255,8 @@ def main():
             paths = changed_paths(root, args.base, args.head)
             check_paths(paths, args.author)
             # Static validation only. Never execute files from the submitted head.
+            if args.author.lower() not in MAINTAINERS:
+                check_midterm_workflow(root, args.author)
             validate(root)
             print('Submission boundaries and metadata passed.')
     except (ValueError, OSError, subprocess.SubprocessError) as exc:

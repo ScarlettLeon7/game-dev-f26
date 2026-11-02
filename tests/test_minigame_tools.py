@@ -113,6 +113,75 @@ class MinigameToolsTests(unittest.TestCase):
             with self.assertRaises(ValueError):
                 m.check_paths(paths, 'alice')
 
+    def test_midterm_folder_and_own_workflow(self):
+        ok = ['midterms/alice/README.md', 'midterms/alice/src/game.py',
+              '.github/workflows/midterm-alice.yml']
+        self.assertFalse(m.check_paths(ok, 'alice'))
+        self.assertFalse(m.check_paths(ok, 'Alice'))  # GitHub logins arrive mixed-case
+        self.assertFalse(m.check_paths(['midterms/alice/README.md'], 'alice'))
+        for paths in (['midterms/bob/README.md'],
+                      ['midterms/alice/README.md', '.github/workflows/midterm-bob.yml'],
+                      ['midterms/alice/README.md', '.github/workflows/setup-check.yml'],
+                      ['midterms/alice/README.md', 'course_game/game.py'],
+                      ['midterms/alice/README.md', 'minigames/submissions/alice/get-out/app.js'],
+                      ['midterms/Alice/README.md'],
+                      ['.github/workflows/midterm-alice.yml', 'AGENTS.md']):
+            with self.assertRaises(ValueError, msg=paths):
+                m.check_paths(paths, 'alice')
+
+    def test_maintainer_may_change_midterm_infrastructure(self):
+        m.check_paths(['midterms/alice/README.md', '.github/workflows/setup-check.yml'], 'bgarakani')
+
+    def write_workflow(self, text, owner='alice'):
+        path = self.root / f'.github/workflows/midterm-{owner}.yml'
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(text, encoding='utf-8')
+        return path
+
+    GOOD_WORKFLOW = '''# Needs no secrets; read-only.
+name: Midterm - alice
+on:
+  pull_request:
+    paths: ['midterms/alice/**', '.github/workflows/midterm-alice.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: midterms/alice
+    steps:
+      - uses: actions/checkout@v4
+      - run: python -m unittest
+'''
+
+    def test_midterm_workflow_content(self):
+        self.write_workflow(self.GOOD_WORKFLOW)
+        m.check_midterm_workflow(self.root, 'alice')
+        bad = {
+            'no permissions': self.GOOD_WORKFLOW.replace('permissions:\n  contents: read\n', ''),
+            'secret': self.GOOD_WORKFLOW + '        env:\n          KEY: ${{ secrets.API_KEY }}\n',
+            'secret index': self.GOOD_WORKFLOW + '        env:\n          KEY: ${{ secrets[\'K\'] }}\n',
+            'token': self.GOOD_WORKFLOW + '        env:\n          T: ${{ github.token }}\n',
+            'target': self.GOOD_WORKFLOW.replace('  pull_request:', '  pull_request_target:'),
+            'workflow_run': self.GOOD_WORKFLOW.replace('  workflow_dispatch:', '  workflow_run:'),
+            'write': self.GOOD_WORKFLOW.replace('contents: read', 'contents: write'),
+            'write-all': self.GOOD_WORKFLOW.replace('permissions:\n  contents: read', 'permissions: write-all'),
+        }
+        for label, text in bad.items():
+            self.write_workflow(text)
+            with self.assertRaises(ValueError, msg=label):
+                m.check_midterm_workflow(self.root, 'alice')
+
+    def test_midterm_workflow_absent_or_symlinked(self):
+        m.check_midterm_workflow(self.root, 'alice')  # deleting your own workflow is allowed
+        target = self.write_workflow(self.GOOD_WORKFLOW, owner='bob')
+        (target.parent / 'midterm-alice.yml').symlink_to(target)
+        with self.assertRaises(ValueError):
+            m.check_midterm_workflow(self.root, 'alice')
+
     def test_git_rename_and_delete_keep_both_paths(self):
         def git(*args):
             return subprocess.check_output(['git', *args], cwd=self.root, text=True).strip()
