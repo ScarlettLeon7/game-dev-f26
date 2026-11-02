@@ -189,13 +189,16 @@ def check_paths(paths, author):
     return touched
 
 
-# Midterm branches live in the course repository, so their workflows would run
-# with its token. This text screen keeps them read-only; staff still review them.
+# A merge gate, not a runtime guard: a branch pushed to the course repository
+# runs its workflow before this check sees it. The screen keeps privileged YAML
+# out of main; CODEOWNERS review and repository settings carry the rest.
+# Whole-line comments are ignored; any other mention of these terms fails.
 WORKFLOW_FORBIDDEN = (
-    (r'secrets\s*[.\[]', 'reads repository secrets'),
-    (r'github\.token', 'reads the workflow token'),
+    (r'\bsecrets\b', 'mentions repository secrets'),
+    (r'github\s*(?:\.\s*token\b|\[)|toJSON\(\s*github\s*\)', 'reads the workflow token'),
     (r'\bpull_request_target\b|\bworkflow_run\b', 'uses a privileged trigger'),
-    (r'write-all|:\s*write\b', 'requests write permission'),
+    (r'\bwrite-all\b|:\s*["\']?write\b', 'requests write permission'),
+    (r'\bid-token\b', 'requests an OIDC identity token'),
 )
 
 
@@ -206,7 +209,8 @@ def check_midterm_workflow(root, author):
         return  # Deleting your own workflow is allowed.
     if path.is_symlink() or not path.is_file():
         raise ValueError(f'Workflow must be a regular file: {midterm_workflow(author.lower())}')
-    text = path.read_text(encoding='utf-8')
+    lines = path.read_text(encoding='utf-8').splitlines()
+    text = '\n'.join(line for line in lines if not line.lstrip().startswith('#'))
     if not re.search(r'^permissions:', text, re.M):
         raise ValueError('Midterm workflow needs a top-level "permissions:" block, such as contents: read.')
     for pattern, reason in WORKFLOW_FORBIDDEN:

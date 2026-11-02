@@ -169,6 +169,14 @@ jobs:
             'workflow_run': self.GOOD_WORKFLOW.replace('  workflow_dispatch:', '  workflow_run:'),
             'write': self.GOOD_WORKFLOW.replace('contents: read', 'contents: write'),
             'write-all': self.GOOD_WORKFLOW.replace('permissions:\n  contents: read', 'permissions: write-all'),
+            'quoted write': self.GOOD_WORKFLOW.replace('contents: read', 'contents: "write"'),
+            'flow write': self.GOOD_WORKFLOW.replace('permissions:\n  contents: read', "permissions: {contents: 'write'}"),
+            'id-token': self.GOOD_WORKFLOW.replace('contents: read', 'contents: read\n  id-token: none'),
+            'toJSON secrets': self.GOOD_WORKFLOW + '        env:\n          ALL: ${{ toJSON(secrets) }}\n',
+            'inherit': self.GOOD_WORKFLOW + '  reuse:\n    uses: ./.github/workflows/x.yml\n    secrets: inherit\n',
+            'token index': self.GOOD_WORKFLOW + "        env:\n          T: ${{ github['token'] }}\n",
+            'toJSON github': self.GOOD_WORKFLOW + '        env:\n          G: ${{ toJSON(github) }}\n',
+            'secret after inline #': self.GOOD_WORKFLOW + '      - run: echo "x #${{ secrets.K }}"\n',
         }
         for label, text in bad.items():
             self.write_workflow(text)
