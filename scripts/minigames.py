@@ -175,8 +175,9 @@ def check_paths(paths, author):
         folder = f'midterms/{author}/'
         invalid = [p for p in paths if not (p.startswith(folder) or p == midterm_workflow(author))]
         if invalid:
+            shown = ', '.join(invalid[:10]) + (f' and {len(invalid) - 10} more' if len(invalid) > 10 else '')
             raise ValueError(f'A midterm PR may change only {folder} (lowercase login) and '
-                             f'{midterm_workflow(author)}. Outside scope: ' + ', '.join(invalid))
+                             f'{midterm_workflow(author)}. Outside scope: {shown}')
         return False
     prefix = f'minigames/submissions/{author}/get-out/'
     if touched:
