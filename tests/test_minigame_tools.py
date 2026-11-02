@@ -138,7 +138,7 @@ class MinigameToolsTests(unittest.TestCase):
         path.write_text(text, encoding='utf-8')
         return path
 
-    GOOD_WORKFLOW = '''# Needs no secrets; read-only.
+    GOOD_WORKFLOW = '''# Read-only deterministic checks.
 name: Midterm - alice
 on:
   pull_request:
@@ -177,6 +177,15 @@ jobs:
             'token index': self.GOOD_WORKFLOW + "        env:\n          T: ${{ github['token'] }}\n",
             'toJSON github': self.GOOD_WORKFLOW + '        env:\n          G: ${{ toJSON(github) }}\n',
             'secret after inline #': self.GOOD_WORKFLOW + '      - run: echo "x #${{ secrets.K }}"\n',
+            'secret on # line in run block': self.GOOD_WORKFLOW + '      - run: |\n          echo hi\n          #${{ secrets.K }}\n',
+            'comment mentioning secrets': '# Needs no secrets.\n' + self.GOOD_WORKFLOW,
+            'uppercase secrets': self.GOOD_WORKFLOW + '        env:\n          K: ${{ SECRETS.K }}\n',
+            'uppercase token': self.GOOD_WORKFLOW + '        env:\n          T: ${{ GitHub.Token }}\n',
+            'hex escape': self.GOOD_WORKFLOW + '        env:\n          K: "${{ \\x73ecrets.K }}"\n',
+            'block scalar write': self.GOOD_WORKFLOW.replace('contents: read', 'contents: >-\n    WRITE'),
+            'extra scope': self.GOOD_WORKFLOW.replace('contents: read', 'contents: read\n  actions: read'),
+            'job permissions': self.GOOD_WORKFLOW.replace('    runs-on:', '    permissions: {}\n    runs-on:'),
+            'tag': self.GOOD_WORKFLOW.replace('contents: read', 'contents: !!str read'),
         }
         for label, text in bad.items():
             self.write_workflow(text)
