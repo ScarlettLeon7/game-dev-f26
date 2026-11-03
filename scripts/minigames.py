@@ -160,11 +160,25 @@ def changed_paths(root, base, head):
     return [p.decode('utf-8') for p in raw.split(b'\0') if p]
 
 
+def midterm_workflow(author):
+    return f'.github/workflows/midterm-{author}.yml'
+
+
 def check_paths(paths, author):
     author = username(author.lower())
     touched = any(p.startswith('minigames/submissions/') for p in paths)
     if author in MAINTAINERS:
         return touched
+    midterm = any(p.startswith(('midterms/', '.github/workflows/midterm-')) for p in paths)
+    if midterm:
+        # Midterm brief: one PR with only midterms/<login>/ plus one workflow file.
+        folder = f'midterms/{author}/'
+        invalid = [p for p in paths if not (p.startswith(folder) or p == midterm_workflow(author))]
+        if invalid:
+            shown = ', '.join(invalid[:10]) + (f' and {len(invalid) - 10} more' if len(invalid) > 10 else '')
+            raise ValueError(f'A midterm PR may change only {folder} (lowercase login) and '
+                             f'{midterm_workflow(author)}. Outside scope: {shown}')
+        return False
     prefix = f'minigames/submissions/{author}/get-out/'
     if touched:
         invalid = [p for p in paths if not p.startswith(prefix)]
@@ -173,6 +187,43 @@ def check_paths(paths, author):
     if invalid:
         raise ValueError('A student variation PR may change only its author’s game folder. Instructor-owned files need an instructor PR. Outside scope: ' + ', '.join(invalid))
     return touched
+
+
+# A merge gate, not a runtime guard: a branch pushed to the course repository
+# runs its workflow before this check sees it. The screen keeps privileged YAML
+# out of main; CODEOWNERS review and repository settings carry the rest.
+# Any mention of these terms fails, comments included.
+WORKFLOW_FORBIDDEN = (
+    (r'\bsecrets\b', 'mentions repository secrets'),
+    (r'github\s*(?:\.\s*token\b|\[)|toJSON\(\s*github\s*\)', 'reads the workflow token'),
+    (r'\bpull_request_target\b|\bworkflow_run\b', 'uses a privileged trigger'),
+    (r'\bwrite\b', 'mentions write access'),
+    (r'\bid-token\b', 'requests an OIDC identity token'),
+    # Escapes and tags let YAML decode text this screen cannot see.
+    (r'\\[xuUN]|!!', 'uses YAML escapes or tags'),
+)
+# The only permissions allowed: one top-level block granting contents: read.
+# Blank lines may follow; the next line must be a new top-level key.
+WORKFLOW_PERMISSIONS = r'^permissions:[ \t]*\n[ \t]+contents:[ \t]*read[ \t]*\n(?:[ \t]*\n)*(?![ \t])'
+
+
+def check_midterm_workflow(root, author):
+    """Read the submitted midterm workflow as text; never run it."""
+    path = root / midterm_workflow(username(author.lower()))
+    if not os.path.lexists(path):
+        return  # Deleting your own workflow is allowed.
+    if path.is_symlink() or not path.is_file():
+        raise ValueError(f'Workflow must be a regular file: {midterm_workflow(author.lower())}')
+    # Scan the raw text: a '#' line inside a run: block is shell, not a YAML
+    # comment, and GitHub still expands expressions there.
+    text = path.read_text(encoding='utf-8')
+    if (len(re.findall(r'permissions', text, re.I)) != 1
+            or not re.search(WORKFLOW_PERMISSIONS, text, re.M)):
+        raise ValueError('Midterm workflow needs exactly one top-level block, '
+                         '"permissions:" followed by "contents: read", and no job-level permissions.')
+    for pattern, reason in WORKFLOW_FORBIDDEN:
+        if re.search(pattern, text, re.I):
+            raise ValueError(f'Midterm workflow {reason} (comments count too); use read-only deterministic checks.')
 
 
 def run_tests(root, owner=None):
@@ -217,6 +268,8 @@ def main():
             paths = changed_paths(root, args.base, args.head)
             check_paths(paths, args.author)
             # Static validation only. Never execute files from the submitted head.
+            if args.author.lower() not in MAINTAINERS:
+                check_midterm_workflow(root, args.author)
             validate(root)
             print('Submission boundaries and metadata passed.')
     except (ValueError, OSError, subprocess.SubprocessError) as exc:

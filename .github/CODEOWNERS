@@ -1,4 +1,4 @@
-# The instructor or a TA reviews classroom infrastructure and student variations.
+# The instructor or a TA reviews classroom infrastructure, student variations, and midterms.
 /minigames/ @bgarakani @prabakaranc98 @sriya26 @thy055
 /scripts/minigames.py @bgarakani @prabakaranc98 @sriya26 @thy055
 /tests/test_minigame_tools.py @bgarakani @prabakaranc98 @sriya26 @thy055
@@ -6,3 +6,4 @@
 /.agents/ @bgarakani @prabakaranc98 @sriya26 @thy055
 /AGENTS.md @bgarakani @prabakaranc98 @sriya26 @thy055
 /.gitignore @bgarakani @prabakaranc98 @sriya26 @thy055
+/midterms/ @bgarakani @prabakaranc98 @sriya26 @thy055
