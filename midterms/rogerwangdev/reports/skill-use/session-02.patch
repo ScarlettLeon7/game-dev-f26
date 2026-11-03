@@ -1,0 +1,407 @@
+diff --git a/midterms/rogerwangdev/REHEARSAL-2026-10-28.json b/midterms/rogerwangdev/REHEARSAL-2026-10-28.json
+new file mode 100644
+index 0000000..221473f
+--- /dev/null
++++ b/midterms/rogerwangdev/REHEARSAL-2026-10-28.json
+@@ -0,0 +1,82 @@
++{
++  "declaredAt": "2026-10-28",
++  "status": "REHEARSAL ONLY: isolated detached worktree; no live evaluation",
++  "scenariosSha256": "5c15dcd44a43949e53b20e532ecb67b088090eec8b74f5b3be86f0df26b83360",
++  "cases": [
++    {
++      "id": "open-dev",
++      "split": "development",
++      "seed": 101,
++      "quota": 750,
++      "seconds": 30
++    },
++    {
++      "id": "blocked-dev",
++      "split": "development",
++      "seed": 102,
++      "quota": 700,
++      "seconds": 35
++    },
++    {
++      "id": "budget-dev",
++      "split": "development",
++      "seed": 103,
++      "quota": 650,
++      "seconds": 12
++    },
++    {
++      "id": "open-heldout",
++      "split": "heldout",
++      "seed": 701,
++      "quota": 750,
++      "seconds": 30
++    },
++    {
++      "id": "blocked-heldout",
++      "split": "heldout",
++      "seed": 702,
++      "quota": 700,
++      "seconds": 35
++    },
++    {
++      "id": "budget-heldout",
++      "split": "heldout",
++      "seed": 703,
++      "quota": 650,
++      "seconds": 12
++    }
++  ],
++  "physicsHz": 60,
++  "decisionFrames": 60,
++  "launchFrames": [
++    0,
++    59
++  ],
++  "limits": {
++    "maxSteps": 200,
++    "maxCalls": 60,
++    "maxInvalid": 3,
++    "callTimeoutMs": 15000,
++    "wallTimeoutMs": 180000
++  },
++  "primary": {
++    "suite": "heldout",
++    "trialsPerCase": 2
++  },
++  "historyComparison": {
++    "historySizes": [
++      0,
++      4
++    ],
++    "sameSuite": true
++  },
++  "checkpoint": {
++    "suite": "development",
++    "scenario": "open-dev",
++    "trials": 1
++  },
++  "liveStatus": "No live calls authorized for this rehearsal",
++  "amends": "SUITE.json (2026-10-26), preserved byte-for-byte",
++  "reason": "Rehearse one-second decisions while retaining 60 Hz physics and launch precision.",
++  "source": "SOURCE.json: b0f10f6b3488e02a69418391550c3d5bb7d612d4"
++}
+diff --git a/midterms/rogerwangdev/index.html b/midterms/rogerwangdev/index.html
+index 9e95e7f..64ad6fa 100644
+--- a/midterms/rogerwangdev/index.html
++++ b/midterms/rogerwangdev/index.html
+@@ -19 +19 @@
+-    <section class="controls"><button id="launch" class="primary">Launch claw <kbd>Space / ↓</kbd></button><button id="wait">Wait 0.5 seconds <kbd>→</kbd></button><button id="download">Download trace</button><label class="upload">Replay saved trace<input id="replay" type="file" accept="application/json,.json"></label></section>
++    <section class="controls"><label>Launch offset (0–59 frames) <input id="launch-offset" type="number" min="0" max="59" step="1" value="0"></label><button id="launch" class="primary">Launch claw <kbd>Space / ↓</kbd></button><button id="wait">Wait 1 second <kbd>→</kbd></button><button id="download">Download trace</button><label class="upload">Replay saved trace<input id="replay" type="file" accept="application/json,.json"></label></section>
+@@ -27 +27 @@
+-    <p class="explanation">The game uses 60 physics frames per simulated second and 30 frames per decision. Pause or advance one step to inspect a decision. Launch timing, collisions, and retrieval use the same engine as automated evaluation.</p>
++    <p class="explanation">The game uses 60 physics frames per simulated second and 60 frames per decision (one second). Pause or advance one step to inspect a decision. Launch timing, collisions, and retrieval use the same engine as automated evaluation.</p>
+diff --git a/midterms/rogerwangdev/package.json b/midterms/rogerwangdev/package.json
+index 3f14e74..acdea1b 100644
+--- a/midterms/rogerwangdev/package.json
++++ b/midterms/rogerwangdev/package.json
+@@ -7 +7 @@
+-    "test": "node --test test/*.test.js",
++    "test": "node --test --experimental-test-isolation=none test/*.test.js",
+diff --git a/midterms/rogerwangdev/scripts/declaration.js b/midterms/rogerwangdev/scripts/declaration.js
+new file mode 100644
+index 0000000..fe529de
+--- /dev/null
++++ b/midterms/rogerwangdev/scripts/declaration.js
+@@ -0,0 +1,15 @@
++import { readFileSync } from 'node:fs'
++import { createHash } from 'node:crypto'
++import { PHYSICS_HZ, DECISION_FRAMES } from '../src/episode.js'
++export function loadDeclaration(path, suiteHash) {
++  const bytes = readFileSync(path)
++  const declaration = JSON.parse(bytes)
++  if (declaration.physicsHz !== PHYSICS_HZ || declaration.decisionFrames !== DECISION_FRAMES || JSON.stringify(declaration.launchFrames) !== JSON.stringify([0, DECISION_FRAMES - 1])) throw new Error('Declaration timing mismatch: physicsHz/decisionFrames/launchFrames')
++  if (declaration.scenariosSha256 !== suiteHash) throw new Error('Declaration scenario hash mismatch; record an amendment')
++  return { declaration, identity: { path, sha256: createHash('sha256').update(bytes).digest('hex'), declaredAt: declaration.declaredAt, status: declaration.status } }
++}
++
++export async function prepareDeclaredPlayer(path, suiteHash, createPlayer) {
++  const selected = loadDeclaration(path, suiteHash)
++  return { ...selected, player: await createPlayer() }
++}
+diff --git a/midterms/rogerwangdev/scripts/evaluate.js b/midterms/rogerwangdev/scripts/evaluate.js
+index f21b018..8d56fa7 100644
+--- a/midterms/rogerwangdev/scripts/evaluate.js
++++ b/midterms/rogerwangdev/scripts/evaluate.js
+@@ -1 +1 @@
+-import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs'
++import { readFileSync, writeFileSync, mkdirSync } from 'node:fs'
+@@ -10,0 +11 @@ import { scenarios } from '../src/scenarios.js'
++import { prepareDeclaredPlayer } from './declaration.js'
+@@ -16,0 +18 @@ const { values: opts } = parseArgs({ options: {
++  declaration: { type: 'string', default: 'SUITE.json' },
+@@ -25 +26,0 @@ if (!selected.length) throw new Error('No matching scenario')
+-const player = opts.player === 'baseline' ? ({ observation }) => baseline(observation) : await createVertexPlayer()
+@@ -28,4 +29,3 @@ const suiteHash = hash('../src/scenarios.js')
+-if (existsSync('SUITE.json')) {
+-  const declaration = JSON.parse(readFileSync('SUITE.json', 'utf8'))
+-  if (declaration.scenariosSha256 !== suiteHash) throw new Error('Suite changed. Record an amendment before more evaluation')
+-}
++// Validate the selected experiment before provider construction or credential access.
++const { declaration, identity, player } = await prepareDeclaredPlayer(opts.declaration, suiteHash,
++  () => opts.player === 'baseline' ? ({ observation }) => baseline(observation) : createVertexPlayer())
+@@ -39,2 +39,2 @@ for (const scenario of selected) for (let trial = 1; trial <= trials; trial++) {
+-  const metadata = { kind: opts.player === 'vertex' ? 'live' : 'baseline', player: opts.player, scenario: scenario.id, split: scenario.split, trial, date, gameCommit: commit, gameHash, suiteHash, promptHash: createHash('sha256').update(SYSTEM_PROMPT).digest('hex'), configuration: player.configuration ?? { algorithm: 'visible-geometry-value-per-time', lookaheadFrames: 240 } }
+-  const trace = await runEpisode(new Episode(loadCore(), scenario), player, { seed: scenario.seed, historySize, maxCalls, metadata })
++  const metadata = { declaration: identity, kind: opts.player === 'vertex' ? 'live' : 'baseline', player: opts.player, scenario: scenario.id, split: scenario.split, trial, date, gameCommit: commit, gameHash, suiteHash, promptHash: createHash('sha256').update(SYSTEM_PROMPT).digest('hex'), configuration: player.configuration ?? { algorithm: 'visible-geometry-value-per-time', lookaheadFrames: 240 } }
++  const trace = await runEpisode(new Episode(loadCore(), scenario, { maxSteps: declaration.limits.maxSteps }), player, { ...declaration.limits, seed: scenario.seed, historySize, maxCalls, metadata })
+diff --git a/midterms/rogerwangdev/src/baseline.js b/midterms/rogerwangdev/src/baseline.js
+index ccc5369..be79b04 100644
+--- a/midterms/rogerwangdev/src/baseline.js
++++ b/midterms/rogerwangdev/src/baseline.js
+@@ -6 +6 @@ export function baseline(observation) {
+-  for (let frame = 0; frame < 240; frame++) {
++  for (let frame = 0; frame < 4 * p.hz; frame++) {
+diff --git a/midterms/rogerwangdev/src/browser.js b/midterms/rogerwangdev/src/browser.js
+index 652c124..308fda5 100644
+--- a/midterms/rogerwangdev/src/browser.js
++++ b/midterms/rogerwangdev/src/browser.js
+@@ -1 +1 @@
+-import { Episode } from './episode.js'
++import { Episode, DECISION_FRAMES, PHYSICS_HZ } from './episode.js'
+@@ -4 +4 @@ import { scenarios } from './scenarios.js'
+-import { finishReplay } from './replay.js'
++import { finishReplay, validateReplayTiming } from './replay.js'
+@@ -61,2 +61,4 @@ $('launch').onclick = () => {
+-  if (running) queued = { type: 'launch', frame: 0 }
+-  else step({ type: 'launch', frame: 0 })
++  const frame = Number($('launch-offset').value)
++  if (!Number.isInteger(frame) || frame < 0 || frame >= DECISION_FRAMES) { $('status').textContent = 'Launch offset must be an integer from 0 through 59'; return }
++  if (running) queued = { type: 'launch', frame }
++  else step({ type: 'launch', frame })
+@@ -76,0 +79 @@ function loadRecording(saved) {
++  validateReplayTiming(saved)
+@@ -140 +143 @@ setInterval(() => {
+-}, 500)
++}, 1000 * DECISION_FRAMES / PHYSICS_HZ)
+diff --git a/midterms/rogerwangdev/src/episode.js b/midterms/rogerwangdev/src/episode.js
+index 23dacce..cfbe65c 100644
+--- a/midterms/rogerwangdev/src/episode.js
++++ b/midterms/rogerwangdev/src/episode.js
+@@ -2 +2 @@ export const PHYSICS_HZ = 60
+-export const DECISION_FRAMES = 30
++export const DECISION_FRAMES = 60
+diff --git a/midterms/rogerwangdev/src/replay.js b/midterms/rogerwangdev/src/replay.js
+index ce9760a..ac23354 100644
+--- a/midterms/rogerwangdev/src/replay.js
++++ b/midterms/rogerwangdev/src/replay.js
+@@ -0,0 +1,5 @@
++import { PHYSICS_HZ, DECISION_FRAMES } from './episode.js'
++export function validateReplayTiming(trace) {
++  const physics = trace.steps?.find(step => step.observation)?.observation.physics
++  if (!physics || physics.hz !== PHYSICS_HZ || physics.decisionFrames !== DECISION_FRAMES) throw new Error('Recording timing version differs: incompatible physics or decision interval')
++}
+diff --git a/midterms/rogerwangdev/src/vertex.js b/midterms/rogerwangdev/src/vertex.js
+index 1808599..3c675da 100644
+--- a/midterms/rogerwangdev/src/vertex.js
++++ b/midterms/rogerwangdev/src/vertex.js
+@@ -5 +5 @@ const exec = promisify(execFile)
+-export const SYSTEM_PROMPT = `You play a bounded Gold Miner level. Choose actions yourself using only the provided visible observation. Collect enough value to meet the quota before simulated time expires. Prioritize value relative to waiting, extension and weight-dependent return time, and avoid intercepting rocks. Angles are radians from downward vertical. The claw swings automatically. A decision advances exactly 30 frames at 60 Hz. Return either {"type":"wait"} or {"type":"launch","frame":N}, where N is an integer from 0 through 29. A launch waits N physics frames within this interval then fires along the resulting angle. Never select a target ID or change state. Do not include frame in a wait action. You have no repository tools, hidden-state access, or evaluator tools.`
++export const SYSTEM_PROMPT = `You play a bounded Gold Miner level. Choose actions yourself using only the provided visible observation. Collect enough value to meet the quota before simulated time expires. Prioritize value relative to waiting, extension and weight-dependent return time, and avoid intercepting rocks. Angles are radians from downward vertical. The claw swings automatically. A decision advances up to 60 frames (one second, ending early only at a terminal outcome) at 60 Hz. Return either {"type":"wait"} or {"type":"launch","frame":N}, where N is an integer from 0 through 59. A launch waits N physics frames within this interval then fires along the resulting angle. Never select a target ID or change state. Do not include frame in a wait action. You have no repository tools, hidden-state access, or evaluator tools.`
+@@ -23 +23 @@ export async function createVertexPlayer({ project = process.env.GOOGLE_CLOUD_PR
+-          responseSchema: { type: 'OBJECT', properties: { type: { type: 'STRING', enum: ['wait', 'launch'] }, frame: { type: 'INTEGER', minimum: 0, maximum: 29 } }, required: ['type'] }
++          responseSchema: { type: 'OBJECT', properties: { type: { type: 'STRING', enum: ['wait', 'launch'] }, frame: { type: 'INTEGER', minimum: 0, maximum: 59 } }, required: ['type'] }
+diff --git a/midterms/rogerwangdev/test/declaration.test.js b/midterms/rogerwangdev/test/declaration.test.js
+new file mode 100644
+index 0000000..1ef8deb
+--- /dev/null
++++ b/midterms/rogerwangdev/test/declaration.test.js
+@@ -0,0 +1,30 @@
++import test from 'node:test'
++import assert from 'node:assert/strict'
++import { readFileSync, mkdtempSync, writeFileSync, rmSync } from 'node:fs'
++import { tmpdir } from 'node:os'
++import { join } from 'node:path'
++import { loadDeclaration, prepareDeclaredPlayer } from '../scripts/declaration.js'
++const path = new URL('../REHEARSAL-2026-10-28.json', import.meta.url)
++const valid = JSON.parse(readFileSync(path))
++test('declaration validates timing and scenario identity and records selected bytes', () => {
++  const selected = loadDeclaration(path, valid.scenariosSha256)
++  assert.equal(selected.declaration.decisionFrames, 60)
++  assert.match(selected.identity.sha256, /^[a-f0-9]{64}$/)
++  assert.throws(() => loadDeclaration(new URL('../SUITE.json', import.meta.url), valid.scenariosSha256), /timing mismatch/)
++  const dir = mkdtempSync(join(tmpdir(), 'declaration-'))
++  try {
++    for (const patch of [{ physicsHz: 30 }, { decisionFrames: 30 }, { launchFrames: [0, 60] }, { scenariosSha256: 'wrong' }]) {
++      const file = join(dir, 'invalid.json')
++      writeFileSync(file, JSON.stringify({ ...valid, ...patch }))
++      assert.throws(() => loadDeclaration(file, valid.scenariosSha256), /mismatch/)
++    }
++  } finally { rmSync(dir, { recursive: true }) }
++})
++
++test('old declaration is rejected before even a mocked provider factory runs', async () => {
++  let providerCreations = 0
++  await assert.rejects(prepareDeclaredPlayer(new URL('../SUITE.json', import.meta.url), valid.scenariosSha256, () => { providerCreations++; throw new Error('provider must not run') }), /timing mismatch/)
++  assert.equal(providerCreations, 0)
++  await assert.rejects(prepareDeclaredPlayer(path, 'wrong-scenario-hash', () => { providerCreations++; return () => {} }), /scenario hash mismatch/)
++  assert.equal(providerCreations, 0)
++})
+diff --git a/midterms/rogerwangdev/test/episode.test.js b/midterms/rogerwangdev/test/episode.test.js
+index 976fd94..9c35f25 100644
+--- a/midterms/rogerwangdev/test/episode.test.js
++++ b/midterms/rogerwangdev/test/episode.test.js
+@@ -13 +13 @@ const make = (changes = {}, options = {}) => new Episode(GM, { ...scenario, ...c
+-test('one decision advances exactly 30 physics frames without wall-time dependence', async () => {
++test('one decision advances exactly 60 physics frames without wall-time dependence', async () => {
+@@ -20,2 +20,2 @@ test('one decision advances exactly 30 physics frames without wall-time dependen
+-  assert.equal(a.observe().frame, 30)
+-  assert.equal(a.observe().timeLeft, 11.5)
++  assert.equal(a.observe().frame, 60)
++  assert.equal(a.observe().timeLeft, 11)
+@@ -36 +36 @@ test('invalid actions and player IDs cannot mutate gameplay', () => {
+-  for (const [player, action] of [[1, { type: 'wait' }], [0, { type: 'cheat' }], [0, { type: 'launch', frame: 30 }], [0, { type: 'launch', frame: -1 }], [0, { type: 'launch', frame: 0.5 }], [0, { type: 'wait', score: 9000 }], [0, null]]) {
++  for (const [player, action] of [[1, { type: 'wait' }], [0, { type: 'cheat' }], [0, { type: 'launch', frame: 60 }], [0, { type: 'launch', frame: -1 }], [0, { type: 'launch', frame: 0.5 }], [0, { type: 'wait', score: 9000 }], [0, null]]) {
+@@ -90 +90 @@ test('timer expiry is exact and distinguishable from step exhaustion', () => {
+-  e.step(0, { type: 'wait' }); e.step(0, { type: 'wait' })
++  e.step(0, { type: 'wait' })
+diff --git a/midterms/rogerwangdev/test/rehearsal-timing.test.js b/midterms/rogerwangdev/test/rehearsal-timing.test.js
+new file mode 100644
+index 0000000..e84f1d1
+--- /dev/null
++++ b/midterms/rogerwangdev/test/rehearsal-timing.test.js
+@@ -0,0 +1,28 @@
++import test from 'node:test'
++import assert from 'node:assert/strict'
++import { Episode } from '../src/episode.js'
++import { loadCore } from '../src/load-core.js'
++const make = (seconds = 4) => new Episode(loadCore(), { seconds, quota: 50, angle: 0, speed: 0.1, items: [{ kind: 'gold_s', x: 900, y: 600 }] })
++test('rehearsal advances 60 frames and one second at 60 Hz', () => {
++ const e = make(); e.step(0, { type: 'wait' })
++ assert.equal(e.observe().frame, 60); assert.equal(e.observe().timeLeft, 3)
++ assert.deepEqual([e.observe().physics.hz, e.observe().physics.decisionFrames], [60, 60])
++})
++for (const frame of [0, 59]) test(`rehearsal legal launch offset ${frame}`, () => {
++ const e = make()
++ assert.deepEqual(e.legal_actions()[1], { type: 'launch', frame_min: 0, frame_max: 59 })
++ e.step(0, { type: 'launch', frame })
++ assert.ok(Math.abs(e.observe().claw.angle - frame * 0.1 / 60) < 1e-10)
++})
++test('rehearsal offset 60 leaves state unchanged', () => {
++ const e = make(), before = [e.observe(), e.outcome()]
++ assert.throws(() => e.step(0, { type: 'launch', frame: 60 }), /Illegal action/)
++ assert.deepEqual([e.observe(), e.outcome()], before)
++})
++test('rehearsal partial final interval expires at frame 61', () => {
++ const e = make(61 / 60)
++ e.step(0, { type: 'wait' }); e.step(0, { type: 'wait' })
++ assert.equal(e.observe().frame, 61); assert.equal(e.observe().timeLeft, 0)
++ assert.equal(e.outcome().reason, 'timer_expired'); assert.equal(e.outcome().simulatedSeconds, 61 / 60)
++ assert.equal(e.outcome().steps, 2)
++})
+diff --git a/midterms/rogerwangdev/test/replay.test.js b/midterms/rogerwangdev/test/replay.test.js
+index 44ad9d1..be772e4 100644
+--- a/midterms/rogerwangdev/test/replay.test.js
++++ b/midterms/rogerwangdev/test/replay.test.js
+@@ -23,0 +24,15 @@ test('replay rejects a recorded score that disagrees with current physics', () =
++
++test('preserved checkpoint is explicitly rejected before replay for incompatible timing', async () => {
++  const { readFileSync } = await import('node:fs')
++  const { validateReplayTiming } = await import('../src/replay.js')
++  const saved = JSON.parse(readFileSync(new URL('../reports/2026-10-26T19-22-31-872Z-vertex-open-dev-1.json', import.meta.url)))
++  assert.throws(() => validateReplayTiming(saved), /Recording timing version differs/)
++})
++test('current timing replay is accepted and reproduces every result', async () => {
++  const { validateReplayTiming } = await import('../src/replay.js')
++  const trace = await runEpisode(new Episode(loadCore(), scenarios[0]), () => ({ type: 'wait' }), { maxCalls: 2 })
++  validateReplayTiming(trace)
++  const e = new Episode(loadCore(), scenarios[0])
++  for (const step of trace.steps) assert.deepEqual(e.step(0, step.action), step.result)
++  finishReplay(e, trace.summary)
++})
+diff --git a/midterms/rogerwangdev/test/runner.test.js b/midterms/rogerwangdev/test/runner.test.js
+index 3002ae1..6979270 100644
+--- a/midterms/rogerwangdev/test/runner.test.js
++++ b/midterms/rogerwangdev/test/runner.test.js
+@@ -60,0 +61,31 @@ test('current observation mode does not leak previous moves into history', async
++
++test('mocked provider response delays preserve actions and simulated outcomes', async () => {
++  const run = delay => runEpisode(make(), async ({ observation }) => {
++    if (delay) await new Promise(resolve => setTimeout(resolve, delay))
++    return baseline(observation)
++  }, { seed: scenarios[0].seed, maxCalls: 60 })
++  const fast = await run(0), slow = await run(5)
++  const gameplay = trace => trace.steps.map(({ observation, action, source, result }) => ({ observation, action, source, result }))
++  assert.deepEqual(gameplay(fast), gameplay(slow))
++  const { wallMs: a, ...fastSummary } = fast.summary
++  const { wallMs: b, ...slowSummary } = slow.summary
++  assert.deepEqual(fastSummary, slowSummary)
++  assert.ok(slow.steps.filter(x => x.source === 'player').every(x => x.latencyMs >= 4))
++})
++test('bounded history contains only prior player observations/actions/results and is detached', async () => {
++  let calls = 0
++  const trace = await runEpisode(make(), ({ observation, legalActions, history, ...extra }) => {
++    assert.deepEqual(extra, {})
++    assert.ok(legalActions.length > 1)
++    assert.equal(history.length, Math.min(calls, 2))
++    for (const entry of history) {
++      assert.deepEqual(Object.keys(entry).sort(), ['action', 'observation', 'result'])
++      assert.ok(entry.observation.frame < observation.frame)
++    }
++    if (history.length) history[0].observation.score = 99999
++    calls++
++    return { type: 'wait' }
++  }, { historySize: 2, maxCalls: 4 })
++  assert.equal(trace.summary.reason, 'call_limit')
++  assert.ok(trace.steps.every(x => x.observation.score === 0))
++})
+diff --git a/midterms/rogerwangdev/test/timing-skill.test.js b/midterms/rogerwangdev/test/timing-skill.test.js
+index 35a41db..68edfc3 100644
+--- a/midterms/rogerwangdev/test/timing-skill.test.js
++++ b/midterms/rogerwangdev/test/timing-skill.test.js
+@@ -4 +4 @@ import { spawnSync } from 'node:child_process'
+-import { cpSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
++import { openSync, closeSync, cpSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
+@@ -12 +12,11 @@ const helper = 'skills/gold-miner-rule-change/scripts/check-timing.mjs'
+-const run = (args = [], cwd = root) => spawnSync(process.execPath, [helper, ...args], { cwd, encoding: 'utf8', timeout: 20000 })
++// File descriptors avoid restricted child-process pipe capture in the CLI sandbox.
++const run = (args = [], cwd = root) => {
++  const dir = mkdtempSync(join(tmpdir(), 'timing-output-'))
++  const out = join(dir, 'stdout'), err = join(dir, 'stderr')
++  const stdoutFd = openSync(out, 'w'), stderrFd = openSync(err, 'w')
++  try {
++    const result = spawnSync(process.execPath, [helper, '--declaration', 'REHEARSAL-2026-10-28.json', ...args], { cwd, stdio: ['ignore', stdoutFd, stderrFd], timeout: 20000 })
++    if (result.error) throw result.error
++    return { status: result.status, stdout: readFileSync(out, 'utf8'), stderr: readFileSync(err, 'utf8') }
++  } finally { closeSync(stdoutFd); closeSync(stderrFd); rmSync(dir, { recursive: true }) }
++}
+@@ -14,2 +24,2 @@ const run = (args = [], cwd = root) => spawnSync(process.execPath, [helper, ...a
+-test('timing skill checks the declared engine, provider schema and full development episodes offline', () => {
+-  const result = run(['--trace', 'reports/2026-10-26T19-22-31-872Z-vertex-open-dev-1.json'])
++test('timing skill checks the declared engine, provider schema and full development episodes offline', async () => {
++  const result = await run()
+@@ -21 +31 @@ test('timing skill checks the declared engine, provider schema and full developm
+-  assert.equal(report.replayedSteps, 60)
++  assert.equal(report.replayedSteps, 0)
+@@ -25,2 +35,2 @@ test('timing skill checks the declared engine, provider schema and full developm
+-test('timing skill rejects a requested interval that the runtime has not implemented', () => {
+-  const result = run(['--seconds', String(2 * DECISION_FRAMES / PHYSICS_HZ)])
++test('timing skill rejects a requested interval that the runtime has not implemented', async () => {
++  const result = await run(['--seconds', String(2 * DECISION_FRAMES / PHYSICS_HZ)])
+@@ -31,2 +41,2 @@ test('timing skill rejects a requested interval that the runtime has not impleme
+-test('timing skill rejects a duration between physics ticks rather than rounding it', () => {
+-  const result = run(['--seconds', String(1.5 / PHYSICS_HZ)])
++test('timing skill rejects a duration between physics ticks rather than rounding it', async () => {
++  const result = await run(['--seconds', String(1.5 / PHYSICS_HZ)])
+@@ -37 +47 @@ test('timing skill rejects a duration between physics ticks rather than rounding
+-test('timing skill catches drift between the engine and the outgoing provider action schema', () => {
++test('timing skill catches drift between the engine and the outgoing provider action schema', async () => {
+@@ -40 +50 @@ test('timing skill catches drift between the engine and the outgoing provider ac
+-    for (const path of ['package.json', 'SOURCE.json', 'SUITE.json', 'src', 'vendor', 'skills', 'scripts']) cpSync(join(root, path), join(fixture, path), { recursive: true })
++    for (const path of ['package.json', 'SOURCE.json', 'SUITE.json', 'REHEARSAL-2026-10-28.json', 'src', 'vendor', 'skills', 'scripts']) cpSync(join(root, path), join(fixture, path), { recursive: true })
+@@ -46 +56 @@ test('timing skill catches drift between the engine and the outgoing provider ac
+-    const result = run([], fixture)
++    const result = await run([], fixture)
+diff --git a/midterms/rogerwangdev/test/vertex.test.js b/midterms/rogerwangdev/test/vertex.test.js
+index 1dff745..e6b18cf 100644
+--- a/midterms/rogerwangdev/test/vertex.test.js
++++ b/midterms/rogerwangdev/test/vertex.test.js
+@@ -15,0 +16,3 @@ test('Vertex adapter sends only observation, actions and bounded history with no
++  assert.match(request.systemInstruction.parts[0].text, /60 frames.*60 Hz/)
++  assert.match(request.systemInstruction.parts[0].text, /0 through 59/)
++  assert.equal(request.generationConfig.responseSchema.properties.frame.maximum, 59)

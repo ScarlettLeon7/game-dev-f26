@@ -1,0 +1,28 @@
+{
+  "createdAt": "2026-10-28T20:31:41.872Z",
+  "browserErrors": [],
+  "externalRequests": [],
+  "complete": true,
+  "source": "recording.html",
+  "manifest": "recordings/demo-manifest.json",
+  "playbackSpeed": 0.5,
+  "manualMoveSelection": false,
+  "bytes": 2009066,
+  "sha256": "450bcb8ba08f417763aaa9fa46bf7b39f80a8b670508337f162d359956a0e044",
+  "rawCapture": {
+    "bytes": 31103931,
+    "sha256": "24d2948e490e1cc5761ca7770a6c7fdf780ca374d23c11f0a7ab30be1e967ad5"
+  },
+  "durationSeconds": 211.6,
+  "width": 1280,
+  "height": 900,
+  "fps": 10,
+  "compression": {
+    "codec": "VP9",
+    "videoBitrate": "55k",
+    "crf": 42,
+    "cpuUsed": 8,
+    "audio": false,
+    "source": "Original Playwright capture, full duration preserved"
+  }
+}

@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gold Miner · Midterm checkpoint</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <header><div><p class="eyebrow">AI GAMEPLAY LAB · CHECKPOINT</p><h1>Gold Miner<span>Every second has a price.</span></h1></div><a href="README.md">Project notes ↗</a></header>
+    <section class="toolbar" aria-label="Game setup">
+      <label>Situation <select id="scenario"></select></label>
+      <label>Player <select id="mode"><option value="human">You</option><option value="baseline">Heuristic agent</option></select></label>
+    </section>
+    <div class="game-layout">
+      <section class="game-area" aria-label="Gold Miner game">
+        <div class="round-heading"><span id="round-phase" class="round-phase" role="status">Ready to play</span><button id="show-result" class="text-button" hidden>View result</button><span id="round-context">Your game · clock starts when you do</span></div>
+        <section class="stats" aria-label="Round statistics"><div>COLLECTED<strong id="score">$0</strong></div><div>GOAL<strong id="quota">—</strong></div><div>TIME LEFT<strong id="time">—</strong></div><div>CLAW<strong id="claw">Ready</strong></div></section>
+        <div class="stage">
+          <canvas id="game" width="960" height="640" aria-label="Gold Miner field with a swinging claw and underground gold, diamonds, and rocks"></canvas>
+          <section id="round-overlay" class="round-overlay" aria-labelledby="overlay-title">
+            <div class="round-card">
+              <p id="overlay-kicker" class="section-eyebrow">YOUR NEXT HAUL</p>
+              <h2 id="overlay-title">Ready to strike gold?</h2>
+              <p id="overlay-description">Time your launch, reel in treasure and reach the goal before the clock runs out.</p>
+              <p id="overlay-summary" class="round-summary"></p>
+              <button id="overlay-action" class="primary">Start game</button>
+              <button id="overlay-dismiss" class="text-button" hidden>View final field</button>
+              <p id="overlay-hint" class="overlay-hint">The clock is stopped. Take a look, then start when you’re ready.</p>
+            </div>
+          </section>
+        </div>
+      </section>
+      <aside class="how-to-play" aria-labelledby="how-to-title">
+        <p class="section-eyebrow">A LITTLE TIMING. A BIG PAYOFF.</p>
+        <h2 id="how-to-title">How to play</h2>
+        <p class="goal-copy">Collect enough gold to reach the goal within the time limit.</p>
+        <h3 class="controls-heading">Controls</h3>
+        <dl class="control-guide">
+          <div>
+            <dt>Launch claw</dt>
+            <dd class="control-keys"><kbd>Click</kbd><kbd>Space</kbd><kbd aria-label="Down arrow">↓</kbd></dd>
+            <dd id="launch-help" class="control-description">Launch at the angle of the swing. The claw reels back automatically.</dd>
+            <dd class="control-action"><button id="launch" class="primary" aria-describedby="launch-help">Launch claw</button></dd>
+          </div>
+          <div>
+            <dt>Start / pause</dt>
+            <dd><button id="run" aria-describedby="pause-help">Start game</button></dd>
+            <dd id="pause-help" class="control-description">Stop or resume the clock. Switching tabs pauses play too.</dd>
+          </div>
+          <div>
+            <dt>Start over</dt>
+            <dd><button id="restart" aria-describedby="restart-help">New game</button></dd>
+            <dd id="restart-help" class="control-description">Reset your score, the field and the timer.</dd>
+          </div>
+        </dl>
+        <details class="round-help">
+          <summary>Targets &amp; round rules</summary>
+          <div class="treasure-tip"><strong>Choose your targets</strong><p>Gold and diamonds earn money. Larger gold takes longer to haul. Rocks offer little value and use up time.</p></div>
+          <div class="round-tip"><strong>When does it end?</strong><p>The round ends when time runs out or the field is cleared. Meet the goal to win. Treasure still being hauled when the round ends earns no money. Reaching the goal early lets you keep collecting.</p></div>
+        </details>
+      </aside>
+    </div>
+    <p id="status" role="status">Choose a target. Large gold is valuable but heavy. Rocks cost precious time.</p>
+    <details class="trace-tools control-panel">
+      <summary>Replay files and debug tools</summary>
+      <p class="panel-note">Save or load a playthrough, or inspect the simulation one step at a time.</p>
+      <div class="button-group file-controls"><button id="download">Download trace</button><label class="upload">Load trace file<input id="replay" type="file" accept="application/json,.json"></label></div>
+      <div class="debug-controls"><label class="debug-toggle"><input id="debug" type="checkbox"> Debug stepping</label><button id="wait" hidden>Wait 0.5 seconds <kbd>→</kbd></button></div>
+    </details>
+    <section class="controls control-panel replay-panel" aria-labelledby="recordings-title">
+      <div class="panel-heading"><div><p class="section-eyebrow">RECORDED MODEL PLAY</p><h2 id="recordings-title">Watch Gemini</h2></div><span class="replay-badge">Saved runs · no API calls</span></div>
+      <div class="replay-controls">
+        <label class="recording-choice">Gemini recording<select id="model-recording" disabled aria-describedby="recording-context recording-help"><option>Loading saved episodes…</option></select></label>
+        <button id="watch-model" disabled>Watch selected episode</button>
+        <button id="next-recorded" disabled>Next recorded step</button>
+      </div>
+      <p id="recording-context" class="recording-context">Choose a saved run to see its recording setting.</p>
+      <p id="replay-progress" class="replay-progress" aria-live="polite">Saved recording · no API calls</p>
+      <details class="history-guide">
+        <summary>What do the three recording groups mean?</summary>
+        <dl>
+          <div><dt>Original checkpoint</dt><dd>The early October 26 test run. Gemini received the current game state without previous decisions. This recorded run scored $0/$750.</dd></div>
+          <div><dt>No history</dt><dd>Six final evaluation runs. Each Gemini request includes the current visible game state and legal actions, without previous decisions.</dd></div>
+          <div><dt>4 previous decisions</dt><dd>Six final evaluation runs with the same current state and legal actions, plus up to four previous decisions and their results from that episode. This is extra context, not training or memory across games.</dd></div>
+        </dl>
+      </details>
+      <p id="recording-help" class="panel-note">All 12 final runs and the original checkpoint are available, including failures. Scores are recorded outcomes. Changing the selection starts its replay. Pause above the field to inspect the next recorded step.</p>
+    </section>
+    <details class="inspector">
+      <summary>Agent inspector <span id="decision-label">Load a recording to inspect its decisions</span></summary>
+      <p id="decision-meta">The saved episode includes the game observation, returned action, latency, and result. It contains no model reasoning text.</p>
+      <div class="inspector-grid"><section><h2>Observation before this step</h2><pre id="agent-observation">No recorded step selected.</pre></section><section><h2>Returned action and result</h2><pre id="agent-action">No recorded step selected.</pre></section></div>
+    </details>
+    <p class="explanation">Human play runs smoothly at 60 physics ticks per second. Click or press Space to launch at the visible angle. Enable Debug stepping to pause and advance 0.5 seconds at a time. Evaluated agents retain 30-frame decisions with 1/60-second launch precision. Both modes use the same imported claw physics and scoring rules.</p>
+    <footer>Adapted from Lor3walker’s MIT-licensed Gold Miner · <a href="vendor/gold-miner/LICENSE">License</a> · <a href="recording.html">Evaluation demonstration</a> · <a href="recordings/gold-miner-demo.webm">Recorded video</a> · Model episodes run through the local evaluation CLI and can be replayed here. This page does not hold API credentials.</footer>
+  </main>
+  <script src="vendor/gold-miner/js/utils.js"></script>
+  <script src="vendor/gold-miner/js/items.js"></script>
+  <script src="vendor/gold-miner/js/sprites.js"></script>
+  <script src="vendor/gold-miner/js/hook.js"></script>
+  <script>window.GM.Audio = { play() {} }</script>
+  <script type="module" src="src/browser.js"></script>
+</body>
+</html>

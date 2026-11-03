@@ -1,0 +1,79 @@
+{
+  "implementation": {
+    "instructions": "AGENTS.md",
+    "skill": "skills/gold-miner-rule-change/SKILL.md",
+    "evidence": "docs/skill-use.md",
+    "timing_procedure": "skills/gold-miner-rule-change/references/simulation-timing.md",
+    "offline_timing_check": "npm run check:timing",
+    "rubric_evidence": "docs/skill-use.md",
+    "standalone_skill_sessions_documented": 2,
+    "second_session_status": "Completed in a fresh standalone Codex exec session on October 28, 2026. Isolated offline timing rehearsal, not a production change or live model trial.",
+    "session_evidence": [
+      {
+        "id": "01a13d3a-ca69-73c1-9754-390b76c321f3",
+        "source": "vscode",
+        "evidence": "docs/skill-use.md#session-1--implementation",
+        "format": "selected invocation, task and result evidence"
+      },
+      {
+        "id": "01a1839b-f210-7e42-acdb-e47be9825ea6",
+        "source": "exec",
+        "evidence": "docs/skill-use.md#session-2--simulation-timing-change",
+        "format": "selected invocation, task and result evidence"
+      }
+    ]
+  },
+  "independent_review": {
+    "mode": "separate read-only context",
+    "findings": "review.md",
+    "cannot": [
+      "edit implementation",
+      "approve",
+      "merge"
+    ]
+  },
+  "playing_agent": {
+    "provider": "vertex",
+    "model": "gemini-3.5-flash-lite",
+    "location": "global",
+    "project": "GOOGLE_CLOUD_PROJECT environment variable",
+    "prompt": "src/vertex.js:SYSTEM_PROMPT",
+    "tools": [],
+    "observations": "src/episode.js:observe",
+    "actions": "src/episode.js:legal_actions",
+    "memory": "0 or 4 previous decision/result entries, explicitly selected per trial",
+    "limits": {
+      "maxSteps": 200,
+      "maxCalls": 60,
+      "maxInvalid": 3,
+      "callTimeoutMs": 15000,
+      "wallTimeoutMs": 180000
+    },
+    "retries": 0,
+    "fallbacks": 0,
+    "failure_policy": "Count and terminate with explicit reason",
+    "checkpoint_project_id": "game-dev-f26-lw3240",
+    "live_status": "Final held-out comparison complete on October28:12 live episodes,314calls. H0 quota successes2/6, H4 0/6. Frozen protocol and all failures retained. No further prompt tuning."
+  },
+  "baseline": {
+    "implementation": "src/baseline.js",
+    "algorithm": "visible-geometry value per estimated total collection time",
+    "lookaheadFrames": 240,
+    "information": "Same public observation and action interface as model"
+  },
+  "tests": "npm test",
+  "suite": "SUITE.json",
+  "report": "EVALUATION.md",
+  "artifacts": {
+    "final_protocol": "FINAL-EVALUATION.json",
+    "final_analysis": "reports/final-analysis.json",
+    "per_trial_metrics": "reports/final-results.csv",
+    "recording": "recordings/gold-miner-demo.webm",
+    "recording_provenance": "recordings/capture-check.json",
+    "student_reflection": "AGENT-TEAM.md",
+    "peer_notes": "PEER-NOTES.md — received October 30 report filed and outgoing November 1 review sent. Source-report limitations retained.",
+    "verification": "EVALUATION.md#verification",
+    "received_peer_report": "docs/playtests/2026-10-30-received.md",
+    "outgoing_peer_report": "docs/playtests/2026-11-01-given-catacomb-ii.md"
+  }
+}

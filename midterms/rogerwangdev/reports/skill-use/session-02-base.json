@@ -1,0 +1,157 @@
+{
+  "schema": 1,
+  "historicalBaseCommit": "67c25eeec9b37c8a0e231e4b69205a8895b13572",
+  "purpose": "Source-only base for reproducing the actual isolated timing rehearsal without historical Git objects or conversation exports.",
+  "archive": "session-02-base.tar.gz",
+  "archiveSha256": "d30fb224ea93d6f42681fb9cb090b613a2fa34c48108f2913a0c89b63b95bdb0",
+  "files": [
+    {
+      "path": "midterms/rogerwangdev/SOURCE.json",
+      "sha256": "05ce167569a77ea6e69cbb07d4021c7670a7beaa630661ad6df38abedb025d74"
+    },
+    {
+      "path": "midterms/rogerwangdev/SUITE.json",
+      "sha256": "b3e8e63217c59cc9c5c2e55d340642a2ca7b308bcb1c1691652410cb5a97c5f8"
+    },
+    {
+      "path": "midterms/rogerwangdev/index.html",
+      "sha256": "b59fe8bad3d946fb1751b782d6e120d6d17c6fdc28bd8b25c01d1c5a55fd9cc0"
+    },
+    {
+      "path": "midterms/rogerwangdev/package.json",
+      "sha256": "84492773d92fe369488a7f2c40ea7895f899d5d77567ad289f5775bccf1b8c57"
+    },
+    {
+      "path": "midterms/rogerwangdev/scripts/evaluate.js",
+      "sha256": "9c9d53a9245a49b4ab64e157e27be3156d508004bd035c1e2d91b9406071ce05"
+    },
+    {
+      "path": "midterms/rogerwangdev/scripts/game-version.js",
+      "sha256": "1fbd508629a56810849ca23845f8e6addc69adf548cdf86629bbf513cf642307"
+    },
+    {
+      "path": "midterms/rogerwangdev/scripts/verify-source.js",
+      "sha256": "e910cc4b3f042677bce6e835991f68d015b3df0212d44baec96100e7124ad7a6"
+    },
+    {
+      "path": "midterms/rogerwangdev/skills/gold-miner-rule-change/scripts/check-timing.mjs",
+      "sha256": "7bacb65fafc178ac1f8f484d877752863eae6247bc3a448f96dc1b0bcf4dc32f"
+    },
+    {
+      "path": "midterms/rogerwangdev/src/baseline.js",
+      "sha256": "ff64f0b075089f30c79a5996ef3ae9e0669a88076e697272bcc75bec98ce9e3b"
+    },
+    {
+      "path": "midterms/rogerwangdev/src/browser.js",
+      "sha256": "7bb2a9d654920961c7888cb02cfe673715386b704881908a5f47c59ff3576aca"
+    },
+    {
+      "path": "midterms/rogerwangdev/src/episode.js",
+      "sha256": "dab659ab6b89102066f4f7862d430b81225070fe7873bbb1efab49aa963b0b11"
+    },
+    {
+      "path": "midterms/rogerwangdev/src/load-core.js",
+      "sha256": "e008af1838df910f66435ddb1370c59dba69788d86857b02baf5c2a46cee2e4c"
+    },
+    {
+      "path": "midterms/rogerwangdev/src/replay.js",
+      "sha256": "688330dbbb6ed29fa674dc4bc921471f3c6cd23e53deb823577ef7d202675cc5"
+    },
+    {
+      "path": "midterms/rogerwangdev/src/runner.js",
+      "sha256": "b4d5cca7a628ffb71757ad679bf00b5c4424e70427d2b37fada9d0b1ce5e4c05"
+    },
+    {
+      "path": "midterms/rogerwangdev/src/scenarios.js",
+      "sha256": "5c15dcd44a43949e53b20e532ecb67b088090eec8b74f5b3be86f0df26b83360"
+    },
+    {
+      "path": "midterms/rogerwangdev/src/vertex.js",
+      "sha256": "3899ef36f6bd2db19fe6241264951417acbec431460e679ed0712608c0abc7f0"
+    },
+    {
+      "path": "midterms/rogerwangdev/style.css",
+      "sha256": "c29ab2ab1d917f71bf1ec553a48b4ac63031555750c84960430891f0baa60947"
+    },
+    {
+      "path": "midterms/rogerwangdev/test/episode.test.js",
+      "sha256": "502c97cc31361a8c9242f5336628930f68c42411c19f39e2dc7df7c49315e705"
+    },
+    {
+      "path": "midterms/rogerwangdev/test/replay.test.js",
+      "sha256": "027415bf1d83ce1d864dae0d91b6361e175b26bb6a29c591b5d07fd1541651b6"
+    },
+    {
+      "path": "midterms/rogerwangdev/test/runner.test.js",
+      "sha256": "372a9b6bc4ca257acbc74c3304601d7631ef52137e33e8fe8aa7a9bcfced81f3"
+    },
+    {
+      "path": "midterms/rogerwangdev/test/timing-skill.test.js",
+      "sha256": "853721de221c970885a945c56e917856d7094e68af31ab7b8688c1e7a35b2534"
+    },
+    {
+      "path": "midterms/rogerwangdev/test/vertex.test.js",
+      "sha256": "e57383cbb13ace9361f1ef97ad4045561ec3c627cda06bc37ce91852202d08d4"
+    }
+  ],
+  "sharedFiles": [
+    {
+      "path": "midterms/rogerwangdev/vendor/gold-miner/LICENSE",
+      "sha256": "7ca6da7090308aba1966d12d9d5b0e488ffab4b42ed60f97016b821715961971"
+    },
+    {
+      "path": "midterms/rogerwangdev/vendor/gold-miner/README.md",
+      "sha256": "1c5878279fc26cb413561932ab005c78284475243f510d1540d489ca6df07663"
+    },
+    {
+      "path": "midterms/rogerwangdev/vendor/gold-miner/index.html",
+      "sha256": "ac2e641b604ed82716baaac71e748b8b4f21ae5f455d03a5528c6d07b24aba85"
+    },
+    {
+      "path": "midterms/rogerwangdev/vendor/gold-miner/css/style.css",
+      "sha256": "710e129ff867dbd821501706c16a89519df04ddd674d989274e918e2c265228e"
+    },
+    {
+      "path": "midterms/rogerwangdev/vendor/gold-miner/js/utils.js",
+      "sha256": "c4ebfe000373ccb881f02a0688ce4df3348aca9d78cef27069f772f70db468e0"
+    },
+    {
+      "path": "midterms/rogerwangdev/vendor/gold-miner/js/audio.js",
+      "sha256": "2276512803ed20b0fad89ee1a9e5798915c65070e99d0b15036302cfaa87b008"
+    },
+    {
+      "path": "midterms/rogerwangdev/vendor/gold-miner/js/sprites.js",
+      "sha256": "071f003c66cf16adfac4e1ee318c5d9eb41f0b72a8ebd7adcda300b4c55c5c6b"
+    },
+    {
+      "path": "midterms/rogerwangdev/vendor/gold-miner/js/items.js",
+      "sha256": "125e766cfb379a85c6e3c0f670112488955b6deeb4856e4c4586b32d2ff42a60"
+    },
+    {
+      "path": "midterms/rogerwangdev/vendor/gold-miner/js/level.js",
+      "sha256": "70f1751a673dfb39036232d86d9a55fa36a95e7c8cad35a3edddd9c68bd6efb7"
+    },
+    {
+      "path": "midterms/rogerwangdev/vendor/gold-miner/js/hook.js",
+      "sha256": "d2dae7725a6d1fea15226815659c5c6d1b6511504a194bb0b608947cab3068fd"
+    },
+    {
+      "path": "midterms/rogerwangdev/vendor/gold-miner/js/game.js",
+      "sha256": "558a95b45f73b3fd5ab2c9c05cc7454a3ea6c708ebb04230129d68517530223e"
+    },
+    {
+      "path": "midterms/rogerwangdev/vendor/gold-miner/js/ui.js",
+      "sha256": "f50c3e11f4ff7a5f4b97e613a725725b2b154b59d379e87acf340124d37b41d5"
+    },
+    {
+      "path": "midterms/rogerwangdev/vendor/gold-miner/js/main.js",
+      "sha256": "91c17529fc5e6db2088fec1c77eb337a9bc893b6bad03a3b6ac2834795762629"
+    },
+    {
+      "path": "midterms/rogerwangdev/reports/2026-10-26T19-22-31-872Z-vertex-open-dev-1.json",
+      "sha256": "f04ec35bb322c5574b5c05f9d83a2f8d017e97a0650e994dc069e98cd31288be"
+    }
+  ],
+  "patch": "session-02.patch",
+  "patchSha256": "0c83d9303e1746911588a20d28e5cab1fe0ba9b93364ad2731635213dd33aa57"
+}

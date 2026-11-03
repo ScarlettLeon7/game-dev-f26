@@ -1,0 +1,13 @@
+Session 1: October 26 implementation
+1..25
+# tests 25
+# suites 0
+# pass 25
+# fail 0
+
+Session 2: October 28 isolated rehearsal
+1..40
+# tests 40
+# suites 0
+# pass 40
+# fail 0

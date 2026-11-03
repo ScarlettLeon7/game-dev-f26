@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gold Miner — autonomous evaluation recording</title>
+  <style>
+    :root{color-scheme:dark;font-family:system-ui,sans-serif;background:#151711;color:#f0eadb}*{box-sizing:border-box}body{margin:0;padding:24px}header{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #635333;padding-bottom:14px}h1{font-size:34px;margin:0 0 14px}h2{font-size:22px;color:#f0c97c}p,li{line-height:1.55}small,.muted{color:#bcb6a5}.badge{color:#e9ca80;font-size:13px}.slide{padding:32px 50px}.slide p,.slide li{font-size:21px;max-width:1050px}#play{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:20px;padding-top:20px}iframe{width:100%;height:710px;border:0}aside{border-left:1px solid #635333;padding-left:18px}aside h2{margin-top:0}aside p{margin:10px 0}aside h3{font-size:13px;margin:12px 0 6px}pre{font-size:13px;line-height:1.45;white-space:pre-wrap;overflow-wrap:anywhere;background:#0c0e0a;padding:12px;border-radius:5px;max-height:240px;margin:8px 0;overflow:hidden}table{border-collapse:collapse;width:100%;font-size:18px}td,th{padding:10px;border-bottom:1px solid #514a38;text-align:left}button{background:#e7bf70;color:#18170e;border:0;padding:12px 22px;font-size:17px;border-radius:5px;cursor:pointer}button:disabled{opacity:.4}footer{font-size:12px;color:#bcb6a5;border-top:1px solid #635333;padding-top:12px;margin-top:14px}#play[hidden],.slide[hidden]{display:none}#source{font-size:11px;overflow-wrap:anywhere}#result{color:#f0c97c;font-weight:600}
+  </style>
+</head>
+<body>
+  <header><strong>GOLD MINER · MODEL PLAYER EVALUATION</strong><span class="badge">RECORDED VERTEX DECISIONS · OFFLINE REPLAY</span></header>
+  <section id="intro" class="slide">
+    <h1>Can Gemini time the claw?</h1>
+    <p>A bounded Gold Miner adaptation with automatically swinging aim, first-object collision, weight-dependent retrieval, a quota and a simulated timer.</p>
+    <ul>
+      <li>Gemini receives numerical observations and returns a validated launch or wait action.</li>
+      <li>Physics runs at 60 Hz. Each decision advances 0.5 simulated seconds. Launch precision is 1/60 second.</li>
+      <li>The following actions come from real held-out API trials. No human selects moves.</li>
+      <li>Playback is half speed for inspection. Recorded API latency does not consume game time.</li>
+    </ul>
+    <p class="muted">Selection was declared before evaluation: the first observation-only trial of each held-out case, including failures.</p>
+    <button id="start" disabled>Start 3½-minute demonstration</button>
+    <p id="loading" class="muted">Loading the recorded evaluation manifest…</p>
+  </section>
+  <section id="play" hidden>
+    <iframe id="game" src="index.html" title="The actual Gold Miner engine replaying saved actions"></iframe>
+    <aside>
+      <h2 id="case">Held-out case</h2>
+      <p id="description"></p>
+      <p class="badge">HALF-SPEED REPLAY · NO NEW API CALLS</p>
+      <p id="progress"></p>
+      <h3>Observation excerpt before decision</h3><pre id="observation"></pre>
+      <h3>Recorded action</h3><pre id="action"></pre>
+      <p id="latency" class="muted"></p>
+      <p id="result"></p>
+      <p id="source" class="muted"></p>
+    </aside>
+  </section>
+  <section id="summary" class="slide" hidden>
+    <h1>What the complete comparison shows</h1>
+    <table><thead><tr><th>Player</th><th>Previous decisions</th><th>Quota reached</th><th>Mean score</th></tr></thead><tbody id="comparison"></tbody></table>
+    <p id="spend"></p>
+    <p>Each arm uses the same three held-out cases, two trials per case, identical rules and controls, and the unchanged prompt. The heuristic reads the same public state.</p>
+    <p id="limits" class="muted"></p>
+    <p class="muted">This small sample does not establish statistical certainty. History results apply to these runs only. Automated scores do not assess fun, and peer feedback remains pending.</p>
+  </section>
+  <footer>Adapted from Lor3walker/gold-miner under MIT · Full traces, source hashes, configuration and failures are retained in reports/ and EVALUATION.md · No model reasoning text is claimed.</footer>
+  <script type="module" src="src/recording.js"></script>
+</body>
+</html>

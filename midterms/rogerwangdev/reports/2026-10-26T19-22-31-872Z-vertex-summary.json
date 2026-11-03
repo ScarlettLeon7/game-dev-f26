@@ -1,0 +1,23 @@
+[
+  {
+    "scenario": "open-dev",
+    "trial": 1,
+    "player": "vertex",
+    "terminal": true,
+    "reason": "timer_expired",
+    "success": false,
+    "score": 0,
+    "quota": 750,
+    "simulatedSeconds": 30,
+    "steps": 60,
+    "calls": 32,
+    "invalid": 0,
+    "forcedWaits": 28,
+    "inputTokens": 22102,
+    "outputTokens": 260,
+    "wallMs": 24855.369977000002,
+    "fallbacks": 0,
+    "estimatedCostUsd": 0.007280599999999999,
+    "trace": "reports/2026-10-26T19-22-31-872Z-vertex-open-dev-1.json"
+  }
+]

@@ -1,0 +1,63 @@
+{
+  "protocol": "FINAL-EVALUATION.json",
+  "selection": "First observation-only trial of each case, fixed before evaluation regardless of outcome",
+  "traces": [
+    "reports/final-vertex-h0/2026-10-28T20-20-07-893Z-vertex-open-heldout-1.json",
+    "reports/final-vertex-h0/2026-10-28T20-20-07-893Z-vertex-blocked-heldout-1.json",
+    "reports/final-vertex-h0/2026-10-28T20-20-07-893Z-vertex-budget-heldout-1.json"
+  ],
+  "caseSeconds": [
+    30,
+    35,
+    12
+  ],
+  "comparison": [
+    {
+      "player": "baseline",
+      "history": 0,
+      "wins": 6,
+      "trials": 6,
+      "meanScore": 1243.6666666666667,
+      "calls": 0,
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "cost": 0
+    },
+    {
+      "player": "baseline",
+      "history": 4,
+      "wins": 6,
+      "trials": 6,
+      "meanScore": 1243.6666666666667,
+      "calls": 0,
+      "inputTokens": 0,
+      "outputTokens": 0,
+      "cost": 0
+    },
+    {
+      "player": "vertex",
+      "history": 0,
+      "wins": 2,
+      "trials": 6,
+      "meanScore": 393.6666666666667,
+      "calls": 157,
+      "inputTokens": 96113,
+      "outputTokens": 1287,
+      "cost": 0.0320514
+    },
+    {
+      "player": "vertex",
+      "history": 4,
+      "wins": 0,
+      "trials": 6,
+      "meanScore": 188.66666666666666,
+      "calls": 157,
+      "inputTokens": 543596,
+      "outputTokens": 1713,
+      "cost": 0.1673613
+    }
+  ],
+  "modelCalls": 314,
+  "estimatedCostUsd": 0.1994127,
+  "gameHash": "67ca7cefe52c686116bbe8759b99dd9a96f4349ce6af2fe7708b1b6501462ee0"
+}

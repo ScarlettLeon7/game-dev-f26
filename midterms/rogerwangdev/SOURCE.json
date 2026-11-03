@@ -1,0 +1,61 @@
+{
+  "repository": "https://github.com/Lor3walker/gold-miner",
+  "revision": "b0f10f6b3488e02a69418391550c3d5bb7d612d4",
+  "license": "MIT",
+  "imported_files": [
+    {
+      "path": "LICENSE",
+      "sha256": "7ca6da7090308aba1966d12d9d5b0e488ffab4b42ed60f97016b821715961971"
+    },
+    {
+      "path": "README.md",
+      "sha256": "1c5878279fc26cb413561932ab005c78284475243f510d1540d489ca6df07663"
+    },
+    {
+      "path": "index.html",
+      "sha256": "ac2e641b604ed82716baaac71e748b8b4f21ae5f455d03a5528c6d07b24aba85"
+    },
+    {
+      "path": "css/style.css",
+      "sha256": "710e129ff867dbd821501706c16a89519df04ddd674d989274e918e2c265228e"
+    },
+    {
+      "path": "js/utils.js",
+      "sha256": "c4ebfe000373ccb881f02a0688ce4df3348aca9d78cef27069f772f70db468e0"
+    },
+    {
+      "path": "js/audio.js",
+      "sha256": "2276512803ed20b0fad89ee1a9e5798915c65070e99d0b15036302cfaa87b008"
+    },
+    {
+      "path": "js/sprites.js",
+      "sha256": "071f003c66cf16adfac4e1ee318c5d9eb41f0b72a8ebd7adcda300b4c55c5c6b"
+    },
+    {
+      "path": "js/items.js",
+      "sha256": "125e766cfb379a85c6e3c0f670112488955b6deeb4856e4c4586b32d2ff42a60"
+    },
+    {
+      "path": "js/level.js",
+      "sha256": "70f1751a673dfb39036232d86d9a55fa36a95e7c8cad35a3edddd9c68bd6efb7"
+    },
+    {
+      "path": "js/hook.js",
+      "sha256": "d2dae7725a6d1fea15226815659c5c6d1b6511504a194bb0b608947cab3068fd"
+    },
+    {
+      "path": "js/game.js",
+      "sha256": "558a95b45f73b3fd5ab2c9c05cc7454a3ea6c708ebb04230129d68517530223e"
+    },
+    {
+      "path": "js/ui.js",
+      "sha256": "f50c3e11f4ff7a5f4b97e613a725725b2b154b59d379e87acf340124d37b41d5"
+    },
+    {
+      "path": "js/main.js",
+      "sha256": "91c17529fc5e6db2088fec1c77eb337a9bc893b6bad03a3b6ac2834795762629"
+    }
+  ],
+  "modifications": "None inside vendor. Adaptations are in project src/.",
+  "omitted": "Generated dist, screenshots, build/deployment configuration and git metadata."
+}

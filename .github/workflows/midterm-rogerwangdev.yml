@@ -1,0 +1,27 @@
+name: Gold Miner deterministic checks
+on:
+  push:
+    branches: [rogerwangdev/midterm]
+    paths: ['midterms/rogerwangdev/**', '.github/workflows/midterm-rogerwangdev.yml']
+  pull_request:
+    paths: ['midterms/rogerwangdev/**', '.github/workflows/midterm-rogerwangdev.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  gold-miner:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    defaults:
+      run:
+        working-directory: midterms/rogerwangdev
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm run verify-source
+      - run: npm test
+      - run: npm run check:timing
+      - run: npm run audit:evaluation
+      - run: npm run baseline

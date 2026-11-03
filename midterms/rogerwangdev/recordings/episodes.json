@@ -1,0 +1,83 @@
+{
+  "description": "All recorded final Gemini episodes plus the original checkpoint. Scores are recorded outcomes, not new predictions.",
+  "episodes": [
+    {
+      "id": "checkpoint",
+      "group": "Original checkpoint",
+      "label": "October 26 \u00b7 open \u00b7 $0 / $750 \u00b7 quota missed",
+      "path": "reports/2026-10-26T19-22-31-872Z-vertex-open-dev-1.json"
+    },
+    {
+      "id": "h0-open-heldout-1",
+      "group": "Final evaluation \u00b7 no history",
+      "label": "open \u00b7 trial 1 \u00b7 $11 / $750 \u00b7 quota missed",
+      "path": "reports/final-vertex-h0/2026-10-28T20-20-07-893Z-vertex-open-heldout-1.json"
+    },
+    {
+      "id": "h0-open-heldout-2",
+      "group": "Final evaluation \u00b7 no history",
+      "label": "open \u00b7 trial 2 \u00b7 $1,011 / $750 \u00b7 quota reached",
+      "path": "reports/final-vertex-h0/2026-10-28T20-20-07-893Z-vertex-open-heldout-2.json"
+    },
+    {
+      "id": "h0-blocked-heldout-1",
+      "group": "Final evaluation \u00b7 no history",
+      "label": "blocked \u00b7 trial 1 \u00b7 $970 / $700 \u00b7 quota reached",
+      "path": "reports/final-vertex-h0/2026-10-28T20-20-07-893Z-vertex-blocked-heldout-1.json"
+    },
+    {
+      "id": "h0-blocked-heldout-2",
+      "group": "Final evaluation \u00b7 no history",
+      "label": "blocked \u00b7 trial 2 \u00b7 $370 / $700 \u00b7 quota missed",
+      "path": "reports/final-vertex-h0/2026-10-28T20-20-07-893Z-vertex-blocked-heldout-2.json"
+    },
+    {
+      "id": "h0-budget-heldout-1",
+      "group": "Final evaluation \u00b7 no history",
+      "label": "budget \u00b7 trial 1 \u00b7 $0 / $650 \u00b7 quota missed",
+      "path": "reports/final-vertex-h0/2026-10-28T20-20-07-893Z-vertex-budget-heldout-1.json"
+    },
+    {
+      "id": "h0-budget-heldout-2",
+      "group": "Final evaluation \u00b7 no history",
+      "label": "budget \u00b7 trial 2 \u00b7 $0 / $650 \u00b7 quota missed",
+      "path": "reports/final-vertex-h0/2026-10-28T20-20-07-893Z-vertex-budget-heldout-2.json"
+    },
+    {
+      "id": "h4-open-heldout-1",
+      "group": "Final evaluation \u00b7 4 previous decisions",
+      "label": "open \u00b7 trial 1 \u00b7 $161 / $750 \u00b7 quota missed",
+      "path": "reports/final-vertex-h4/2026-10-28T20-22-04-495Z-vertex-open-heldout-1.json"
+    },
+    {
+      "id": "h4-open-heldout-2",
+      "group": "Final evaluation \u00b7 4 previous decisions",
+      "label": "open \u00b7 trial 2 \u00b7 $161 / $750 \u00b7 quota missed",
+      "path": "reports/final-vertex-h4/2026-10-28T20-22-04-495Z-vertex-open-heldout-2.json"
+    },
+    {
+      "id": "h4-blocked-heldout-1",
+      "group": "Final evaluation \u00b7 4 previous decisions",
+      "label": "blocked \u00b7 trial 1 \u00b7 $370 / $700 \u00b7 quota missed",
+      "path": "reports/final-vertex-h4/2026-10-28T20-22-04-495Z-vertex-blocked-heldout-1.json"
+    },
+    {
+      "id": "h4-blocked-heldout-2",
+      "group": "Final evaluation \u00b7 4 previous decisions",
+      "label": "blocked \u00b7 trial 2 \u00b7 $370 / $700 \u00b7 quota missed",
+      "path": "reports/final-vertex-h4/2026-10-28T20-22-04-495Z-vertex-blocked-heldout-2.json"
+    },
+    {
+      "id": "h4-budget-heldout-1",
+      "group": "Final evaluation \u00b7 4 previous decisions",
+      "label": "budget \u00b7 trial 1 \u00b7 $50 / $650 \u00b7 quota missed",
+      "path": "reports/final-vertex-h4/2026-10-28T20-22-04-495Z-vertex-budget-heldout-1.json"
+    },
+    {
+      "id": "h4-budget-heldout-2",
+      "group": "Final evaluation \u00b7 4 previous decisions",
+      "label": "budget \u00b7 trial 2 \u00b7 $20 / $650 \u00b7 quota missed",
+      "path": "reports/final-vertex-h4/2026-10-28T20-22-04-495Z-vertex-budget-heldout-2.json"
+    }
+  ]
+}
