@@ -1,0 +1,134 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://scenes/layers/Ambience.tscn" type="PackedScene" id=1]
+[ext_resource path="res://images/background/castle_interior_glow.png" type="Texture" id=2]
+[ext_resource path="res://images/background/castle_interior.png" type="Texture" id=3]
+[ext_resource path="res://images/background/castle_glass_overlay.png" type="Texture" id=4]
+[ext_resource path="res://images/background/castle_interior_back.png" type="Texture" id=5]
+[ext_resource path="res://images/background/castle_glass_shine.png" type="Texture" id=6]
+[ext_resource path="res://images/background/gradient2.png" type="Texture" id=7]
+[ext_resource path="res://sounds/ambience_loops/AmbienceThunder.mp3" type="AudioStream" id=8]
+
+[sub_resource type="CanvasItemMaterial" id=3]
+blend_mode = 1
+
+[sub_resource type="CanvasItemMaterial" id=4]
+blend_mode = 1
+
+[node name="CastleBGRed" type="ParallaxBackground"]
+
+[node name="BG" type="CanvasLayer" parent="."]
+layer = -128
+
+[node name="Control" type="Control" parent="BG"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="ColorRect" type="ColorRect" parent="BG/Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="ColorRect2" type="ColorRect" parent="BG/Control"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.4, 0, 0, 0.470588 )
+
+[node name="InteriorBack" type="ParallaxLayer" parent="."]
+modulate = Color( 0.0352941, 0, 0, 1 )
+motion_scale = Vector2( 0.4, 1 )
+motion_mirroring = Vector2( 2500, 0 )
+
+[node name="TextureRect" type="TextureRect" parent="InteriorBack"]
+use_parent_material = true
+margin_right = 5000.0
+margin_bottom = 1725.0
+rect_scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 5 )
+stretch_mode = 2
+
+[node name="Glow" type="TextureRect" parent="InteriorBack"]
+modulate = Color( 0.356863, 0.407843, 0.411765, 1 )
+material = SubResource( 3 )
+margin_right = 5000.0
+margin_bottom = 1725.0
+rect_scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 2 )
+stretch_mode = 2
+
+[node name="GlassShine" type="ParallaxLayer" parent="."]
+modulate = Color( 0.439216, 0, 0, 1 )
+material = SubResource( 4 )
+motion_scale = Vector2( 0.45, 1 )
+motion_mirroring = Vector2( 3456, 0 )
+
+[node name="TextureRect" type="TextureRect" parent="GlassShine"]
+use_parent_material = true
+margin_right = 6912.0
+margin_bottom = 855.0
+rect_scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 6 )
+stretch_mode = 2
+
+[node name="Interior" type="ParallaxLayer" parent="."]
+modulate = Color( 0.384314, 0, 0, 1 )
+motion_scale = Vector2( 0.5, 1 )
+motion_mirroring = Vector2( 2500, 0 )
+
+[node name="TextureRect" type="TextureRect" parent="Interior"]
+margin_right = 5000.0
+margin_bottom = 1725.0
+rect_scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 3 )
+stretch_mode = 2
+
+[node name="Glow" type="TextureRect" parent="Interior"]
+visible = false
+modulate = Color( 1, 0.654902, 0, 1 )
+material = SubResource( 3 )
+margin_right = 5000.0
+margin_bottom = 1725.0
+rect_scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 2 )
+stretch_mode = 2
+
+[node name="GlassRim" type="ParallaxLayer" parent="."]
+modulate = Color( 1, 0.454902, 0.454902, 0.364706 )
+motion_scale = Vector2( 0.5, 1 )
+motion_mirroring = Vector2( 2500, 0 )
+
+[node name="TextureRect" type="TextureRect" parent="GlassRim"]
+margin_right = 5000.0
+margin_bottom = 1725.0
+rect_scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 4 )
+stretch_mode = 2
+
+[node name="Darken" type="CanvasLayer" parent="."]
+layer = -90
+
+[node name="Control" type="Control" parent="Darken"]
+modulate = Color( 1, 1, 1, 0.909804 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="TextureRect" type="TextureRect" parent="Darken/Control"]
+modulate = Color( 0, 0, 0, 1 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_bottom = -394.0
+texture = ExtResource( 7 )
+expand = true
+
+[node name="TextureRect2" type="TextureRect" parent="Darken/Control"]
+visible = false
+modulate = Color( 0.439216, 0.105882, 0.105882, 0.588235 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 7 )
+expand = true
+flip_v = true
+
+[node name="Ambience" parent="." instance=ExtResource( 1 )]
+stream = ExtResource( 8 )

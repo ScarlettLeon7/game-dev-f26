@@ -1,0 +1,19 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://scenes/tilesets/LevelTiles.tres" type="TileSet" id=1]
+[ext_resource path="res://scenes/layers/TileMap.gd" type="Script" id=2]
+[ext_resource path="res://scenes/shaders/Overlay.gdshader" type="Shader" id=3]
+[ext_resource path="res://scenes/tilesets/WorldmapTiles.tres" type="TileSet" id=4]
+
+[sub_resource type="ShaderMaterial" id=1]
+shader = ExtResource( 3 )
+shader_param/overlay_color = Color( 0.501961, 0.501961, 0.501961, 0.501961 )
+
+[node name="TileMap" type="TileMap" groups=["stc_tilemaps"]]
+material = SubResource( 1 )
+use_parent_material = true
+tile_set = ExtResource( 1 )
+cell_size = Vector2( 32, 32 )
+format = 1
+script = ExtResource( 2 )
+worldmap_tileset = ExtResource( 4 )

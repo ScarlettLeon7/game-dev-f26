@@ -1,0 +1,1105 @@
+[gd_scene load_steps=64 format=2]
+
+[ext_resource path="res://images/player/tux/big/idle.png" type="Texture" id=1]
+[ext_resource path="res://images/player/tux/small/idle.png" type="Texture" id=2]
+[ext_resource path="res://images/player/tux/worldmap/big/tux.png" type="Texture" id=3]
+[ext_resource path="res://images/player/tux/worldmap/small/smalltux.png" type="Texture" id=4]
+[ext_resource path="res://scenes/leveleditor/LevelEditor.gd" type="Script" id=5]
+[ext_resource path="res://scenes/leveleditor/RetractablePanel.gd" type="Script" id=6]
+[ext_resource path="res://scenes/leveleditor/TilesContainer.gd" type="Script" id=7]
+[ext_resource path="res://scenes/leveleditor/TileFunctions.gd" type="Script" id=8]
+[ext_resource path="res://scenes/leveleditor/TuxSprite.gd" type="Script" id=9]
+[ext_resource path="res://images/editor/GridCursor.png" type="Texture" id=10]
+[ext_resource path="res://scenes/leveleditor/EditorCamera.gd" type="Script" id=11]
+[ext_resource path="res://images/editor/icons/eyedropper.png" type="Texture" id=12]
+[ext_resource path="res://theme/default_theme.tres" type="Theme" id=13]
+[ext_resource path="res://scenes/leveleditor/TileButton.tscn" type="PackedScene" id=14]
+[ext_resource path="res://scenes/leveleditor/LayerButton.tscn" type="PackedScene" id=15]
+[ext_resource path="res://scenes/leveleditor/EditLayerDialog.tscn" type="PackedScene" id=16]
+[ext_resource path="res://scenes/leveleditor/menus/PauseScreen.tscn" type="PackedScene" id=17]
+[ext_resource path="res://scenes/shaders/Overlay.gdshader" type="Shader" id=18]
+[ext_resource path="res://scenes/leveleditor/AddLayerDialog.gd" type="Script" id=19]
+[ext_resource path="res://scenes/leveleditor/LevelPropertiesPanel.gd" type="Script" id=20]
+[ext_resource path="res://scenes/leveleditor/ObjectFunctions.gd" type="Script" id=21]
+[ext_resource path="res://scenes/master/click_hitbox.tscn" type="PackedScene" id=22]
+[ext_resource path="res://scenes/leveleditor/ObjectButton.tscn" type="PackedScene" id=23]
+[ext_resource path="res://images/editor/icons/eraser.png" type="Texture" id=24]
+[ext_resource path="res://images/editor/icons/rect_select.png" type="Texture" id=25]
+[ext_resource path="res://images/editor/icons/undo.png" type="Texture" id=26]
+[ext_resource path="res://images/editor/icons/settings.png" type="Texture" id=27]
+[ext_resource path="res://images/editor/icons/save.png" type="Texture" id=28]
+[ext_resource path="res://images/editor/icons/add.png" type="Texture" id=29]
+[ext_resource path="res://images/editor/icons/flip.png" type="Texture" id=30]
+[ext_resource path="res://sounds/objects/brick.wav" type="AudioStream" id=31]
+[ext_resource path="res://scenes/master/SFX.gd" type="Script" id=32]
+[ext_resource path="res://sounds/objects/brick_smash.wav" type="AudioStream" id=33]
+[ext_resource path="res://sounds/editor/undo.wav" type="AudioStream" id=34]
+[ext_resource path="res://sounds/objects/powerup-bumped.wav" type="AudioStream" id=35]
+[ext_resource path="res://images/editor/icons/edit.png" type="Texture" id=36]
+[ext_resource path="res://sounds/editor/level_saved.wav" type="AudioStream" id=37]
+[ext_resource path="res://sounds/objects/time_over.wav" type="AudioStream" id=38]
+[ext_resource path="res://sounds/editor/eyedrop.wav" type="AudioStream" id=39]
+[ext_resource path="res://sounds/objects/1up.wav" type="AudioStream" id=40]
+[ext_resource path="res://sounds/objects/powerup_appear.wav" type="AudioStream" id=41]
+[ext_resource path="res://sounds/worldmap/warp.wav" type="AudioStream" id=42]
+[ext_resource path="res://theme/FontTooltip.tres" type="DynamicFont" id=43]
+[ext_resource path="res://scenes/leveleditor/EditToggle.gd" type="Script" id=44]
+[ext_resource path="res://images/editor/icons/editbutton/play.png" type="Texture" id=45]
+[ext_resource path="res://sounds/editor/close_dialog.wav" type="AudioStream" id=46]
+[ext_resource path="res://images/editor/icons/editbutton/edit.png" type="Texture" id=47]
+[ext_resource path="res://images/editor/icons/editbutton/play_from_start.png" type="Texture" id=48]
+[ext_resource path="res://sounds/editor/close_level_properties.wav" type="AudioStream" id=49]
+[ext_resource path="res://sounds/editor/add_layer_dialog.wav" type="AudioStream" id=50]
+[ext_resource path="res://sounds/editor/level_properties_changed.wav" type="AudioStream" id=51]
+
+[sub_resource type="ShaderMaterial" id=10]
+shader = ExtResource( 18 )
+shader_param/overlay_color = Plane( 0.5, 0.5, 0.5, 0.5 )
+
+[sub_resource type="Animation" id=11]
+resource_name = "black"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:material")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ SubResource( 10 ) ]
+}
+
+[sub_resource type="ShaderMaterial" id=9]
+shader = ExtResource( 18 )
+shader_param/overlay_color = Plane( 0.8, 0.15, 0.1, 0.5 )
+
+[sub_resource type="Animation" id=12]
+resource_name = "red"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:material")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ SubResource( 9 ) ]
+}
+
+[sub_resource type="RectangleShape2D" id=17]
+extents = Vector2( 16, 16 )
+
+[sub_resource type="Animation" id=1]
+resource_name = "default"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "expand"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 0.5, 0.5 ),
+"update": 0,
+"values": [ Vector2( 0, 120 ), Vector2( 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "retract"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 0.5, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 0, 120 ) ]
+}
+
+[sub_resource type="StyleBoxFlat" id=16]
+bg_color = Color( 0, 0, 0, 0.65 )
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="Animation" id=4]
+resource_name = "default"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("../TilesPanelOffset:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "expand"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("../TilesPanelOffset:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 0.5, 0.5 ),
+"update": 0,
+"values": [ Vector2( 225, 0 ), Vector2( 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=6]
+resource_name = "retract"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("../TilesPanelOffset:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 0.5, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 225, 0 ) ]
+}
+
+[node name="LevelEditor" type="Control"]
+pause_mode = 2
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+theme = ExtResource( 13 )
+script = ExtResource( 5 )
+layer_button_scene = ExtResource( 15 )
+
+[node name="TileFunctions" type="Node2D" parent="."]
+z_index = 4096
+script = ExtResource( 8 )
+grid_color = Color( 0, 0, 0, 0.25 )
+
+[node name="SelectedTile" type="Sprite" parent="TileFunctions"]
+texture = ExtResource( 10 )
+
+[node name="TilePreview" type="Sprite" parent="TileFunctions/SelectedTile"]
+modulate = Color( 1, 1, 1, 0.501961 )
+show_behind_parent = true
+position = Vector2( -16, -16 )
+centered = false
+
+[node name="ObjectFunctions" type="Node2D" parent="."]
+z_index = 4096
+script = ExtResource( 21 )
+
+[node name="SelectedTile" type="Sprite" parent="ObjectFunctions"]
+texture = ExtResource( 10 )
+
+[node name="TilePreview" type="Sprite" parent="ObjectFunctions/SelectedTile"]
+modulate = Color( 1, 1, 1, 0.501961 )
+show_behind_parent = true
+position = Vector2( -16, -16 )
+centered = false
+
+[node name="EditorCamera" type="Camera2D" parent="."]
+z_index = 4096
+current = true
+limit_left = 0
+limit_top = 0
+limit_smoothed = true
+script = ExtResource( 11 )
+
+[node name="TuxSprite" type="Node2D" parent="EditorCamera"]
+material = SubResource( 10 )
+z_index = 1
+z_as_relative = false
+script = ExtResource( 9 )
+
+[node name="SpriteColour" type="AnimationPlayer" parent="EditorCamera/TuxSprite"]
+autoplay = "black"
+anims/black = SubResource( 11 )
+anims/red = SubResource( 12 )
+
+[node name="TuxWorldmapBig" type="Sprite" parent="EditorCamera/TuxSprite"]
+visible = false
+use_parent_material = true
+texture = ExtResource( 3 )
+offset = Vector2( 0, -8 )
+
+[node name="TuxWorldmapSmall" type="Sprite" parent="EditorCamera/TuxSprite"]
+visible = false
+use_parent_material = true
+texture = ExtResource( 4 )
+offset = Vector2( 0, -8 )
+
+[node name="TuxBig" type="Sprite" parent="EditorCamera/TuxSprite"]
+visible = false
+use_parent_material = true
+position = Vector2( 0, -16 )
+texture = ExtResource( 1 )
+
+[node name="TuxSmall" type="Sprite" parent="EditorCamera/TuxSprite"]
+use_parent_material = true
+texture = ExtResource( 2 )
+
+[node name="ClickHitbox" parent="EditorCamera" instance=ExtResource( 22 )]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EditorCamera/ClickHitbox"]
+shape = SubResource( 17 )
+
+[node name="UI" type="CanvasLayer" parent="."]
+layer = 128
+
+[node name="Scale" type="Control" parent="UI"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+theme = ExtResource( 13 )
+
+[node name="EditorUI" type="Control" parent="UI/Scale"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+
+[node name="MouseDetector" type="Control" parent="UI/Scale/EditorUI"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 1
+
+[node name="ButtonsContainer" type="Control" parent="UI/Scale/EditorUI"]
+margin_right = 278.0
+margin_bottom = 104.0
+
+[node name="Buttons" type="HBoxContainer" parent="UI/Scale/EditorUI/ButtonsContainer"]
+margin_left = 16.0
+margin_top = 16.0
+margin_right = 262.0
+margin_bottom = 88.0
+custom_constants/separation = 15
+
+[node name="UndoButton" type="Button" parent="UI/Scale/EditorUI/ButtonsContainer/Buttons"]
+margin_right = 72.0
+margin_bottom = 72.0
+hint_tooltip = "Undo the last action (CTRL+Z)"
+focus_mode = 0
+icon = ExtResource( 26 )
+clip_text = true
+
+[node name="LevelProperties" type="Button" parent="UI/Scale/EditorUI/ButtonsContainer/Buttons"]
+margin_left = 87.0
+margin_right = 159.0
+margin_bottom = 72.0
+hint_tooltip = "Open level properties panel... (CTRL+P)"
+focus_mode = 0
+icon = ExtResource( 27 )
+clip_text = true
+
+[node name="SaveButton" type="Button" parent="UI/Scale/EditorUI/ButtonsContainer/Buttons"]
+margin_left = 174.0
+margin_right = 246.0
+margin_bottom = 72.0
+hint_tooltip = "Save current level (CTRL+S)"
+focus_mode = 0
+icon = ExtResource( 28 )
+clip_text = true
+
+[node name="LevelPropertiesDialog" type="PopupDialog" parent="UI/Scale/EditorUI"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -477.0
+margin_top = -275.0
+margin_right = 477.0
+margin_bottom = 275.0
+script = ExtResource( 20 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Scale/EditorUI/LevelPropertiesDialog"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 12.0
+margin_top = 12.0
+margin_right = -12.0
+margin_bottom = -12.0
+
+[node name="Title" type="Label" parent="UI/Scale/EditorUI/LevelPropertiesDialog/VBoxContainer"]
+margin_right = 930.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 0, 32 )
+custom_colors/font_color = Color( 1, 1, 0, 1 )
+text = "Level Properties"
+align = 1
+valign = 2
+
+[node name="HSeparator" type="HSeparator" parent="UI/Scale/EditorUI/LevelPropertiesDialog/VBoxContainer"]
+margin_top = 36.0
+margin_right = 930.0
+margin_bottom = 66.0
+
+[node name="PanelContainer" type="PanelContainer" parent="UI/Scale/EditorUI/LevelPropertiesDialog/VBoxContainer"]
+margin_top = 70.0
+margin_right = 930.0
+margin_bottom = 424.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ScrollContainer" type="ScrollContainer" parent="UI/Scale/EditorUI/LevelPropertiesDialog/VBoxContainer/PanelContainer"]
+margin_left = 24.0
+margin_top = 24.0
+margin_right = 906.0
+margin_bottom = 330.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+follow_focus = true
+scroll_horizontal_enabled = false
+
+[node name="LevelProperties" type="VBoxContainer" parent="UI/Scale/EditorUI/LevelPropertiesDialog/VBoxContainer/PanelContainer/ScrollContainer"]
+margin_right = 882.0
+margin_bottom = 364.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 1
+
+[node name="EditLevelName" type="HSplitContainer" parent="UI/Scale/EditorUI/LevelPropertiesDialog/VBoxContainer/PanelContainer/ScrollContainer/LevelProperties"]
+margin_right = 870.0
+margin_bottom = 31.0
+
+[node name="Label" type="Label" parent="UI/Scale/EditorUI/LevelPropertiesDialog/VBoxContainer/PanelContainer/ScrollContainer/LevelProperties/EditLevelName"]
+margin_top = 5.0
+margin_right = 100.0
+margin_bottom = 26.0
+rect_min_size = Vector2( 100, 0 )
+size_flags_vertical = 6
+text = "Name:"
+
+[node name="Name" type="LineEdit" parent="UI/Scale/EditorUI/LevelPropertiesDialog/VBoxContainer/PanelContainer/ScrollContainer/LevelProperties/EditLevelName"]
+margin_left = 112.0
+margin_right = 870.0
+margin_bottom = 31.0
+size_flags_vertical = 3
+text = "Welcome to Antarctica"
+
+[node name="EditLevelAuthor" type="HSplitContainer" parent="UI/Scale/EditorUI/LevelPropertiesDialog/VBoxContainer/PanelContainer/ScrollContainer/LevelProperties"]
+margin_top = 35.0
+margin_right = 870.0
+margin_bottom = 66.0
+
+[node name="Label" type="Label" parent="UI/Scale/EditorUI/LevelPropertiesDialog/VBoxContainer/PanelContainer/ScrollContainer/LevelProperties/EditLevelAuthor"]
+margin_top = 5.0
+margin_right = 101.0
+margin_bottom = 26.0
+rect_min_size = Vector2( 100, 0 )
+size_flags_vertical = 6
+text = "Author:"
+
+[node name="Author" type="LineEdit" parent="UI/Scale/EditorUI/LevelPropertiesDialog/VBoxContainer/PanelContainer/ScrollContainer/LevelProperties/EditLevelAuthor"]
+margin_left = 113.0
+margin_right = 870.0
+margin_bottom = 31.0
+size_flags_vertical = 3
+text = "Marek Moeckel"
+
+[node name="HSeparator2" type="HSeparator" parent="UI/Scale/EditorUI/LevelPropertiesDialog/VBoxContainer/PanelContainer/ScrollContainer/LevelProperties"]
+margin_top = 70.0
+margin_right = 870.0
+margin_bottom = 100.0
+
+[node name="EditLevelMusic" type="HSplitContainer" parent="UI/Scale/EditorUI/LevelPropertiesDialog/VBoxContainer/PanelContainer/ScrollContainer/LevelProperties"]
+margin_top = 104.0
+margin_right = 870.0
+margin_bottom = 135.0
+
+[node name="Label" type="Label" parent="UI/Scale/EditorUI/LevelPropertiesDialog/VBoxContainer/PanelContainer/ScrollContainer/LevelProperties/EditLevelMusic"]
+margin_top = 5.0
+margin_right = 100.0
+margin_bottom = 26.0
+rect_min_size = Vector2( 100, 0 )
+size_flags_vertical = 6
+text = "Music:"
+
+[node name="Music" type="OptionButton" parent="UI/Scale/EditorUI/LevelPropertiesDialog/VBoxContainer/PanelContainer/ScrollContainer/LevelProperties/EditLevelMusic"]
+margin_left = 112.0
+margin_right = 870.0
+margin_bottom = 31.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "ChipDisko"
+
+[node name="CustomMusicControls" type="VBoxContainer" parent="UI/Scale/EditorUI/LevelPropertiesDialog/VBoxContainer/PanelContainer/ScrollContainer/LevelProperties"]
+margin_top = 139.0
+margin_right = 870.0
+margin_bottom = 191.0
+rect_min_size = Vector2( 0, 52 )
+alignment = 2
+
+[node name="EditLevelMusicLoopOffset" type="HSplitContainer" parent="UI/Scale/EditorUI/LevelPropertiesDialog/VBoxContainer/PanelContainer/ScrollContainer/LevelProperties/CustomMusicControls"]
+margin_top = 21.0
+margin_right = 870.0
+margin_bottom = 52.0
+
+[node name="Label" type="Label" parent="UI/Scale/EditorUI/LevelPropertiesDialog/VBoxContainer/PanelContainer/ScrollContainer/LevelProperties/CustomMusicControls/EditLevelMusicLoopOffset"]
+margin_top = 5.0
+margin_right = 744.0
+margin_bottom = 26.0
+rect_min_size = Vector2( 100, 0 )
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "Loop Start Position (seconds):"
+
+[node name="CustomMusicLoopOffset" type="SpinBox" parent="UI/Scale/EditorUI/LevelPropertiesDialog/VBoxContainer/PanelContainer/ScrollContainer/LevelProperties/CustomMusicControls/EditLevelMusicLoopOffset"]
+margin_left = 756.0
+margin_right = 870.0
+margin_bottom = 31.0
+size_flags_vertical = 3
+max_value = 999999.0
+step = 0.0
+
+[node name="HSeparator3" type="HSeparator" parent="UI/Scale/EditorUI/LevelPropertiesDialog/VBoxContainer/PanelContainer/ScrollContainer/LevelProperties"]
+margin_top = 195.0
+margin_right = 870.0
+margin_bottom = 225.0
+
+[node name="EditLevelTimer" type="HBoxContainer" parent="UI/Scale/EditorUI/LevelPropertiesDialog/VBoxContainer/PanelContainer/ScrollContainer/LevelProperties"]
+margin_top = 229.0
+margin_right = 870.0
+margin_bottom = 260.0
+
+[node name="TimerEnabled" type="CheckBox" parent="UI/Scale/EditorUI/LevelPropertiesDialog/VBoxContainer/PanelContainer/ScrollContainer/LevelProperties/EditLevelTimer"]
+margin_right = 24.0
+margin_bottom = 31.0
+size_flags_vertical = 3
+pressed = true
+
+[node name="Label" type="Label" parent="UI/Scale/EditorUI/LevelPropertiesDialog/VBoxContainer/PanelContainer/ScrollContainer/LevelProperties/EditLevelTimer"]
+margin_left = 28.0
+margin_top = 5.0
+margin_right = 128.0
+margin_bottom = 26.0
+rect_min_size = Vector2( 100, 0 )
+text = "Time:"
+align = 1
+
+[node name="SpaceFiller" type="Control" parent="UI/Scale/EditorUI/LevelPropertiesDialog/VBoxContainer/PanelContainer/ScrollContainer/LevelProperties/EditLevelTimer"]
+margin_left = 132.0
+margin_right = 752.0
+margin_bottom = 31.0
+size_flags_horizontal = 3
+
+[node name="Time" type="SpinBox" parent="UI/Scale/EditorUI/LevelPropertiesDialog/VBoxContainer/PanelContainer/ScrollContainer/LevelProperties/EditLevelTimer"]
+margin_left = 756.0
+margin_right = 870.0
+margin_bottom = 31.0
+size_flags_vertical = 3
+min_value = 10.0
+max_value = 999.0
+value = 300.0
+
+[node name="HSeparator4" type="HSeparator" parent="UI/Scale/EditorUI/LevelPropertiesDialog/VBoxContainer/PanelContainer/ScrollContainer/LevelProperties"]
+margin_top = 264.0
+margin_right = 870.0
+margin_bottom = 294.0
+
+[node name="EditLevelGravity" type="HSplitContainer" parent="UI/Scale/EditorUI/LevelPropertiesDialog/VBoxContainer/PanelContainer/ScrollContainer/LevelProperties"]
+margin_top = 298.0
+margin_right = 870.0
+margin_bottom = 329.0
+
+[node name="Label" type="Label" parent="UI/Scale/EditorUI/LevelPropertiesDialog/VBoxContainer/PanelContainer/ScrollContainer/LevelProperties/EditLevelGravity"]
+margin_top = 5.0
+margin_right = 744.0
+margin_bottom = 26.0
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "Gravity:"
+
+[node name="Gravity" type="SpinBox" parent="UI/Scale/EditorUI/LevelPropertiesDialog/VBoxContainer/PanelContainer/ScrollContainer/LevelProperties/EditLevelGravity"]
+margin_left = 756.0
+margin_right = 870.0
+margin_bottom = 31.0
+size_flags_vertical = 3
+min_value = 1.0
+max_value = 50.0
+value = 10.0
+
+[node name="EditLevelAutoscroll" type="HSplitContainer" parent="UI/Scale/EditorUI/LevelPropertiesDialog/VBoxContainer/PanelContainer/ScrollContainer/LevelProperties"]
+margin_top = 333.0
+margin_right = 870.0
+margin_bottom = 364.0
+
+[node name="Label" type="Label" parent="UI/Scale/EditorUI/LevelPropertiesDialog/VBoxContainer/PanelContainer/ScrollContainer/LevelProperties/EditLevelAutoscroll"]
+margin_top = 5.0
+margin_right = 744.0
+margin_bottom = 26.0
+size_flags_horizontal = 3
+size_flags_vertical = 6
+text = "Autoscroll Speed:"
+
+[node name="AutoscrollSpeed" type="SpinBox" parent="UI/Scale/EditorUI/LevelPropertiesDialog/VBoxContainer/PanelContainer/ScrollContainer/LevelProperties/EditLevelAutoscroll"]
+margin_left = 756.0
+margin_right = 870.0
+margin_bottom = 31.0
+size_flags_vertical = 3
+max_value = 5.0
+step = 0.5
+
+[node name="HSeparator2" type="HSeparator" parent="UI/Scale/EditorUI/LevelPropertiesDialog/VBoxContainer"]
+margin_top = 428.0
+margin_right = 930.0
+margin_bottom = 458.0
+
+[node name="HideLevelProperties" type="Button" parent="UI/Scale/EditorUI/LevelPropertiesDialog/VBoxContainer"]
+margin_top = 462.0
+margin_right = 930.0
+margin_bottom = 526.0
+rect_min_size = Vector2( 0, 64 )
+text = "Done"
+
+[node name="LayersPanelOffset" type="Control" parent="UI/Scale/EditorUI"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+script = ExtResource( 6 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="RetractAnimation" type="AnimationPlayer" parent="UI/Scale/EditorUI/LayersPanelOffset"]
+autoplay = "default"
+anims/default = SubResource( 1 )
+anims/expand = SubResource( 2 )
+anims/retract = SubResource( 3 )
+
+[node name="LayersPanel" type="Panel" parent="UI/Scale/EditorUI/LayersPanelOffset"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -120.0
+margin_right = -225.0
+custom_styles/panel = SubResource( 16 )
+
+[node name="RetractTab" type="Button" parent="UI/Scale/EditorUI/LayersPanelOffset/LayersPanel"]
+visible = false
+margin_top = -45.0
+margin_right = 109.0
+margin_bottom = -2.0
+focus_mode = 0
+
+[node name="AddLayerButton" type="Button" parent="UI/Scale/EditorUI/LayersPanelOffset/LayersPanel"]
+margin_left = 9.0
+margin_top = 6.0
+margin_right = 115.0
+margin_bottom = 112.0
+hint_tooltip = "Add a new layer... (CTRL+A)"
+focus_mode = 0
+icon = ExtResource( 29 )
+expand_icon = true
+
+[node name="ScrollContainer" type="ScrollContainer" parent="UI/Scale/EditorUI/LayersPanelOffset/LayersPanel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 123.0
+margin_top = 8.0
+margin_right = -5.0
+margin_bottom = -8.0
+follow_focus = true
+scroll_vertical_enabled = false
+
+[node name="LayersContainer" type="HBoxContainer" parent="UI/Scale/EditorUI/LayersPanelOffset/LayersPanel/ScrollContainer"]
+margin_right = 927.0
+margin_bottom = 104.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 5
+alignment = 1
+
+[node name="AddLayerDialog" type="PopupDialog" parent="UI/Scale/EditorUI/LayersPanelOffset"]
+anchor_bottom = 1.0
+margin_right = 600.0
+margin_bottom = -122.0
+script = ExtResource( 19 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Scale/EditorUI/LayersPanelOffset/AddLayerDialog"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 12.0
+margin_top = 12.0
+margin_right = -12.0
+margin_bottom = -12.0
+
+[node name="Title" type="Label" parent="UI/Scale/EditorUI/LayersPanelOffset/AddLayerDialog/VBoxContainer"]
+margin_right = 576.0
+margin_bottom = 32.0
+rect_min_size = Vector2( 0, 32 )
+custom_colors/font_color = Color( 1, 1, 0, 1 )
+text = "Add Layer..."
+align = 1
+valign = 2
+
+[node name="HSeparator" type="HSeparator" parent="UI/Scale/EditorUI/LayersPanelOffset/AddLayerDialog/VBoxContainer"]
+margin_top = 36.0
+margin_right = 576.0
+margin_bottom = 66.0
+
+[node name="PanelContainer" type="PanelContainer" parent="UI/Scale/EditorUI/LayersPanelOffset/AddLayerDialog/VBoxContainer"]
+margin_top = 70.0
+margin_right = 576.0
+margin_bottom = 472.0
+size_flags_vertical = 3
+
+[node name="LayerProperties" type="VBoxContainer" parent="UI/Scale/EditorUI/LayersPanelOffset/AddLayerDialog/VBoxContainer/PanelContainer"]
+margin_left = 32.0
+margin_top = 32.0
+margin_right = 544.0
+margin_bottom = 370.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="NameEntry" type="HSplitContainer" parent="UI/Scale/EditorUI/LayersPanelOffset/AddLayerDialog/VBoxContainer/PanelContainer/LayerProperties"]
+margin_right = 512.0
+margin_bottom = 31.0
+
+[node name="Label" type="Label" parent="UI/Scale/EditorUI/LayersPanelOffset/AddLayerDialog/VBoxContainer/PanelContainer/LayerProperties/NameEntry"]
+margin_top = 5.0
+margin_right = 76.0
+margin_bottom = 26.0
+text = "Name:"
+
+[node name="Name" type="LineEdit" parent="UI/Scale/EditorUI/LayersPanelOffset/AddLayerDialog/VBoxContainer/PanelContainer/LayerProperties/NameEntry"]
+margin_left = 88.0
+margin_right = 512.0
+margin_bottom = 31.0
+
+[node name="TypeEntry" type="HSplitContainer" parent="UI/Scale/EditorUI/LayersPanelOffset/AddLayerDialog/VBoxContainer/PanelContainer/LayerProperties"]
+margin_top = 35.0
+margin_right = 512.0
+margin_bottom = 66.0
+
+[node name="Label" type="Label" parent="UI/Scale/EditorUI/LayersPanelOffset/AddLayerDialog/VBoxContainer/PanelContainer/LayerProperties/TypeEntry"]
+margin_top = 5.0
+margin_right = 74.0
+margin_bottom = 26.0
+text = "Type:"
+
+[node name="LayerTypes" type="OptionButton" parent="UI/Scale/EditorUI/LayersPanelOffset/AddLayerDialog/VBoxContainer/PanelContainer/LayerProperties/TypeEntry"]
+margin_left = 86.0
+margin_right = 512.0
+margin_bottom = 31.0
+theme = ExtResource( 13 )
+text = "Tilemap"
+
+[node name="HSeparator2" type="HSeparator" parent="UI/Scale/EditorUI/LayersPanelOffset/AddLayerDialog/VBoxContainer"]
+margin_top = 476.0
+margin_right = 576.0
+margin_bottom = 506.0
+
+[node name="AddLayerButton" type="Button" parent="UI/Scale/EditorUI/LayersPanelOffset/AddLayerDialog/VBoxContainer"]
+margin_top = 510.0
+margin_right = 576.0
+margin_bottom = 574.0
+rect_min_size = Vector2( 0, 64 )
+text = "Add"
+
+[node name="TilesPanelOffset" type="Control" parent="UI/Scale/EditorUI"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+script = ExtResource( 6 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="RetractAnimation" type="AnimationPlayer" parent="UI/Scale/EditorUI/TilesPanelOffset"]
+root_node = NodePath("../../LayersPanelOffset")
+autoplay = "default"
+anims/default = SubResource( 4 )
+anims/expand = SubResource( 5 )
+anims/retract = SubResource( 6 )
+
+[node name="TilesPanel" type="Panel" parent="UI/Scale/EditorUI/TilesPanelOffset"]
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -225.0
+margin_bottom = -120.0
+custom_styles/panel = SubResource( 16 )
+
+[node name="RetractTab" type="Button" parent="UI/Scale/EditorUI/TilesPanelOffset/TilesPanel"]
+visible = false
+margin_left = -43.0
+margin_top = 1.0
+margin_bottom = 97.0
+focus_mode = 0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="UI/Scale/EditorUI/TilesPanelOffset/TilesPanel"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 16.0
+margin_top = 19.0
+margin_right = -16.0
+margin_bottom = -16.0
+scroll_horizontal_enabled = false
+
+[node name="TilesContainer" type="GridContainer" parent="UI/Scale/EditorUI/TilesPanelOffset/TilesPanel/ScrollContainer"]
+margin_right = 193.0
+size_flags_horizontal = 3
+columns = 4
+script = ExtResource( 7 )
+tile_button_scene = ExtResource( 14 )
+object_button_scene = ExtResource( 23 )
+
+[node name="PlacementOptionsContainer" type="Control" parent="UI/Scale/EditorUI/TilesPanelOffset/TilesPanel"]
+margin_left = -96.0
+margin_right = 8.0
+margin_bottom = 408.0
+
+[node name="PlacementOptions" type="VBoxContainer" parent="UI/Scale/EditorUI/TilesPanelOffset/TilesPanel/PlacementOptionsContainer"]
+anchor_right = 1.0
+margin_left = 16.0
+margin_top = 16.0
+margin_right = -16.0
+margin_bottom = 360.0
+rect_min_size = Vector2( 64, 0 )
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="Eraser" type="Button" parent="UI/Scale/EditorUI/TilesPanelOffset/TilesPanel/PlacementOptionsContainer/PlacementOptions"]
+margin_right = 72.0
+margin_bottom = 72.0
+hint_tooltip = "Eraser (Press E or Right Click)"
+focus_mode = 0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+toggle_mode = true
+icon = ExtResource( 24 )
+clip_text = true
+
+[node name="RectSelect" type="Button" parent="UI/Scale/EditorUI/TilesPanelOffset/TilesPanel/PlacementOptionsContainer/PlacementOptions"]
+margin_top = 76.0
+margin_right = 72.0
+margin_bottom = 148.0
+hint_tooltip = "Rectangle Select (Hold Shift)"
+focus_mode = 0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+toggle_mode = true
+icon = ExtResource( 25 )
+clip_text = true
+
+[node name="EyeDropper" type="Button" parent="UI/Scale/EditorUI/TilesPanelOffset/TilesPanel/PlacementOptionsContainer/PlacementOptions"]
+margin_top = 152.0
+margin_right = 72.0
+margin_bottom = 224.0
+hint_tooltip = "Eyedropper (Hold Control or Middle Click)"
+focus_mode = 0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+toggle_mode = true
+icon = ExtResource( 12 )
+clip_text = true
+
+[node name="FlipTiles" type="Button" parent="UI/Scale/EditorUI/TilesPanelOffset/TilesPanel/PlacementOptionsContainer/PlacementOptions"]
+margin_top = 228.0
+margin_right = 72.0
+margin_bottom = 300.0
+hint_tooltip = "Flip Tiles (Press X)"
+focus_mode = 0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+toggle_mode = true
+enabled_focus_mode = 0
+icon = ExtResource( 30 )
+clip_text = true
+
+[node name="EditObject" type="Button" parent="UI/Scale/EditorUI/TilesPanelOffset/TilesPanel/PlacementOptionsContainer/PlacementOptions"]
+margin_top = 304.0
+margin_right = 72.0
+margin_bottom = 376.0
+hint_tooltip = "Edit Objects / Layers (Right Click)"
+focus_mode = 0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+toggle_mode = true
+enabled_focus_mode = 0
+icon = ExtResource( 36 )
+clip_text = true
+
+[node name="EditLayerDialog" parent="UI/Scale/EditorUI" instance=ExtResource( 16 )]
+
+[node name="EditToggle" type="Button" parent="UI/Scale"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -224.0
+margin_top = -119.0
+hint_tooltip = "Play/Edit level (ENTER)
+
+Play from Start (CTRL+ENTER)"
+focus_mode = 0
+theme = ExtResource( 13 )
+custom_fonts/font = ExtResource( 43 )
+icon_align = 1
+script = ExtResource( 44 )
+play_texture = ExtResource( 45 )
+play_from_start_texture = ExtResource( 48 )
+edit_texture = ExtResource( 47 )
+
+[node name="Icon" type="TextureRect" parent="UI/Scale/EditToggle"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 7.0
+margin_bottom = -29.0
+texture = ExtResource( 45 )
+stretch_mode = 6
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Label" type="Label" parent="UI/Scale/EditToggle"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 51.0
+margin_bottom = -9.0
+custom_fonts/font = ExtResource( 43 )
+text = "PLAY"
+align = 1
+valign = 2
+autowrap = true
+
+[node name="UnsavedChangesDialog" type="PopupDialog" parent="UI"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -313.0
+margin_top = -135.0
+margin_right = 313.0
+margin_bottom = 135.0
+theme = ExtResource( 13 )
+popup_exclusive = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/UnsavedChangesDialog"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 12.0
+margin_top = 12.0
+margin_right = -12.0
+margin_bottom = -12.0
+alignment = 1
+
+[node name="Label" type="Label" parent="UI/UnsavedChangesDialog/VBoxContainer"]
+margin_top = 30.0
+margin_right = 602.0
+margin_bottom = 62.0
+rect_min_size = Vector2( 0, 32 )
+custom_colors/font_color = Color( 1, 1, 0, 1 )
+text = "Unsaved Changes"
+align = 1
+valign = 2
+autowrap = true
+
+[node name="HSeparator2" type="HSeparator" parent="UI/UnsavedChangesDialog/VBoxContainer"]
+margin_top = 66.0
+margin_right = 602.0
+margin_bottom = 96.0
+
+[node name="Label2" type="Label" parent="UI/UnsavedChangesDialog/VBoxContainer"]
+margin_top = 100.0
+margin_right = 602.0
+margin_bottom = 132.0
+rect_min_size = Vector2( 0, 32 )
+text = "Save changes to level before closing?"
+align = 1
+valign = 2
+autowrap = true
+
+[node name="HSeparator" type="HSeparator" parent="UI/UnsavedChangesDialog/VBoxContainer"]
+margin_top = 136.0
+margin_right = 602.0
+margin_bottom = 166.0
+
+[node name="HSplitContainer" type="HBoxContainer" parent="UI/UnsavedChangesDialog/VBoxContainer"]
+margin_top = 170.0
+margin_right = 602.0
+margin_bottom = 216.0
+rect_min_size = Vector2( 0, 46 )
+
+[node name="SaveAndExit" type="Button" parent="UI/UnsavedChangesDialog/VBoxContainer/HSplitContainer"]
+margin_right = 198.0
+margin_bottom = 46.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Save"
+clip_text = true
+
+[node name="ExitWithoutSaving" type="Button" parent="UI/UnsavedChangesDialog/VBoxContainer/HSplitContainer"]
+margin_left = 202.0
+margin_right = 400.0
+margin_bottom = 46.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Don't Save"
+
+[node name="CancelExitProgram" type="Button" parent="UI/UnsavedChangesDialog/VBoxContainer/HSplitContainer"]
+margin_left = 404.0
+margin_right = 602.0
+margin_bottom = 46.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Cancel"
+clip_text = true
+
+[node name="PauseMenu" parent="." instance=ExtResource( 17 )]
+visible = false
+
+[node name="SFX" type="Node2D" parent="."]
+script = ExtResource( 32 )
+
+[node name="AddLayerDialog" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource( 50 )
+volume_db = -7.0
+pitch_scale = 2.0
+
+[node name="AddLayer" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource( 40 )
+volume_db = -11.0
+pitch_scale = 2.0
+
+[node name="SelectLayer" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource( 39 )
+volume_db = -8.0
+pitch_scale = 1.2
+
+[node name="DeleteLayer" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource( 33 )
+volume_db = -7.0
+pitch_scale = 2.0
+
+[node name="EditLayer" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource( 42 )
+volume_db = -11.0
+pitch_scale = 5.0
+
+[node name="EditLayerComplete" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource( 46 )
+volume_db = -11.0
+pitch_scale = 1.25
+
+[node name="Eyedrop" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource( 41 )
+volume_db = -12.0
+pitch_scale = 14.0
+
+[node name="SelectTile" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource( 46 )
+volume_db = -25.0
+pitch_scale = 7.0
+
+[node name="PlaceTile" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource( 31 )
+volume_db = -15.0
+pitch_scale = 6.0
+
+[node name="EraseTile" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource( 33 )
+volume_db = -13.0
+pitch_scale = 3.0
+
+[node name="PlaceObject" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource( 35 )
+volume_db = -9.0
+pitch_scale = 2.0
+
+[node name="EraseObject" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource( 33 )
+volume_db = -18.0
+pitch_scale = 1.5
+
+[node name="Undo" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource( 34 )
+volume_db = -5.0
+
+[node name="Save" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource( 37 )
+volume_db = -4.0
+
+[node name="LevelProperties" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource( 38 )
+volume_db = -8.0
+pitch_scale = 2.0
+
+[node name="LevelPropertiesClose" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource( 49 )
+volume_db = -10.0
+pitch_scale = 1.4
+
+[node name="LevelPropertiesChanged" type="AudioStreamPlayer" parent="SFX"]
+stream = ExtResource( 51 )
+volume_db = -8.0
+
+[connection signal="pressed" from="UI/Scale/EditorUI/ButtonsContainer/Buttons/UndoButton" to="." method="_on_UndoButton_pressed"]
+[connection signal="pressed" from="UI/Scale/EditorUI/ButtonsContainer/Buttons/LevelProperties" to="." method="_on_LevelProperties_pressed"]
+[connection signal="pressed" from="UI/Scale/EditorUI/ButtonsContainer/Buttons/SaveButton" to="." method="_on_SaveButton_pressed"]
+[connection signal="about_to_show" from="UI/Scale/EditorUI/LevelPropertiesDialog" to="UI/Scale/EditorUI/LevelPropertiesDialog" method="_on_LevelPropertiesDialog_about_to_show"]
+[connection signal="popup_hide" from="UI/Scale/EditorUI/LevelPropertiesDialog" to="." method="_on_LevelPropertiesDialog_popup_hide"]
+[connection signal="text_changed" from="UI/Scale/EditorUI/LevelPropertiesDialog/VBoxContainer/PanelContainer/ScrollContainer/LevelProperties/EditLevelName/Name" to="UI/Scale/EditorUI/LevelPropertiesDialog" method="_on_Name_text_changed"]
+[connection signal="text_changed" from="UI/Scale/EditorUI/LevelPropertiesDialog/VBoxContainer/PanelContainer/ScrollContainer/LevelProperties/EditLevelAuthor/Author" to="UI/Scale/EditorUI/LevelPropertiesDialog" method="_on_Author_text_changed"]
+[connection signal="item_selected" from="UI/Scale/EditorUI/LevelPropertiesDialog/VBoxContainer/PanelContainer/ScrollContainer/LevelProperties/EditLevelMusic/Music" to="UI/Scale/EditorUI/LevelPropertiesDialog" method="_on_Music_item_selected"]
+[connection signal="value_changed" from="UI/Scale/EditorUI/LevelPropertiesDialog/VBoxContainer/PanelContainer/ScrollContainer/LevelProperties/CustomMusicControls/EditLevelMusicLoopOffset/CustomMusicLoopOffset" to="UI/Scale/EditorUI/LevelPropertiesDialog" method="_on_CustomMusicLoopOffset_value_changed"]
+[connection signal="toggled" from="UI/Scale/EditorUI/LevelPropertiesDialog/VBoxContainer/PanelContainer/ScrollContainer/LevelProperties/EditLevelTimer/TimerEnabled" to="UI/Scale/EditorUI/LevelPropertiesDialog" method="_on_TimerEnabled_toggled"]
+[connection signal="value_changed" from="UI/Scale/EditorUI/LevelPropertiesDialog/VBoxContainer/PanelContainer/ScrollContainer/LevelProperties/EditLevelTimer/Time" to="UI/Scale/EditorUI/LevelPropertiesDialog" method="_on_Time_value_changed"]
+[connection signal="value_changed" from="UI/Scale/EditorUI/LevelPropertiesDialog/VBoxContainer/PanelContainer/ScrollContainer/LevelProperties/EditLevelGravity/Gravity" to="UI/Scale/EditorUI/LevelPropertiesDialog" method="_on_Gravity_value_changed"]
+[connection signal="value_changed" from="UI/Scale/EditorUI/LevelPropertiesDialog/VBoxContainer/PanelContainer/ScrollContainer/LevelProperties/EditLevelAutoscroll/AutoscrollSpeed" to="UI/Scale/EditorUI/LevelPropertiesDialog" method="_on_AutoscrollSpeed_value_changed"]
+[connection signal="pressed" from="UI/Scale/EditorUI/LevelPropertiesDialog/VBoxContainer/HideLevelProperties" to="UI/Scale/EditorUI/LevelPropertiesDialog" method="_on_HideLevelProperties_pressed"]
+[connection signal="pressed" from="UI/Scale/EditorUI/LayersPanelOffset/LayersPanel/RetractTab" to="UI/Scale/EditorUI/LayersPanelOffset" method="_on_RetractTab_pressed"]
+[connection signal="pressed" from="UI/Scale/EditorUI/LayersPanelOffset/LayersPanel/AddLayerButton" to="UI/Scale/EditorUI/LayersPanelOffset" method="_on_AddLayerButton_pressed"]
+[connection signal="about_to_show" from="UI/Scale/EditorUI/LayersPanelOffset/AddLayerDialog" to="." method="_on_AddLayerDialog_about_to_show"]
+[connection signal="about_to_show" from="UI/Scale/EditorUI/LayersPanelOffset/AddLayerDialog" to="UI/Scale/EditorUI/LayersPanelOffset/AddLayerDialog" method="_on_AddLayerDialog_about_to_show"]
+[connection signal="item_selected" from="UI/Scale/EditorUI/LayersPanelOffset/AddLayerDialog/VBoxContainer/PanelContainer/LayerProperties/TypeEntry/LayerTypes" to="UI/Scale/EditorUI/LayersPanelOffset/AddLayerDialog" method="_on_LayerTypes_item_selected"]
+[connection signal="pressed" from="UI/Scale/EditorUI/LayersPanelOffset/AddLayerDialog/VBoxContainer/AddLayerButton" to="UI/Scale/EditorUI/LayersPanelOffset/AddLayerDialog" method="_on_AddLayerButton_pressed"]
+[connection signal="pressed" from="UI/Scale/EditorUI/TilesPanelOffset/TilesPanel/RetractTab" to="UI/Scale/EditorUI/TilesPanelOffset" method="_on_RetractTab_pressed"]
+[connection signal="toggled" from="UI/Scale/EditorUI/TilesPanelOffset/TilesPanel/PlacementOptionsContainer/PlacementOptions/Eraser" to="." method="_on_Eraser_toggled"]
+[connection signal="toggled" from="UI/Scale/EditorUI/TilesPanelOffset/TilesPanel/PlacementOptionsContainer/PlacementOptions/RectSelect" to="." method="_on_RectSelect_toggled"]
+[connection signal="toggled" from="UI/Scale/EditorUI/TilesPanelOffset/TilesPanel/PlacementOptionsContainer/PlacementOptions/EyeDropper" to="." method="_on_EyeDropper_toggled"]
+[connection signal="toggled" from="UI/Scale/EditorUI/TilesPanelOffset/TilesPanel/PlacementOptionsContainer/PlacementOptions/FlipTiles" to="." method="_on_FlipTiles_toggled"]
+[connection signal="toggled" from="UI/Scale/EditorUI/TilesPanelOffset/TilesPanel/PlacementOptionsContainer/PlacementOptions/EditObject" to="." method="_on_EditObject_toggled"]
+[connection signal="about_to_show" from="UI/Scale/EditorUI/EditLayerDialog" to="." method="_on_EditLayerDialog_about_to_show"]
+[connection signal="pressed" from="UI/Scale/EditToggle" to="." method="_on_EditToggle_pressed"]
+[connection signal="about_to_show" from="UI/UnsavedChangesDialog" to="." method="_on_UnsavedChangesDialog_about_to_show"]
+[connection signal="popup_hide" from="UI/UnsavedChangesDialog" to="." method="_on_UnsavedChangesDialog_popup_hide"]
+[connection signal="pressed" from="UI/UnsavedChangesDialog/VBoxContainer/HSplitContainer/SaveAndExit" to="." method="_on_SaveAndExit_pressed"]
+[connection signal="pressed" from="UI/UnsavedChangesDialog/VBoxContainer/HSplitContainer/ExitWithoutSaving" to="." method="_on_ExitWithoutSaving_pressed"]
+[connection signal="pressed" from="UI/UnsavedChangesDialog/VBoxContainer/HSplitContainer/CancelExitProgram" to="." method="_on_CancelExitProgram_pressed"]

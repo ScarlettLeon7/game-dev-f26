@@ -1,0 +1,27 @@
+# Godot generated files
+.import/
+.godot/
+
+# macOS
+.DS_Store
+
+# Temporary files
+*.tmp
+*.log
+
+# Python caches and virtual environments
+__pycache__/
+*.pyc
+.venv/
+
+# Credentials
+.env
+.env.*
+!.env.example
+
+# Android build and signing files
+android/.build_version
+android/*.keystore
+*.jks
+*.p12
+*.p8

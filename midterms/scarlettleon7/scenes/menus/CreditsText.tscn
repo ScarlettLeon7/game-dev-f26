@@ -1,0 +1,252 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://scenes/menus/TextScroll.gd" type="Script" id=1]
+[ext_resource path="res://theme/FontCredits.tres" type="DynamicFont" id=3]
+[ext_resource path="res://theme/default_theme.tres" type="Theme" id=4]
+
+[node name="CreditsText" type="Control"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+theme = ExtResource( 4 )
+script = ExtResource( 1 )
+return_scene = "res://scenes/menus/TitleScreen.tscn"
+
+[node name="RichTextLabel" type="Label" parent="."]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -320.0
+margin_right = 320.0
+margin_bottom = 2432.0
+custom_constants/shadow_offset_x = 0
+custom_fonts/font = ExtResource( 3 )
+text = "- SuperTux Classic -
+
+A remaster of SuperTux Milestone 1
+built from the ground up in the
+Godot Engine!
+
+
+Licensed Under
+
+The GNU GPL v3 or Later (GPL-3.0-or-later)
+This game is totally open source! You can modify
+and redistribute it for free without hassle, as long
+as you follow the conditions set in COPYING.TXT.
+
+
+Remastered by
+
+Alexander (Alzter) Small
+
+
+Remaster Programming
+
+Alexander (Alzter) Small
+
+Matthew (Skyace65)
+
+Tulpenkiste
+
+Giannino (Gianclgar) Clemente
+(GDScriptAudioImport code)
+
+
+Level Editor Programming
+
+Alexander (Alzter) Small
+
+
+Level Editor Testing and QA
+
+Carsten (RustyBox) Wirtz
+
+FrostC
+
+Mal0gen
+
+
+Levels Ported by
+
+Alexander (Alzter) Small
+
+Tlaloc1
+
+
+New Graphics
+
+Alexander (Alzter) Small
+
+Ingo (grumbel) Ruhnke
+(Taken from future versions of SuperTux)
+
+Carsten (RustyBox) Wirtz
+(Taken from future versions of SuperTux)
+
+
+Boss Battle Design
+
+Alexander (Alzter) Small
+
+Carsten (RustyBox) Wirtz
+
+
+New Sounds
+
+Shrehpog - Wooden Crate smash
+https://freesound.org/people/Srehpog/sounds/31624/
+
+Qubodup - Fireball spell
+https://freesound.org/people/qubodup/sounds/442827/
+
+Straget - Thunder
+https://freesound.org/people/straget/sounds/527664/
+
+Audionautics - Lava loop
+https://freesound.org/people/Audionautics/sounds/133901/
+
+Many other public domain sounds from Freesound.org
+
+
+Sound and Music Remastering
+
+Alexander (Alzter) Small
+
+
+New Music Tracks by
+
+Joseph (ZhayTee) Toscano
+(Taken from TuxRacer and Pingus' soundtracks)
+
+Marek (Wansti) Moeckel
+(Taken from future versions of SuperTux)
+
+Alexander (Alzter) Small
+(New tracks adapted from Marek Moeckel's compositions)
+
+
+Voice Acting
+
+Matthias (MatzeB) Braun
+for the voice of Nolok
+(Adapted from the Yeti's voice in SuperTux Milestone 2)
+
+
+
+
+
+
+- Original Credits -
+
+for SuperTux Milestone 1 are as follows:
+
+
+
+
+
+
+Originally developed by
+
+Bill Kendrick
+
+
+Programming
+
+Tobias (tobgle) Glaesser
+
+Ricardo (blacksheep) Cruz
+ 
+Ingo (grumbel) Ruhnke
+ 
+Matthias (MatzeB) Braun
+
+
+Contrib Programming
+
+Ryan (sik0fewl) Flegel
+ 
+Duong-Khang (neoneurone) NGUYEN
+
+
+Graphics
+
+Ingo (grumbel) Ruhnke
+ 
+Christopher A. (paroneayea) Webber
+
+Benjamin P. (litespeed) Jung
+
+Nikolaj (unDEFER) Krivchenkov
+
+Stephen Groundwater
+
+
+Level Design
+
+Marek (Wansti) Moeckel
+ 
+Ingo (grumbel) Ruhnke
+
+
+Story
+
+Christopher A. (paroneayea) Webber
+
+
+Music
+
+Marek (Wansti) Moeckel
+
+Mystical
+
+Mortimer Twang
+
+
+Sounds
+
+Royalty free sound effects
+CDROMs and FTP sites
+
+
+Thanks to
+
+Larry Ewing
+Creator of Tux, the Linux penguin
+
+SDL and OpenGL
+For making such a great gaming experience
+possible in Linux
+
+
+Contact
+
+Visit our website at
+https://www.supertux.org/
+
+Or talk to us directly on
+our Discord server!
+https://discord.com/invite/aJKXpakVFR
+
+We also have a forum for
+suggestions, comments and ideas:
+http://forum.freegamedev.net/viewforum.php?f=66
+
+You can also find us on IRC:
+#supertux at https://libera.chat/
+
+
+
+
+
+Thank you for playing!
+
+- SuperTux Classic -
+"
+align = 1
+clip_text = true
+
+[node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="RichTextLabel"]
+rect = Rect2( 0, 0, 640, 3800 )
+
+[connection signal="screen_exited" from="RichTextLabel/VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]
