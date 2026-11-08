@@ -35,6 +35,9 @@ path; other platforms require instructor permission. This original demonstration
   `docs/rule-source-map.md`, failing test first, then the engine. Hand the
   summary to the independent reviewer (`.claude/agents/rules-reviewer.md`);
   never review or approve your own change.
+- Never commit video files, under any name. Recordings go to unlisted YouTube
+  or Google Drive and are linked from the README or PR description; the
+  boundary check rejects a PR with a video in any commit.
 - Never put secrets or personal playtester data in code, prompts, task text,
   recordings or reports. Model settings and artifact references belong in
   `agent-config.json`; runtime model identifiers belong in evaluation reports.

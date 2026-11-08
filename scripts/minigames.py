@@ -160,6 +160,80 @@ def changed_paths(root, base, head):
     return [p.decode('utf-8') for p in raw.split(b'\0') if p]
 
 
+VIDEO_EXTENSIONS = {
+    '.mp4', '.m4v', '.mov', '.qt', '.avi', '.mkv', '.webm', '.wmv', '.asf',
+    '.flv', '.f4v', '.mpg', '.mpeg', '.m2v', '.3gp', '.3g2', '.ogv', '.m2ts',
+    '.mts', '.vob', '.mxf', '.rm', '.rmvb', '.divx',
+}  # Not .ts: that is TypeScript far more often than MPEG transport stream.
+# ISO media brands that are still images or audio, not video.
+NON_VIDEO_BRANDS = {b'avif', b'avis', b'heic', b'heix', b'heim', b'heis', b'hevc',
+                    b'mif1', b'msf1', b'M4A ', b'M4B ', b'M4P ', b'F4A '}
+SIGNATURE_BYTES = 400
+
+
+def looks_like_video(head):
+    """Recognize video containers from a file's first bytes."""
+    if head[4:8] == b'ftyp':  # MP4, MOV, M4V, 3GP
+        return head[8:12] not in NON_VIDEO_BRANDS
+    if head.startswith(b'\x1a\x45\xdf\xa3'):  # Matroska, WebM
+        return True
+    if head.startswith(b'RIFF') and head[8:12] == b'AVI ':
+        return True
+    if head.startswith((b'FLV\x01', b'\x00\x00\x01\xba', b'\x00\x00\x01\xb3',
+                        b'\x30\x26\xb2\x75\x8e\x66\xcf\x11')):  # FLV, MPEG, ASF/WMV
+        return True
+    if head.startswith(b'OggS'):  # Ogg is video only with a Theora stream
+        return b'\x80theora' in head
+    # MPEG-TS has no reliable magic number; .m2ts and .mts are caught by name.
+    return False
+
+
+def check_no_videos(root, base, head):
+    """Reject any video added in any commit of the PR, read as data only.
+
+    Every commit counts: a video deleted later still enters history when the
+    PR merges with a merge commit.
+    """
+    for ref in (base, head):
+        if not re.fullmatch(r'[a-zA-Z0-9_./-]+', ref) or ref.startswith('-'):
+            raise ValueError('Invalid git revision.')
+
+    def tree(rev):
+        raw = subprocess.check_output(['git', 'ls-tree', '-r', '-z', rev, '--'], cwd=root)
+        for entry in filter(None, raw.split(b'\0')):
+            meta, path = entry.split(b'\t', 1)
+            _mode, kind, oid = meta.split()
+            if kind == b'blob':
+                yield oid.decode(), path.decode('utf-8', 'replace')
+
+    seen = set(tree(base))  # (blob, path) pairs already on the base branch
+    base_blobs = {oid for oid, _ in seen}
+    signature = {}  # blob -> looks like video; each new blob is read once
+    raw = subprocess.check_output(['git', 'rev-list', f'{base}..{head}', '--'], cwd=root)
+    found = {}
+    for commit in raw.decode().split():
+        for oid, path in tree(commit):
+            if (oid, path) in seen:
+                continue
+            seen.add((oid, path))
+            video = Path(path).suffix.lower() in VIDEO_EXTENSIONS
+            if not video and oid not in base_blobs:
+                if oid not in signature:
+                    with subprocess.Popen(['git', 'cat-file', 'blob', oid], cwd=root,
+                                          stdout=subprocess.PIPE) as blob:
+                        signature[oid] = looks_like_video(blob.stdout.read(SIGNATURE_BYTES))
+                        blob.kill()
+                video = signature[oid]
+            if video:
+                found.setdefault(path, commit[:8])
+    if found:
+        shown = ', '.join(f'{path} (commit {commit})' for path, commit in sorted(found.items())[:10])
+        raise ValueError('Video files are not accepted in the course repository; '
+                         'link to the video instead (for example, unlisted YouTube or '
+                         'Google Drive). Remove it from every commit in this PR, '
+                         'since a later delete still leaves it in history: ' + shown)
+
+
 def midterm_workflow(author):
     return f'.github/workflows/midterm-{author}.yml'
 
@@ -270,6 +344,7 @@ def main():
             # Static validation only. Never execute files from the submitted head.
             if args.author.lower() not in MAINTAINERS:
                 check_midterm_workflow(root, args.author)
+                check_no_videos(root, args.base, args.head)
             validate(root)
             print('Submission boundaries and metadata passed.')
     except (ValueError, OSError, subprocess.SubprocessError) as exc:

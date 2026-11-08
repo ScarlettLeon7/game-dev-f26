@@ -292,6 +292,12 @@ and gate decisions. Link task URLs from PR descriptions and PR/CI URLs from
 tasks. GitHub holds code and releases; CourseWorks holds grades and private
 feedback. A completed task cannot approve a gate or merge a PR.
 
+Never commit video files. Upload a recording as an unlisted YouTube video or
+a shared Google Drive file and put the link in your README or PR
+description. The required boundary check rejects a student PR that adds a
+video in any commit, including one deleted in a later commit, because the
+file would stay in the repository's history.
+
 The later Cloudflare publishing/AI-worker foundation is a separate instructor-provided
 teaching artifact. This starter does not deploy a service or create Asana
 projects. The full course manifest records native artifact paths, policies,
