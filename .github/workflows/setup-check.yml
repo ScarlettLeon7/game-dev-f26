@@ -28,8 +28,9 @@ jobs:
   deterministic:
     name: Deterministic checks (Python ${{ matrix.python }})
     # Repository variable CI_RUNNER=self-hosted moves this job to the
-    # instructor's sandboxed runner; unset, it runs on GitHub's hosted runner.
-    runs-on: ${{ vars.CI_RUNNER == 'self-hosted' && fromJSON('["self-hosted","linux","x64","course-lxd"]') || 'ubuntu-latest' }}
+    # instructor's sandboxed runner on the host conductor1, which only that
+    # machine's runners are labeled with; unset, it runs on GitHub's runner.
+    runs-on: ${{ vars.CI_RUNNER == 'self-hosted' && fromJSON('["self-hosted","linux","x64","course-lxd","conductor1"]') || 'ubuntu-latest' }}
     timeout-minutes: 10
     strategy:
       matrix:

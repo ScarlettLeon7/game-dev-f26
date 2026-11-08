@@ -10,7 +10,7 @@ concurrency:
 jobs:
   boundaries:
     name: Minigame submission boundaries
-    runs-on: ${{ vars.CI_RUNNER == 'self-hosted' && fromJSON('["self-hosted","linux","x64","course-lxd"]') || 'ubuntu-latest' }}
+    runs-on: ${{ vars.CI_RUNNER == 'self-hosted' && fromJSON('["self-hosted","linux","x64","course-lxd","conductor1"]') || 'ubuntu-latest' }}
     timeout-minutes: 5
     steps:
       - name: Check out trusted base tooling
