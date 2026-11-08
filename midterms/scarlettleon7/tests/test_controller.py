@@ -1,3 +1,4 @@
+import os
 import unittest
 from controller.players import Baseline, decide, validate_response
 
@@ -110,13 +111,13 @@ class EpisodeRegressionTests(unittest.TestCase):
 
 
 class ProtocolTests(unittest.TestCase):
-    @unittest.skipUnless(__import__('os').environ.get('SUPERTUX_INTEGRATION') == '1',
+    @unittest.skipUnless(os.environ.get('SUPERTUX_INTEGRATION') == '1',
                          'opt in to real Godot with SUPERTUX_INTEGRATION=1')
     def test_real_protocol_and_termination(self):
         import argparse
         import tempfile
         from controller.run import Game
-        args = argparse.Namespace(godot='/Applications/Godot.app/Contents/MacOS/Godot',
+        args = argparse.Namespace(godot=os.environ.get('GODOT', '/Applications/Godot.app/Contents/MacOS/Godot'),
                                   steps=1, calls=1, wall=30, rpc_timeout=20, process_timeout=35)
         with tempfile.TemporaryFile(mode='w+') as log, Game(args, log) as game:
             observation = game.rpc('reset', seed=7)

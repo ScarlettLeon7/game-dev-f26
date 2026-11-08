@@ -55,3 +55,8 @@ jobs:
           run_suite episode 'Episode interface: 0 failures' res://tests/test_episode.tscn
           run_suite controls 'AI control assertions passed' -s tests/test_ai_controls.gd
           run_suite level 'AI level integration: PASS (0 failures)' res://tests/test_ai_level.tscn
+      - name: Python-to-Godot transport integration (real engine, no provider requests)
+        env:
+          SUPERTUX_INTEGRATION: '1'
+          LIBGL_ALWAYS_SOFTWARE: '1'
+        run: timeout 90s xvfb-run -a python -m unittest discover -s tests -p test_controller.py -v
