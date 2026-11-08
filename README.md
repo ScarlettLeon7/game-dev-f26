@@ -221,7 +221,10 @@ comparison. Record dated pricing when estimating cost.
 Pull requests and pushes to `main` run deterministic checks on Python 3.11
 and 3.12, including mocked adapter tests with no model traffic. Pushes to
 other branches run nothing until you open a pull request; a newer push to
-the same pull request cancels the older run. Enable Actions on your fork if
+the same pull request cancels the older run. A pull request that changes
+only `midterms/`, `minigames/submissions/` or your own
+`midterm-<login>.yml` leaves the starter untouched, so both checks pass
+without retesting it; your own workflow tests your project. Enable Actions on your fork if
 prompted. Review and push a small README edit to `main` on your fork, or
 open a pull request, to trigger those checks.
 
