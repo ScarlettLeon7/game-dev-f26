@@ -8,7 +8,7 @@ The project aims to support both human gameplay and autonomous AI gameplay. A mo
 
 ## Current Status
 
-**Initial development stage:** The original SuperTux Classic source has been imported. AI controls, the agent interface, evaluation, and tests are not yet implemented.
+AI input controls and an opt-in five-operation interface for the original first level are implemented. See [input controls](docs/ai-input-controls.md) and [machine interface](docs/machine-interface.md) for commands, API, tests, and limitations. The baseline, live model player, and full evaluation remain unimplemented.
 
 ## Technology
 
@@ -49,8 +49,8 @@ The planned AI interface consists of:
 | Jumping, including buffering | code | `scenes/player/Tux.gd`, `jump_input()` |
 | Movement and collisions | code | `scenes/player/Tux.gd`, `apply_movement()` |
 | Player idle, walk, jump, fall, win, and dead states | code | `scenes/player/TuxSM.gd` |
-| One bounded evaluation level | design | Planned midterm adaptation |
-| AI action vocabulary and step limits | design | Planned; not implemented |
+| One bounded evaluation level | implementation | Original world1/level1 via `ai/EpisodeRunner.gd` |
+| AI action vocabulary and step limits | implementation | [Machine-interface rule map](docs/rule-source-map.md) |
 
 This rule map will be updated to cover all rules enforced by the completed adaptation.
 
@@ -74,5 +74,5 @@ Development-agent roles, independent review evidence, and my design decisions wi
 
 ## Limitations
 
-The AI interface and evaluation have not yet been completed. Additional limitations will be documented after implementation and testing.
+The interface has local deterministic tests; full evaluation and cross-platform replay determinism remain unverified. See [machine-interface limitations](docs/machine-interface.md).
 
