@@ -189,49 +189,32 @@ def looks_like_video(head):
 
 
 def check_no_videos(root, base, head):
-    """Reject any video added in any commit of the PR, read as data only.
+    """Reject a video among the PR's final files, read as data only.
 
-    Every commit counts: a video deleted later still enters history when the
-    PR merges with a merge commit.
+    main accepts only squash merges, so a video deleted before the merge
+    never reaches history; only the final diff matters.
     """
     for ref in (base, head):
         if not re.fullmatch(r'[a-zA-Z0-9_./-]+', ref) or ref.startswith('-'):
             raise ValueError('Invalid git revision.')
-
-    def tree(rev):
-        raw = subprocess.check_output(['git', 'ls-tree', '-r', '-z', rev, '--'], cwd=root)
-        for entry in filter(None, raw.split(b'\0')):
-            meta, path = entry.split(b'\t', 1)
-            _mode, kind, oid = meta.split()
-            if kind == b'blob':
-                yield oid.decode(), path.decode('utf-8', 'replace')
-
-    seen = set(tree(base))  # (blob, path) pairs already on the base branch
-    base_blobs = {oid for oid, _ in seen}
-    signature = {}  # blob -> looks like video; each new blob is read once
-    raw = subprocess.check_output(['git', 'rev-list', f'{base}..{head}', '--'], cwd=root)
-    found = {}
-    for commit in raw.decode().split():
-        for oid, path in tree(commit):
-            if (oid, path) in seen:
-                continue
-            seen.add((oid, path))
-            video = Path(path).suffix.lower() in VIDEO_EXTENSIONS
-            if not video and oid not in base_blobs:
-                if oid not in signature:
-                    with subprocess.Popen(['git', 'cat-file', 'blob', oid], cwd=root,
-                                          stdout=subprocess.PIPE) as blob:
-                        signature[oid] = looks_like_video(blob.stdout.read(SIGNATURE_BYTES))
-                        blob.kill()
-                video = signature[oid]
-            if video:
-                found.setdefault(path, commit[:8])
+    raw = subprocess.check_output(['git', 'diff', '--no-renames', '--name-only', '-z',
+                                   '--diff-filter=AM', f'{base}...{head}', '--'], cwd=root)
+    found = []
+    for path in (p.decode('utf-8') for p in raw.split(b'\0') if p):
+        video = Path(path).suffix.lower() in VIDEO_EXTENSIONS
+        if not video:
+            with subprocess.Popen(['git', 'cat-file', 'blob', f'{head}:{path}'], cwd=root,
+                                  stdout=subprocess.PIPE) as blob:
+                video = looks_like_video(blob.stdout.read(SIGNATURE_BYTES))
+                blob.kill()
+        if video:
+            found.append(path)
     if found:
-        shown = ', '.join(f'{path} (commit {commit})' for path, commit in sorted(found.items())[:10])
-        raise ValueError('Video files are not accepted in the course repository; '
-                         'link to the video instead (for example, unlisted YouTube or '
-                         'Google Drive). Remove it from every commit in this PR, '
-                         'since a later delete still leaves it in history: ' + shown)
+        shown = ', '.join(sorted(found)[:10]) + (f' and {len(found) - 10} more' if len(found) > 10 else '')
+        raise ValueError('Video files are not accepted in the course repository. '
+                         'Upload the recording as an unlisted YouTube video or a shared '
+                         'Google Drive file, link it from your README or PR description, '
+                         'and delete the file in a new commit: ' + shown)
 
 
 def midterm_workflow(author):

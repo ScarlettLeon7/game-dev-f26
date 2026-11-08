@@ -294,9 +294,10 @@ feedback. A completed task cannot approve a gate or merge a PR.
 
 Never commit video files. Upload a recording as an unlisted YouTube video or
 a shared Google Drive file and put the link in your README or PR
-description. The required boundary check rejects a student PR that adds a
-video in any commit, including one deleted in a later commit, because the
-file would stay in the repository's history.
+description. The required boundary check rejects a student PR whose files
+include a video, under any name. If you committed one, delete it in a new
+commit; pull requests merge by squash, so the deleted file never reaches
+`main`.
 
 The later Cloudflare publishing/AI-worker foundation is a separate instructor-provided
 teaching artifact. This starter does not deploy a service or create Asana

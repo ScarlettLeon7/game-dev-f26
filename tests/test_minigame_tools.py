@@ -263,13 +263,21 @@ jobs:
         with self.assertRaisesRegex(ValueError, 'demo.mp4'):
             m.check_no_videos(self.root, base, 'HEAD')
 
-    def test_video_deleted_in_a_later_commit_still_rejected(self):
+    def test_video_deleted_in_a_later_commit_passes(self):
+        # Squash merge is the only method on main, so the video never lands.
         git, base = self.git_repo()
         self.commit_file(git, 'midterms/alice/demo.mp4', self.MP4)
         (self.root / 'midterms/alice/demo.mp4').unlink()
         git('add', '-A')
         git('commit', '-qm', 'remove video')
-        with self.assertRaisesRegex(ValueError, 'demo.mp4'):
+        m.check_no_videos(self.root, base, 'HEAD')
+
+    def test_video_renamed_in_a_later_commit_still_rejected(self):
+        git, base = self.git_repo()
+        self.commit_file(git, 'midterms/alice/demo.mp4', self.MP4)
+        git('mv', 'midterms/alice/demo.mp4', 'midterms/alice/notes.txt')
+        git('commit', '-qm', 'hide it')
+        with self.assertRaisesRegex(ValueError, 'notes.txt'):
             m.check_no_videos(self.root, base, 'HEAD')
 
     def test_images_audio_and_code_are_not_videos(self):

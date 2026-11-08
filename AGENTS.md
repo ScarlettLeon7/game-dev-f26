@@ -37,7 +37,7 @@ path; other platforms require instructor permission. This original demonstration
   never review or approve your own change.
 - Never commit video files, under any name. Recordings go to unlisted YouTube
   or Google Drive and are linked from the README or PR description; the
-  boundary check rejects a PR with a video in any commit.
+  boundary check rejects a PR whose final files include a video.
 - Never put secrets or personal playtester data in code, prompts, task text,
   recordings or reports. Model settings and artifact references belong in
   `agent-config.json`; runtime model identifiers belong in evaluation reports.
