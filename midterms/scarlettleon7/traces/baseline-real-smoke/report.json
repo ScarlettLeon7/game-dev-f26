@@ -1,0 +1,28 @@
+[
+  {
+    "situation": {
+      "name": "opening",
+      "seed": 7,
+      "prefix": []
+    },
+    "player": "baseline",
+    "trial": 1,
+    "model": null,
+    "status": "defeat",
+    "terminal_reason": "death",
+    "win": false,
+    "score": 0,
+    "steps": 36,
+    "setup_steps": 0,
+    "valid_actions": 36,
+    "invalid_actions": 0,
+    "fallback_actions": 0,
+    "model_calls": 0,
+    "latency_seconds": [],
+    "tokens": 0,
+    "estimated_api_cost_usd": 0,
+    "measurements_complete": true,
+    "trace": "traces/baseline-real-smoke/opening-baseline-1.jsonl",
+    "elapsed_seconds": 5.481663790997118
+  }
+]

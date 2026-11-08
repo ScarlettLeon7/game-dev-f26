@@ -96,9 +96,8 @@ The runner owns authoritative state and limits; observations are copied data.
 A future model must run outside Godot and receive only serialized observations
 and permitted action strings, with its response validated by `step`. Never pass
 this Node, Global, engine objects, filesystem tools, or evaluator tools to a model.
-This phase has no RPC transport or OS sandbox for a model process: an arbitrary
-in-process GDScript caller is trusted and can access Global. Full isolation and
-per-request provider deadlines belong in that future external runner.
+The external transport is now documented in [EVALUATION.md](../EVALUATION.md). There is no OS sandbox for arbitrary controller code: an arbitrary
+in-process GDScript caller is trusted and can access Global. The external Python runner now enforces provider and engine process deadlines.
 
 The wall watchdog runs while the scene tree is paused and terminates an idle
 player or asynchronous provider wait. It cannot interrupt a blocked engine main
@@ -121,5 +120,4 @@ enemies and animation/idle processing. Longer replay determinism and full-level
 play are unverified. Human experience requires a separate playtest.
 
 Rule mapping and independent review: `docs/rule-source-map.md` and
-`docs/interface-review.md`. No live model player, scripted baseline or model
-results are implemented in this phase.
+`docs/interface-review.md`. The external baseline and Vertex adapter are now implemented; see [evaluation](../EVALUATION.md). Actual live model results remain unavailable.

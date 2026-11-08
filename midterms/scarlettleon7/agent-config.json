@@ -1,0 +1,13 @@
+{
+  "provider": "vertex",
+  "model": null,
+  "project": null,
+  "location": null,
+  "input_usd_per_million": null,
+  "output_usd_per_million": null,
+  "situations": [
+    {"name": "opening", "seed": 7, "prefix": []},
+    {"name": "approach", "seed": 17, "prefix": ["RIGHT", "RIGHT", "RIGHT", "RIGHT", "RIGHT"]},
+    {"name": "held-out-jump", "seed": 29, "held_out": true, "prefix": ["RIGHT", "RIGHT_JUMP", "RIGHT", "RIGHT", "RIGHT"]}
+  ]
+}

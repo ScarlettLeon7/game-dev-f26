@@ -1,0 +1,57 @@
+name: Scarlett SuperTux offline tests
+on:
+  push:
+    paths:
+      - 'midterms/scarlettleon7/**'
+      - '.github/workflows/midterm-scarlettleon7.yml'
+  pull_request:
+    paths:
+      - 'midterms/scarlettleon7/**'
+      - '.github/workflows/midterm-scarlettleon7.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  offline:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 15
+    defaults:
+      run:
+        working-directory: midterms/scarlettleon7
+        shell: bash
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: midterms/scarlettleon7
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Deterministic Python tests (no provider requests)
+        run: python -m unittest discover -s tests -v
+      - name: Install Godot 3.5.2 Standard and display dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y xvfb libgl1-mesa-dri libgl1 libasound2 libxcursor1 libxinerama1 libxrandr2 libxi6
+          curl --fail --location --retry 3 https://github.com/godotengine/godot/releases/download/3.5.2-stable/Godot_v3.5.2-stable_x11.64.zip -o "$RUNNER_TEMP/godot.zip"
+          unzip -q "$RUNNER_TEMP/godot.zip" -d "$RUNNER_TEMP/godot"
+          chmod +x "$RUNNER_TEMP/godot/Godot_v3.5.2-stable_x11.64"
+          echo "GODOT=$RUNNER_TEMP/godot/Godot_v3.5.2-stable_x11.64" >> "$GITHUB_ENV"
+      - name: Import assets and run actual Godot tests (no cloud credentials)
+        env:
+          LIBGL_ALWAYS_SOFTWARE: '1'
+        run: |
+          set -euo pipefail
+          "$GODOT" --version | grep '^3.5.2.stable.official'
+          timeout 180s xvfb-run -a "$GODOT" --no-window --audio-driver Dummy --editor --path . --quit 2>&1 | tee "$RUNNER_TEMP/import.log"
+          if grep -Eq 'SCRIPT ERROR:|Parse Error:' "$RUNNER_TEMP/import.log"; then exit 1; fi
+          run_suite() {
+            local label="$1"
+            local marker="$2"
+            shift 2
+            timeout 90s xvfb-run -a "$GODOT" --no-window --audio-driver Dummy --path . "$@" 2>&1 | tee "$RUNNER_TEMP/$label.log"
+            if grep -Eq 'SCRIPT ERROR:|Parse Error:|FAIL:' "$RUNNER_TEMP/$label.log"; then return 1; fi
+            grep -F "$marker" "$RUNNER_TEMP/$label.log"
+          }
+          run_suite episode 'Episode interface: 0 failures' res://tests/test_episode.tscn
+          run_suite controls 'AI control assertions passed' -s tests/test_ai_controls.gd
+          run_suite level 'AI level integration: PASS (0 failures)' res://tests/test_ai_level.tscn
