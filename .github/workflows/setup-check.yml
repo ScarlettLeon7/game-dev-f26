@@ -2,6 +2,7 @@ name: Setup and deterministic checks
 
 on:
   push:
+    branches: [main]
   pull_request:
   workflow_dispatch:
     inputs:
@@ -18,10 +19,17 @@ on:
 permissions:
   contents: read
 
+# A newer push to the same PR cancels the older run; other runs never cancel.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.run_id }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
 jobs:
   deterministic:
     name: Deterministic checks (Python ${{ matrix.python }})
-    runs-on: ubuntu-latest
+    # Repository variable CI_RUNNER=self-hosted moves this job to the
+    # instructor's sandboxed runner; unset, it runs on GitHub's hosted runner.
+    runs-on: ${{ vars.CI_RUNNER == 'self-hosted' && fromJSON('["self-hosted","linux","x64","course-lxd"]') || 'ubuntu-latest' }}
     timeout-minutes: 10
     strategy:
       matrix:
@@ -33,6 +41,7 @@ jobs:
       - uses: astral-sh/setup-uv@v6
         with:
           python-version: ${{ matrix.python }}
+          enable-cache: true
       - run: uv sync --frozen
       - run: uv run --frozen python -m unittest discover -s tests -v
       - run: uv run --frozen python -m course_game.setup_check --offline --headless

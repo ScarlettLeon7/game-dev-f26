@@ -218,9 +218,12 @@ comparison. Record dated pricing when estimating cost.
 
 ## 4. Verify your fork in GitHub Actions
 
-Pushes and PRs run deterministic checks on Python 3.11 and 3.12, including
-mocked adapter tests with no model traffic. Enable Actions on your fork if
-prompted. Review and push a small README edit to trigger those checks.
+Pull requests and pushes to `main` run deterministic checks on Python 3.11
+and 3.12, including mocked adapter tests with no model traffic. Pushes to
+other branches run nothing until you open a pull request; a newer push to
+the same pull request cancels the older run. Enable Actions on your fork if
+prompted. Review and push a small README edit to `main` on your fork, or
+open a pull request, to trigger those checks.
 
 After Week 2 funded setup, for the manual live check, set repository variable `COURSE_MODEL` to the
 model for your selected provider, plus the provider-specific configuration
