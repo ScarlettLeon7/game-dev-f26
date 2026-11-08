@@ -102,6 +102,52 @@ onready var hitbox_riding = $HitboxRiding
 
 var riding_entity = null
 
+# Local controls only: never inject AI actions into Godot's global Input singleton.
+const AI_ACTIONS = ["LEFT", "RIGHT", "JUMP", "LEFT_JUMP", "RIGHT_JUMP", "WAIT"]
+var _ai_control_enabled = false
+var _ai_action = "WAIT"
+var _ai_jump_held = false
+var _ai_jump_just_pressed = false
+
+# Switching sources clears pending AI input; new Tux instances use human input.
+func set_ai_control_enabled(enabled : bool):
+	_ai_control_enabled = enabled
+	_ai_action = "WAIT"
+	_ai_jump_held = false
+	_ai_jump_just_pressed = false
+
+# Held until replaced. Invalid requests leave the current action unchanged.
+func set_ai_action(action) -> bool:
+	if typeof(action) != TYPE_STRING or !AI_ACTIONS.has(action):
+		return false
+	if !_ai_control_enabled:
+		return false
+	_ai_action = action
+	return true
+
+# Called exactly once at the start of TuxSM's physics logic.
+func begin_control_tick():
+	var jump_held = _ai_control_enabled and _ai_action in ["JUMP", "LEFT_JUMP", "RIGHT_JUMP"]
+	_ai_jump_just_pressed = jump_held and !_ai_jump_held
+	_ai_jump_held = jump_held
+
+func control_pressed(action : String) -> bool:
+	if !_ai_control_enabled:
+		return Input.is_action_pressed(action)
+	match action:
+		"move_left":
+			return _ai_action in ["LEFT", "LEFT_JUMP"]
+		"move_right":
+			return _ai_action in ["RIGHT", "RIGHT_JUMP"]
+		"jump":
+			return _ai_jump_held
+	return false
+
+func control_just_pressed(action : String) -> bool:
+	if !_ai_control_enabled:
+		return Input.is_action_just_pressed(action)
+	return action == "jump" and _ai_jump_just_pressed
+
 func _ready():
 	Global.player = self
 	initialize_character()
@@ -168,11 +214,11 @@ func apply_gravity(delta, gravity_set = Global.gravity):
 	velocity.y += gravity_set * delta
 
 func move_input():
-	var input = -int(Input.is_action_pressed("move_left")) + int(Input.is_action_pressed("move_right"))
+	var input = -int(control_pressed("move_left")) + int(control_pressed("move_right"))
 	return input
 
 func horizontal_movement():
-	var running = Input.is_action_pressed("run") or Global.auto_run
+	var running = control_pressed("run") or Global.auto_run
 	
 #	if sign(velocity.x) == move_direction and running or abs(velocity.x) >= walk_max:
 #		running = true
@@ -224,10 +270,10 @@ func _set_grounded_state(new_value):
 		coyote_timer.stop()
 
 func jump_input(running = abs(velocity.x) > walk_max):
-	if Input.is_action_just_pressed("jump"):
+	if control_just_pressed("jump"):
 		jump_buffer.start()
 	
-	var exit_riding = riding_entity and Input.is_action_pressed("move_up")
+	var exit_riding = riding_entity and control_pressed("move_up")
 	var jump_velocity = run_jump_height if running else jump_height
 	if riding_entity: jump_height = riding_jump_height
 	
@@ -243,7 +289,7 @@ func jump_input(running = abs(velocity.x) > walk_max):
 			stop_riding_entity()
 	
 	# Jump termination by letting go of jump key
-	if velocity.y < 0 and !Input.is_action_pressed("jump") and jump_terminable:
+	if velocity.y < 0 and !control_pressed("jump") and jump_terminable:
 		velocity.y = 0
 
 # When the player is jumping, checks if any blocks above the player's head can be hit.
@@ -292,7 +338,7 @@ func check_bounce(delta):
 func bounce(bounce_velocity = bounce_height):
 	if state_machine.state != "duck": state_machine.set_state("jump")
 	coyote_timer.stop()
-	if Input.is_action_pressed("jump"):
+	if control_pressed("jump"):
 		velocity.y = high_bounce_height
 		jump_terminable = true
 	else:
@@ -438,7 +484,7 @@ func can_duck():
 	if riding_entity: return false
 	var sm_state = state_machine.state
 	if state != states.SMALL:
-		if Input.is_action_pressed("duck"):
+		if control_pressed("duck"):
 			return true
 	return false
 
@@ -454,7 +500,7 @@ func duck_hitbox(ducking = true, count_as_small_hitbox = true):
 func can_grab_enemy():
 	if riding_entity: return false
 	if ["idle", "walk", "jump", "fall", "duck"].has(state_machine.state):
-		if grabbed_object == null and Input.is_action_pressed("run"):
+		if grabbed_object == null and control_pressed("run"):
 			return true
 	return false
 
@@ -478,7 +524,7 @@ func hold_object(body = grabbed_object):
 	if "facing" in body:
 		body.facing = facing
 	
-	if !Input.is_action_pressed("run"):
+	if !control_pressed("run"):
 		release_grabbed_object(body)
 
 func release_grabbed_object(body = grabbed_object):
@@ -488,7 +534,7 @@ func release_grabbed_object(body = grabbed_object):
 	grabbed_object = null
 
 func fireball_input():
-	if Input.is_action_just_pressed("run"):
+	if control_just_pressed("run"):
 		if Global.fireballs_on_screen < fireball_amount:
 			if state == states.FIRE and !riding_entity:
 				Global.fireballs_on_screen += 1

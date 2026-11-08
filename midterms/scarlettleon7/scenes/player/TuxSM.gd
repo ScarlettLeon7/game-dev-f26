@@ -30,6 +30,7 @@ func _ready():
 	call_deferred("set_state", "idle")
 
 func _state_logic(delta):
+	host.begin_control_tick()
 	if "dead" in state:
 		host.stop_riding_entity()
 		host.apply_gravity(delta)
