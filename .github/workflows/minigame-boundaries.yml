@@ -4,16 +4,22 @@ on:
     types: [opened, synchronize, reopened, ready_for_review]
 permissions:
   contents: read
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
 jobs:
   boundaries:
     name: Minigame submission boundaries
-    runs-on: ubuntu-latest
+    runs-on: ${{ vars.CI_RUNNER == 'self-hosted' && fromJSON('["self-hosted","linux","x64","course-lxd","conductor1"]') || 'ubuntu-latest' }}
     timeout-minutes: 5
     steps:
       - name: Check out trusted base tooling
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.event.pull_request.base.sha }}
+          # github.sha is the base branch tip when this run starts. The event's
+          # base.sha can predate it (a reopened PR kept a base from before
+          # newer rules merged), which would run an older copy of these rules.
+          ref: ${{ github.sha }}
           path: trusted
           persist-credentials: false
       - name: Check out submitted files for static inspection only
@@ -31,7 +37,7 @@ jobs:
       - name: Check changed paths and inert metadata using trusted code
         env:
           PR_AUTHOR: ${{ github.event.pull_request.user.login }}
-          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          BASE_SHA: ${{ github.sha }}
           HEAD_SHA: ${{ github.event.pull_request.head.sha }}
         run: >-
           python trusted/scripts/minigames.py --root submitted boundary

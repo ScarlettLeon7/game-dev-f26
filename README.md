@@ -218,9 +218,15 @@ comparison. Record dated pricing when estimating cost.
 
 ## 4. Verify your fork in GitHub Actions
 
-Pushes and PRs run deterministic checks on Python 3.11 and 3.12, including
-mocked adapter tests with no model traffic. Enable Actions on your fork if
-prompted. Review and push a small README edit to trigger those checks.
+Pull requests and pushes to `main` run deterministic checks on Python 3.11
+and 3.12, including mocked adapter tests with no model traffic. Pushes to
+other branches run nothing until you open a pull request; a newer push to
+the same pull request cancels the older run. A pull request that changes
+only `midterms/`, `minigames/submissions/` or your own
+`midterm-<login>.yml` leaves the starter untouched, so both checks pass
+without retesting it; your own workflow tests your project. Enable Actions on your fork if
+prompted. Review and push a small README edit to `main` on your fork, or
+open a pull request, to trigger those checks.
 
 After Week 2 funded setup, for the manual live check, set repository variable `COURSE_MODEL` to the
 model for your selected provider, plus the provider-specific configuration
@@ -288,6 +294,13 @@ Use Asana for tasks, owners, acceptance criteria, dependencies, weekly PPP
 and gate decisions. Link task URLs from PR descriptions and PR/CI URLs from
 tasks. GitHub holds code and releases; CourseWorks holds grades and private
 feedback. A completed task cannot approve a gate or merge a PR.
+
+Never commit video files. Upload a recording as an unlisted YouTube video or
+a shared Google Drive file and put the link in your README or PR
+description. The required boundary check rejects a student PR whose files
+include a video, under any name. If you committed one, delete it in a new
+commit; pull requests merge by squash, so the deleted file never reaches
+`main`.
 
 The later Cloudflare publishing/AI-worker foundation is a separate instructor-provided
 teaching artifact. This starter does not deploy a service or create Asana

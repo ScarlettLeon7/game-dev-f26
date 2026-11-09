@@ -2,6 +2,7 @@ name: Setup and deterministic checks
 
 on:
   push:
+    branches: [main]
   pull_request:
   workflow_dispatch:
     inputs:
@@ -18,10 +19,18 @@ on:
 permissions:
   contents: read
 
+# A newer push to the same PR cancels the older run; other runs never cancel.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.run_id }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
 jobs:
   deterministic:
     name: Deterministic checks (Python ${{ matrix.python }})
-    runs-on: ubuntu-latest
+    # Repository variable CI_RUNNER=self-hosted moves this job to the
+    # instructor's sandboxed runner on the host conductor1, which only that
+    # machine's runners are labeled with; unset, it runs on GitHub's runner.
+    runs-on: ${{ vars.CI_RUNNER == 'self-hosted' && fromJSON('["self-hosted","linux","x64","course-lxd","conductor1"]') || 'ubuntu-latest' }}
     timeout-minutes: 10
     strategy:
       matrix:
@@ -30,12 +39,37 @@ jobs:
       GH_TOKEN: ${{ github.token }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          # The PR merge commit plus its parents, so HEAD^1 is the base.
+          fetch-depth: 2
+          persist-credentials: false
+      # A PR that changes only student folders leaves the starter untouched,
+      # so both required checks report success without retesting it. Any
+      # other path, or a diff that cannot be computed, runs everything.
+      - name: Decide whether this change touches the starter
+        id: scope
+        env:
+          EVENT: ${{ github.event_name }}
+        run: |
+          starter=true
+          if [ "$EVENT" = pull_request ] && changed=$(git diff --name-only HEAD^1 HEAD) && [ -n "$changed" ]; then
+            if ! printf '%s\n' "$changed" | grep -qvE '^(midterms/|minigames/submissions/|\.github/workflows/midterm-[^/]+\.yml$)'; then
+              starter=false
+              echo "Only student folders changed; the starter checks are skipped."
+            fi
+          fi
+          echo "starter=$starter" >> "$GITHUB_OUTPUT"
       - uses: astral-sh/setup-uv@v6
+        if: steps.scope.outputs.starter == 'true'
         with:
           python-version: ${{ matrix.python }}
-      - run: uv sync --frozen
-      - run: uv run --frozen python -m unittest discover -s tests -v
-      - run: uv run --frozen python -m course_game.setup_check --offline --headless
+          enable-cache: true
+      - if: steps.scope.outputs.starter == 'true'
+        run: uv sync --frozen
+      - if: steps.scope.outputs.starter == 'true'
+        run: uv run --frozen python -m unittest discover -s tests -v
+      - if: steps.scope.outputs.starter == 'true'
+        run: uv run --frozen python -m course_game.setup_check --offline --headless
 
   live-model:
     name: Live Setup Verification (manual)

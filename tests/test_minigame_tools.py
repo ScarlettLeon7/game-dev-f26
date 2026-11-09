@@ -219,5 +219,84 @@ jobs:
             m.check_paths(paths, 'alice')
 
 
+    def git_repo(self):
+        def git(*args):
+            return subprocess.check_output(['git', *args], cwd=self.root, text=True).strip()
+        git('init', '-q')
+        git('config', 'user.email', 'test@example.invalid')
+        git('config', 'user.name', 'Test')
+        git('add', '.')
+        git('commit', '-qm', 'base')
+        return git, git('rev-parse', 'HEAD')
+
+    def commit_file(self, git, path, data, message='add'):
+        target = self.root / path
+        target.parent.mkdir(parents=True, exist_ok=True)
+        target.write_bytes(data)
+        git('add', '-A')
+        git('commit', '-qm', message)
+
+    MP4 = b'\x00\x00\x00\x18ftypmp42\x00\x00\x00\x00mp42isom' + b'\x00' * 64
+    WEBM = b'\x1a\x45\xdf\xa3' + b'\x00' * 64
+
+    def test_videos_rejected_by_extension_or_signature(self):
+        cases = (('midterms/alice/demo.mp4', b'not really a video'),
+                 ('midterms/alice/demo.MOV', b'x'),
+                 ('midterms/alice/media/intro.webm', b'x'),
+                 ('midterms/alice/clip.png', self.MP4),       # renamed MP4
+                 ('midterms/alice/clip.bin', self.WEBM),      # renamed WebM
+                 ('midterms/alice/clip.dat', b'RIFF\x00\x00\x00\x00AVI LIST'),
+                 ('midterms/alice/demo.mp4', b'version https://git-lfs.github.com/spec/v1\n'))
+        git, base = self.git_repo()
+        for path, data in cases:
+            with self.subTest(path=path):
+                self.commit_file(git, path, data)
+                with self.assertRaisesRegex(ValueError, 'Video'):
+                    m.check_no_videos(self.root, base, 'HEAD')
+                git('reset', '-q', '--hard', base)
+                git('clean', '-qfdx')
+
+    def test_video_name_on_content_already_in_base(self):
+        git, base = self.git_repo()
+        known = (self.root / 'minigames/get-out/README.md').read_bytes()
+        self.commit_file(git, 'midterms/alice/demo.mp4', known)
+        with self.assertRaisesRegex(ValueError, 'demo.mp4'):
+            m.check_no_videos(self.root, base, 'HEAD')
+
+    def test_video_deleted_in_a_later_commit_passes(self):
+        # Squash merge is the only method on main, so the video never lands.
+        git, base = self.git_repo()
+        self.commit_file(git, 'midterms/alice/demo.mp4', self.MP4)
+        (self.root / 'midterms/alice/demo.mp4').unlink()
+        git('add', '-A')
+        git('commit', '-qm', 'remove video')
+        m.check_no_videos(self.root, base, 'HEAD')
+
+    def test_video_renamed_in_a_later_commit_still_rejected(self):
+        git, base = self.git_repo()
+        self.commit_file(git, 'midterms/alice/demo.mp4', self.MP4)
+        git('mv', 'midterms/alice/demo.mp4', 'midterms/alice/notes.txt')
+        git('commit', '-qm', 'hide it')
+        with self.assertRaisesRegex(ValueError, 'notes.txt'):
+            m.check_no_videos(self.root, base, 'HEAD')
+
+    def test_images_audio_and_code_are_not_videos(self):
+        git, base = self.git_repo()
+        avif = b'\x00\x00\x00\x1cftypavif\x00\x00\x00\x00avifmif1miaf' + b'\x00' * 64
+        ogg_audio = b'OggS\x00\x02' + b'\x00' * 22 + b'\x01vorbis' + b'\x00' * 64
+        for path, data in (('midterms/alice/art.avif', avif),
+                           ('midterms/alice/theme.ogg', ogg_audio),
+                           ('midterms/alice/src/game.ts', b'export const x = 1;\n'),
+                           ('midterms/alice/shot.png', b'\x89PNG\r\n\x1a\n' + b'\x00' * 64),
+                           ('midterms/alice/README.md', b'G' * 400)):
+            self.commit_file(git, path, data)
+        m.check_no_videos(self.root, base, 'HEAD')
+
+    def test_existing_base_files_are_not_rescanned(self):
+        (self.root / 'minigames/get-out/old.mp4').write_bytes(self.MP4)
+        git, base = self.git_repo()
+        self.commit_file(git, 'midterms/alice/README.md', b'hello')
+        m.check_no_videos(self.root, base, 'HEAD')
+
 if __name__ == '__main__':
     unittest.main()
