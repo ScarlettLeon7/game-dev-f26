@@ -59,7 +59,12 @@ jobs:
         run: |
           set -euo pipefail
           "$GODOT" --version | grep '^3.5.2.stable.official'
-          timeout 180s xvfb-run -a "$GODOT" --no-window --audio-driver Dummy --editor --path . --quit 2>&1 | tee "$RUNNER_TEMP/import.log"
+          # Godot 3 --quit exits before the asynchronous import scan finishes.
+          # A template-free pack export waits for imports, then exits on its own.
+          # This ignored CI-only preset is absent from a fresh checkout.
+          printf '[preset.0]\nname="CI import"\nplatform="Linux/X11"\nexport_filter="all_resources"\n' > export_presets.cfg
+          timeout 180s xvfb-run -a "$GODOT" --no-window --audio-driver Dummy --editor --path . --export-pack "CI import" "$RUNNER_TEMP/import.pck" 2>&1 | tee "$RUNNER_TEMP/import.log"
+          test -s "$RUNNER_TEMP/import.pck"
           if grep -Eq 'SCRIPT ERROR:|Parse Error:' "$RUNNER_TEMP/import.log"; then exit 1; fi
           run_suite() {
             local label="$1"
