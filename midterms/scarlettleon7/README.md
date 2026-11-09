@@ -115,3 +115,10 @@ python3 -m controller.run --godot "$GODOT" --evaluate --live --wall 600 --reques
 ```
 
 The suite executes three baselines and six Vertex episodes, with at most 600 total steps and 100 model attempts per episode. Output directories must be fresh. Credentials stay outside the repository. CI runs offline Python and Godot tests through the single project workflow `.github/workflows/midterm-scarlettleon7.yml`; no live evaluations run in CI.
+
+## Human Playtest
+
+A friend of mine tested the human-playable version of SuperTux Classic. The playtest identified a minor usability issue with discovering the Shift key for throwing fireballs and the Space key to jump (instead of the up arrow key).
+
+[Read the human playtest notes](docs/human-playtest.md)
+
