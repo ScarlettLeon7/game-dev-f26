@@ -23,7 +23,7 @@ Starting from `midterms/scarlettleon7/`:
 
 1. Install Godot 3.5.2 Standard.
 2. Import `project.godot` in Godot.
-3. Run the game using F5.
+3. Run the game using the play button in the top right corner.
 
 The original game currently supports keyboard controls.
 
@@ -62,7 +62,9 @@ The original source is distributed under GPL-3.0-or-later. The license text is p
 
 Original upstream commit: **[f4c0db9d4e3d1292f80cf82257161d4d01b9d1db]**
 
-The original project credits additional graphics, audio, and music contributors. Applicable media licenses must be verified before public submission.
+The original SuperTux Classic source and contributor credits are retained. The game includes reused music, graphics, and sounds attributed to SuperTux contributors and third-party creators, including Freesound contributors. The original project also incorporates media derived from earlier SuperTux releases, for which separate license terms may apply.
+
+The project retains the upstream GPL license text in `LICENSE-SUPERTUX` and original credits in `scenes/menus/CreditsText.tscn`. Individual media-license provenance has not been fully audited and remains a documented limitation.
 
 ## Evaluation
 
@@ -121,4 +123,18 @@ The suite executes three baselines and six Vertex episodes, with at most 600 tot
 A friend of mine tested the human-playable version of SuperTux Classic. The playtest identified a minor usability issue with discovering the Shift key for throwing fireballs and the Space key to jump (instead of the up arrow key).
 
 [Read the human playtest notes](docs/human-playtest.md)
+
+
+## Offline visual demonstration
+
+Replay saved Vertex actions in the visible Godot game with `python3 -m controller.replay traces/evaluation-02/opening-model-1.jsonl --delay 0.8`. This is labeled offline re-simulation, with no new model inference or API calls. See [visual replay instructions](docs/visual-replay.md) for human-play commands, pacing, verification, and recording limitations.
+
+## Demonstration Video
+
+[Watch the SuperTux Classic AI demonstration](https://drive.google.com/file/d/1FyeoEzqDjniWo3NLK13774bfFzTIrYI6/view?usp=sharing)
+
+The recording shows human gameplay and an offline replay of
+previously recorded Vertex AI decisions executed through the
+real Godot game interface. No new model inference occurs
+during the replay.
 

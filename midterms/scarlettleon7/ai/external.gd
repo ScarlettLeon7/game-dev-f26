@@ -5,11 +5,23 @@ var peer = null
 var buffer = ""
 var busy = false
 var runner
+var replay_label = null
+var replay_action = "waiting"
 
 func _ready():
 	pause_mode = PAUSE_MODE_PROCESS
 	runner = load("res://ai/EpisodeRunner.gd").new()
 	add_child(runner)
+	if OS.get_environment("SUPERTUX_REPLAY") == "1":
+		OS.set_window_title("SuperTux - OFFLINE TRACE REPLAY - no live inference")
+		var overlay = CanvasLayer.new()
+		overlay.layer = 128
+		add_child(overlay)
+		var panel = PanelContainer.new()
+		panel.rect_position = Vector2(8, 72)
+		overlay.add_child(panel)
+		replay_label = Label.new()
+		panel.add_child(replay_label)
 	var port = int(OS.get_environment("SUPERTUX_PORT"))
 	runner.max_steps = int(OS.get_environment("SUPERTUX_STEPS"))
 	runner.max_model_calls = int(OS.get_environment("SUPERTUX_CALLS"))
@@ -18,6 +30,9 @@ func _ready():
 		get_tree().quit(2)
 
 func _process(_delta):
+	if replay_label != null:
+		var state = runner.outcome()
+		replay_label.text = "OFFLINE TRACE REPLAY - recorded actions; NO live model/API calls\nReal Godot re-simulation, not original evaluation footage\nStep %s | action %s | replay state: %s / %s" % [runner.steps, replay_action, state.status, state.reason]
 	if peer == null and server.is_connection_available():
 		peer = server.take_connection()
 		server.stop()
@@ -59,6 +74,8 @@ func dispatch(line):
 			"legal_actions":
 				result = runner.legal_actions(role)
 			"step":
+				if replay_label != null:
+					replay_action = str(request.get("action", null))
 				result = yield(runner.step(role, request.get("action", null)), "completed")
 			"outcome":
 				result = runner.outcome()

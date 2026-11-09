@@ -53,7 +53,9 @@ class Game:
             port = reservation.getsockname()[1]
         env = dict(os.environ, SUPERTUX_PORT=str(port), SUPERTUX_STEPS=str(self.args.steps),
                    SUPERTUX_CALLS=str(self.args.calls), SUPERTUX_TIMEOUT_MS=str(int(self.args.wall*1000)))
-        self.process = subprocess.Popen([self.args.godot, '--no-window', '--path', str(ROOT),
+        env['SUPERTUX_REPLAY'] = '1' if getattr(self.args, 'replay', False) else '0'
+        window_args = [] if getattr(self.args, 'visible', False) else ['--no-window']
+        self.process = subprocess.Popen([self.args.godot, *window_args, '--path', str(ROOT),
                                          'res://ai/external.tscn'], env=env, stdout=self.log, stderr=self.log)
         self.watchdog = threading.Timer(self.args.process_timeout, self.process.kill)
         self.watchdog.start()
