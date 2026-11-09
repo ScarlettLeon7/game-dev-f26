@@ -9,12 +9,15 @@ on:
       - 'midterms/scarlettleon7/**'
       - '.github/workflows/midterm-scarlettleon7.yml'
   workflow_dispatch:
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 permissions:
   contents: read
 jobs:
   offline:
-    runs-on: ubuntu-22.04
-    timeout-minutes: 15
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
     defaults:
       run:
         working-directory: midterms/scarlettleon7
@@ -28,13 +31,27 @@ jobs:
           python-version: '3.11'
       - name: Deterministic Python tests (no provider requests)
         run: python -m unittest discover -s tests -v
-      - name: Install Godot 3.5.2 Standard and display dependencies
+      - name: Cache Godot 3.5.2 Standard
+        uses: actions/cache@v4
+        with:
+          path: ${{ runner.temp }}/godot
+          key: ${{ runner.os }}-${{ runner.arch }}-godot-3.5.2-standard-x11
+      - name: Prepare Godot 3.5.2 Standard
         run: |
-          sudo apt-get update
-          sudo apt-get install -y xvfb libgl1-mesa-dri libgl1 libasound2 libxcursor1 libxinerama1 libxrandr2 libxi6
-          curl --fail --location --retry 3 https://github.com/godotengine/godot/releases/download/3.5.2-stable/Godot_v3.5.2-stable_x11.64.zip -o "$RUNNER_TEMP/godot.zip"
-          unzip -q "$RUNNER_TEMP/godot.zip" -d "$RUNNER_TEMP/godot"
-          chmod +x "$RUNNER_TEMP/godot/Godot_v3.5.2-stable_x11.64"
+          set -euo pipefail
+          # Use hosted-runner tools instead of reinstalling system packages.
+          command -v xvfb-run
+          command -v unzip
+          if [[ ! -x "$RUNNER_TEMP/godot/Godot_v3.5.2-stable_x11.64" ]]; then
+            curl --fail --location --retry 3 https://github.com/godotengine/godot/releases/download/3.5.2-stable/Godot_v3.5.2-stable_x11.64.zip -o "$RUNNER_TEMP/godot.zip"
+            unzip -q "$RUNNER_TEMP/godot.zip" -d "$RUNNER_TEMP/godot"
+            chmod +x "$RUNNER_TEMP/godot/Godot_v3.5.2-stable_x11.64"
+          fi
+          ldd "$RUNNER_TEMP/godot/Godot_v3.5.2-stable_x11.64" > "$RUNNER_TEMP/godot-libraries.log"
+          if grep -F 'not found' "$RUNNER_TEMP/godot-libraries.log"; then
+            echo 'Required Godot shared libraries are missing from the runner image.' >&2
+            exit 1
+          fi
           echo "GODOT=$RUNNER_TEMP/godot/Godot_v3.5.2-stable_x11.64" >> "$GITHUB_ENV"
       - name: Import assets and run actual Godot tests (no cloud credentials)
         env:
